@@ -1,0 +1,8 @@
+contains:
+[bin], [number of items in bin]
+
+where [bin]'s value is the number of collisions-1, e.g
+
+1, 1000 => there are 1000 packets with unique size
+2, 100 => there are 100 packets that each have a unique other packet of the same size
+3, 10 => there are 10 packets that can be confused with 2 other packets if you look at the size

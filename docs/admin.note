@@ -1,0 +1,22 @@
+# Traffic-Analysis on Software Updates
+
+Problem: Consider a large company like the CERN, with a massive park of not-always-up-to-date devices. Now, they rely on one guy (Stefan Lueders, head of IT security)/one team to keep track of all devices, and internally scan the possible unupgraded devices, flaws, etc. Of course, it is a concern to them to have un-upgraded, potentially vulnerable devices; when that happens and it is detected, the IT security calls the owner of the device to fix the problem. ()[https://motherboard.vice.com/en_us/article/4xax9m/how-cern-fights-hackers]
+
+In that scenario, it would be interesting to see if we could guess which OS/packages/kernels version there are being a WLAN by looking at the aggregate traffic after the WLAN. 
+
+PURB would be an obvious solution there.
+
+The topic is very novel:                    Moderately, but not done before
+There is little (or no) related work:       Yes
+We have the know-how to do it:              Yes (except perhaps fine understanding of machine learning)
+It is connected with my previous work:      Yes (leakage of information via traffic-analysis)
+It would have big impact:                   Moderately
+It is possible to have fundings:            DHRT-DPPH WP7.1 *
+It would fit my thesis:                     Yes
+Other groups might not have been doing it:  Not sure **
+Expected time of completion:                3 months
+Expected outcome:                           demo + PURB paper @ PETS
+Thesis title:                               Something around traffic-analysis (PriFi was the defense, this is an attack)
+
+* In a second stage, we will design and implement an Android mechanism that will allow patients to use any mHealth app without revealing its existence to other apps.
+** They might have less interest in that, as the solution is "trivial": pad to hide the size. They would not devote a lot of time to fix this only problem. Yet here, PURB is a more clever format that solves other problems.

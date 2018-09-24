@@ -1,0 +1,1466 @@
+Package: cargo
+Format: 3.0 (quilt)
+Binary: cargo, cargo-doc
+Architecture: any all
+Version: 0.18.0-0ubuntu0.17.04.1
+Priority: extra
+Section: universe/misc
+Maintainer: Rust Maintainers <pkg-rust-maintainers@lists.alioth.debian.org>
+Uploaders: Luca Bruno <lucab@debian.org>, Angus Lees <gus@debian.org>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 9.20141010), dpkg-dev (>= 1.17.14), rustc (>= 1.13), curl, pkg-config, cmake, git, cargo (>= 0.7.0) [!powerpc], ca-certificates, bash-completion, libhttp-parser-dev, libcurl4-gnutls-dev | libcurl4-openssl-dev, libssh2-1-dev, libgit2-dev, libssl1.0-dev, zlib1g-dev
+Homepage: https://crates.io/
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-rust/cargo.git
+Vcs-Git: https://anonscm.debian.org/git/pkg-rust/cargo.git
+Directory: pool/universe/c/cargo
+Package-List:
+ cargo deb devel extra arch=any
+ cargo-doc deb doc extra arch=all profile=!nodoc
+Files:
+ 160568b415af249844c5acebeae7163d 2204 cargo_0.18.0-0ubuntu0.17.04.1.dsc
+ 33a4ee4dfd8e7c0d9c94801c9f43a787 4930117 cargo_0.18.0.orig-vendor.tar.gz
+ 9436ceee51913afd51dde95bf93ca1f3 646126 cargo_0.18.0.orig.tar.gz
+ 058165e5b9bd80c9b0cbf58fd17ec9a6 15160 cargo_0.18.0-0ubuntu0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ 4a2dabb1a955def0cabf264e90a42a0ded96f09b 2204 cargo_0.18.0-0ubuntu0.17.04.1.dsc
+ 66d4f8d27039a887930272bb9e08a63dfbb30a40 4930117 cargo_0.18.0.orig-vendor.tar.gz
+ e9b7df3107405399c4a9a70f018992001a2b340a 646126 cargo_0.18.0.orig.tar.gz
+ 6ac7f28ecd3fe2e7845a6f7a7b08a51d5dba1032 15160 cargo_0.18.0-0ubuntu0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ afa7fa7bbbfb665ea8a79f61cde3031646494f0ac1208e4f5eefa35c200ba911 2204 cargo_0.18.0-0ubuntu0.17.04.1.dsc
+ 9b95e740ea39132465142c2efff34afa7877d4dd625a64c276a97bc02948c616 4930117 cargo_0.18.0.orig-vendor.tar.gz
+ 19b5c142c194fc2f940d93b4679850980ed077db0ff7c558122c7ef865e24983 646126 cargo_0.18.0.orig.tar.gz
+ f03142e6bb39adcd51d31f7fe3038b0901c8ce587787bbd57d5b56fda6af8e14 15160 cargo_0.18.0-0ubuntu0.17.04.1.debian.tar.xz
+
+Package: catdoc
+Format: 3.0 (quilt)
+Binary: catdoc
+Architecture: any
+Version: 1:0.94.3~git20160113.dbc9ec6+dfsg-1+deb9u1build0.17.04.1
+Priority: optional
+Section: universe/text
+Maintainer: Martín Ferrari <tincho@debian.org>
+Standards-Version: 3.9.6
+Build-Depends: debhelper (>> 9.0.0), tk
+Vcs-Browser: http://anonscm.debian.org/git/collab-maint/catdoc.git
+Vcs-Git: git://anonscm.debian.org/collab-maint/catdoc.git
+Directory: pool/universe/c/catdoc
+Package-List:
+ catdoc deb text optional arch=any
+Files:
+ 6ce51276ebef787e6ecf218bbaa499da 2035 catdoc_0.94.3~git20160113.dbc9ec6+dfsg-1+deb9u1build0.17.04.1.dsc
+ 86d8e0308681817904a3cb68d6b62771 141753 catdoc_0.94.3~git20160113.dbc9ec6+dfsg.orig.tar.gz
+ f946c8cac3d3d0e602db625d70a8e679 52892 catdoc_0.94.3~git20160113.dbc9ec6+dfsg-1+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ f9e453a69b3e1b6c7f95e9d1733c074d26e31422 2035 catdoc_0.94.3~git20160113.dbc9ec6+dfsg-1+deb9u1build0.17.04.1.dsc
+ c48049682cb06b398d7ca863b6cce4a6b19e4b3b 141753 catdoc_0.94.3~git20160113.dbc9ec6+dfsg.orig.tar.gz
+ ed7962770c7dcf1afd217d01327a665d33a89f73 52892 catdoc_0.94.3~git20160113.dbc9ec6+dfsg-1+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ 4d59135a73d633d79d5287503a0eac943ef121b627cf6cd8186a4c8b7c7d82c3 2035 catdoc_0.94.3~git20160113.dbc9ec6+dfsg-1+deb9u1build0.17.04.1.dsc
+ 3f98fb577a45925f853257f2a4b4caeab258f06c1056941335c9fb8d9eb712b6 141753 catdoc_0.94.3~git20160113.dbc9ec6+dfsg.orig.tar.gz
+ 136e0bf13e188c1df4ab99ff577a59b2f5c95fb42a07c56e579eb8a7fed75fce 52892 catdoc_0.94.3~git20160113.dbc9ec6+dfsg-1+deb9u1build0.17.04.1.debian.tar.xz
+
+Package: chromium-browser
+Format: 3.0 (quilt)
+Binary: chromium-browser, chromium-browser-l10n, chromium-codecs-ffmpeg, chromium-codecs-ffmpeg-extra, chromium-chromedriver
+Architecture: i386 amd64 armhf arm64 all
+Version: 61.0.3163.100-0ubuntu0.17.04.1377
+Priority: optional
+Section: universe/web
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Standards-Version: 4.0.0
+Build-Depends: debhelper (>= 9), dh-buildinfo, ninja-build (>= 1.3), pkg-config, lsb-release, quilt, python, bison, clang, llvm, gperf, libpulse-dev, libcups2-dev | libcupsys2-dev, libasound2-dev, libnss3-dev, mesa-common-dev, libgles2-mesa-dev [armel armhf], libpci-dev, libxtst-dev, libxss-dev, libgtk-3-dev, libglib2.0-dev, libgnome-keyring-dev, libudev-dev, libdrm-dev, libcap-dev, libgcrypt-dev, libkrb5-dev, libxkbcommon-dev, libpam0g-dev, libffi-dev, chrpath, yasm
+Testsuite: autopkgtest
+Homepage: https://chromium.googlesource.com/chromium/src/
+Vcs-Bzr: https://code.launchpad.net/~chromium-team/chromium-browser/yakkety-working
+Directory: pool/universe/c/chromium-browser
+Package-List:
+ chromium-browser deb web optional arch=i386,amd64,armhf,arm64
+ chromium-browser-l10n deb web optional arch=all
+ chromium-chromedriver deb web optional arch=i386,amd64,armhf,arm64
+ chromium-codecs-ffmpeg deb web optional arch=i386,amd64,armhf,arm64
+ chromium-codecs-ffmpeg-extra deb web optional arch=i386,amd64,armhf,arm64
+Files:
+ 0cd7d523083d940a2b9769877c1f4a51 2687 chromium-browser_61.0.3163.100-0ubuntu0.17.04.1377.dsc
+ bf0629c03b3e3b957a9ee99c10b28210 556305252 chromium-browser_61.0.3163.100.orig.tar.xz
+ c160655bf7a20d969a88ff42c9ebea50 523936 chromium-browser_61.0.3163.100-0ubuntu0.17.04.1377.debian.tar.xz
+Checksums-Sha1:
+ 4c5c09d13fb580bce9ff63f8b2dc3f970f77c666 2687 chromium-browser_61.0.3163.100-0ubuntu0.17.04.1377.dsc
+ 1f79366ab95100349755e6f81769e913b47b7eb4 556305252 chromium-browser_61.0.3163.100.orig.tar.xz
+ 029adebfb0ef8bd9e98406d5219f9f1a8110f47e 523936 chromium-browser_61.0.3163.100-0ubuntu0.17.04.1377.debian.tar.xz
+Checksums-Sha256:
+ 7143ac9e34bdb022593dd404435ce97e6589c2d7df93abb7522865ed70fb6af1 2687 chromium-browser_61.0.3163.100-0ubuntu0.17.04.1377.dsc
+ 4135968cac6623c1d2b224494600cd274098cce41c298f8c3908b354a34c281b 556305252 chromium-browser_61.0.3163.100.orig.tar.xz
+ d718656be69de1307c191d515215d03814be54adde88bfa461e027473c872360 523936 chromium-browser_61.0.3163.100-0ubuntu0.17.04.1377.debian.tar.xz
+Testsuite-Triggers: bash, dbus-x11, imagemagick, libsikuli-script-java, metacity, python3-httplib2, python3-minimal, unity-chromium-extension, x11-apps, xvfb
+
+Package: connman
+Format: 3.0 (quilt)
+Binary: connman, connman-vpn, connman-dev, connman-doc
+Architecture: linux-any all
+Version: 1.33-3+deb9u1build0.17.04.1
+Priority: optional
+Section: universe/net
+Maintainer: Alexander Sack <asac@debian.org>
+Uploaders: Mathieu Trudel-Lapierre <mathieu-tl@ubuntu.com>, Shawn Landden <shawn@churchofgit.com>, Alf Gaida <agaida@siduction.org>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 10), autoconf (>= 2.69-9~), libudev-dev, libglib2.0-dev, libdbus-1-dev, gtk-doc-tools, libgnutls28-dev, libreadline-dev, libxtables-dev, wpasupplicant, libbluetooth-dev, ppp-dev, dh-systemd, dh-autoreconf
+Homepage: https://01.org/connman
+Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/connman.git
+Vcs-Git: https://anonscm.debian.org/git/collab-maint/connman.git
+Directory: pool/universe/c/connman
+Package-List:
+ connman deb net optional arch=linux-any
+ connman-dev deb devel optional arch=linux-any
+ connman-doc deb doc optional arch=all
+ connman-vpn deb net optional arch=linux-any
+Files:
+ c745a5cd80990b2b7705a10f3912b40f 2404 connman_1.33-3+deb9u1build0.17.04.1.dsc
+ 48d3e878d31efd4854fc9b66e29622c1 958059 connman_1.33.orig.tar.gz
+ d47366cefc240b4edd6e3429a8f5e764 12812 connman_1.33-3+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ 89bee16b57fb23849877d1d7c94411cf279e46c6 2404 connman_1.33-3+deb9u1build0.17.04.1.dsc
+ cd5fa114a3148f74953c5722022d36bb97e8d14a 958059 connman_1.33.orig.tar.gz
+ f6d81805bd97cdfd36232c7137b0208102375fcc 12812 connman_1.33-3+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ cfad2a2c82c44712b4e9b326b795aa357969a24c49cfd1221c5309f046c074df 2404 connman_1.33-3+deb9u1build0.17.04.1.dsc
+ 5a9abae1573fa367269df8bd92792de407fd15c7ac6c1448d07a24a5d6b5b831 958059 connman_1.33.orig.tar.gz
+ dc4b06824a3eabf59c63177f8c123969efc26075dc926497cbf70cfd5d7c0639 12812 connman_1.33-3+deb9u1build0.17.04.1.debian.tar.xz
+
+Package: drupal7
+Format: 3.0 (quilt)
+Binary: drupal7
+Architecture: all
+Version: 7.52-2+deb9u1build0.17.04.1
+Priority: extra
+Section: universe/web
+Maintainer: Gunnar Wolf <gwolf@debian.org>
+Uploaders: Luigi Gangitano <luigi@debian.org>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 10), yui-compressor
+Homepage: http://www.drupal.org/
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/drupal7.git
+Vcs-Git: git://anonscm.debian.org/collab-maint/drupal7.git
+Directory: pool/universe/d/drupal7
+Package-List:
+ drupal7 deb web extra arch=all
+Files:
+ ca1f23852043aca05c33be5b416d64f9 1946 drupal7_7.52-2+deb9u1build0.17.04.1.dsc
+ 4963e68ca12918d3a3eae56054214191 3289714 drupal7_7.52.orig.tar.gz
+ 30b4d526160e9edc2eb8414fc13af877 190244 drupal7_7.52-2+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ cc0226c06ee9a4d8a384dc36dfdd2184b560854a 1946 drupal7_7.52-2+deb9u1build0.17.04.1.dsc
+ fceb7a2891e870eae1a027d7f06028aa24dc58b2 3289714 drupal7_7.52.orig.tar.gz
+ e545f100dce62bade722311ad868c498b82b8aad 190244 drupal7_7.52-2+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ 10ce34c71622a02494c0267e02e27552adddf4c4ed3dc5235dca24742db36283 1946 drupal7_7.52-2+deb9u1build0.17.04.1.dsc
+ ea09ec7c3555856591b7ac739dafbe7dbfba47d1ffe2a9a1f17fda490a91b8e8 3289714 drupal7_7.52.orig.tar.gz
+ 54cb073cc82c20708c15d45a583d42718260ec71b6fa8f08ea262809d3f64446 190244 drupal7_7.52-2+deb9u1build0.17.04.1.debian.tar.xz
+
+Package: enigmail
+Format: 3.0 (quilt)
+Binary: enigmail
+Architecture: all
+Version: 2:1.9.7-1~ubuntu0.17.04.1
+Priority: optional
+Section: universe/mail
+Maintainer: Debian Mozilla Extension Maintainers <pkg-mozext-maintainers@lists.alioth.debian.org>
+Uploaders: Alexander Sack <asac@debian.org>, Willi Mann <willi@debian.org>, Daniel Kahn Gillmor <dkg@fifthhorseman.net>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 10~), dh-autoreconf, mozilla-devscripts, perl, python, zip
+Homepage: https://www.enigmail.net/
+Vcs-Browser: https://anonscm.debian.org/git/pkg-mozext/enigmail.git/
+Vcs-Git: https://anonscm.debian.org/git/pkg-mozext/enigmail.git
+Directory: pool/universe/e/enigmail
+Package-List:
+ enigmail deb mail optional arch=all
+Files:
+ 638d5a2d95a1b2b543778feb196b8049 1793 enigmail_1.9.7-1~ubuntu0.17.04.1.dsc
+ ab3e098846fa10f684ed78a2ffa4df89 1745184 enigmail_1.9.7.orig.tar.gz
+ f58ee1c2883bdd4902d7e85164b232ab 28104 enigmail_1.9.7-1~ubuntu0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ 419769e5ef20b6c1b2e02609e901194397b62182 1793 enigmail_1.9.7-1~ubuntu0.17.04.1.dsc
+ 9ea146efb441958b1d74c88b973f95ceb6ccb54b 1745184 enigmail_1.9.7.orig.tar.gz
+ 0d947795f34ebf265d3794f908209835266d7f5a 28104 enigmail_1.9.7-1~ubuntu0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ 45f886fff9170c046f0729f6b6243a4f2fb0797a228129ce06ecc1d659facc2d 1793 enigmail_1.9.7-1~ubuntu0.17.04.1.dsc
+ 176adbafee2f84ef6cd1cdbf53131a2a6a23d0cb26550357617c24a8ae5bd934 1745184 enigmail_1.9.7.orig.tar.gz
+ 2e28fb668cbf2736f451914446fa52f5637b6ee8831c9c76d8f1242828f5b4f4 28104 enigmail_1.9.7-1~ubuntu0.17.04.1.debian.tar.xz
+
+Package: ettercap
+Format: 3.0 (quilt)
+Binary: ettercap-common, ettercap-text-only, ettercap-graphical, ettercap-dbg
+Architecture: any
+Version: 1:0.8.2-4ubuntu1.17.04.1
+Priority: optional
+Section: universe/net
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Barak A. Pearlmutter <bap@debian.org>
+Uploaders: Murat Demirten <murat@debian.org>, Gianfranco Costamagna <locutusofborg@debian.org>
+Standards-Version: 3.9.8
+Build-Depends: bison | bison++, check, chrpath, cmake, debhelper (>= 10), flex | flex-old, ghostscript, libbsd-dev, libcurl4-openssl-dev, libgtk2.0-dev, libltdl-dev, libluajit-5.1-dev [!arm64 !mips64el !ppc64el !s390x !alpha !hppa !kfreebsd-amd64 !m68k !ppc64 !sh4 !sparc64 !x32], libncurses5-dev, libnet1-dev, libpcap-dev, libpcre3-dev, libssl-dev
+Homepage: http://ettercap.sourceforge.net
+Vcs-Browser: http://github.com/barak/ettercap
+Vcs-Git: git://github.com/barak/ettercap.git
+Directory: pool/universe/e/ettercap
+Package-List:
+ ettercap-common deb net optional arch=any
+ ettercap-dbg deb debug extra arch=any
+ ettercap-graphical deb net optional arch=any
+ ettercap-text-only deb net optional arch=any
+Files:
+ 7ea8e68e69cbefb61e476d3b233faf80 2539 ettercap_0.8.2-4ubuntu1.17.04.1.dsc
+ b6b20851862f55644d5f296f77b785d1 1028471 ettercap_0.8.2.orig.tar.gz
+ 92d08492cb3106b9eec0927e9735dd24 16460 ettercap_0.8.2-4ubuntu1.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ cbb49656346f2d8664f6688fd7443c24c6710f83 2539 ettercap_0.8.2-4ubuntu1.17.04.1.dsc
+ 04f50925a5f3b2555371075a048ab7bfe3892976 1028471 ettercap_0.8.2.orig.tar.gz
+ 0a6b03b96c06e3d0520504de0fa98d827eaec5fe 16460 ettercap_0.8.2-4ubuntu1.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ 611e421e2f7e5a41d91ac87bff58a81f7b4774e669a893ef95a280581ad78b29 2539 ettercap_0.8.2-4ubuntu1.17.04.1.dsc
+ e403181d883e25a133208f69b972070558f0ff5425ec6611ee6611096ed0a060 1028471 ettercap_0.8.2.orig.tar.gz
+ 5007e65e1020e65ac400dab91718d45cc9d113e1d5cdb98697731cf794fa973c 16460 ettercap_0.8.2-4ubuntu1.17.04.1.debian.tar.xz
+
+Package: freexl
+Format: 3.0 (quilt)
+Binary: libfreexl-dev, libfreexl1, libfreexl1-dbg
+Architecture: any
+Version: 1.0.2-2+deb9u1build0.17.04.1
+Priority: extra
+Section: universe/libs
+Maintainer: Debian GIS Project <pkg-grass-devel@lists.alioth.debian.org>
+Uploaders: David Paleino <dapal@debian.org>, Bas Couwenberg <sebastic@debian.org>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 9~), autotools-dev, dh-autoreconf
+Homepage: https://www.gaia-gis.it/fossil/freexl/
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-grass/freexl.git
+Vcs-Git: https://anonscm.debian.org/git/pkg-grass/freexl.git -b stretch
+Directory: pool/universe/f/freexl
+Package-List:
+ libfreexl-dev deb libdevel optional arch=any
+ libfreexl1 deb libs optional arch=any
+ libfreexl1-dbg deb debug extra arch=any
+Files:
+ d7c433270be30a8f105b9b9d9e440d4e 2169 freexl_1.0.2-2+deb9u1build0.17.04.1.dsc
+ 9954640e5fed76a5d9deb9b02b0169a0 939064 freexl_1.0.2.orig.tar.gz
+ 150a43ad6ba7292774a05079994e71d2 14704 freexl_1.0.2-2+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ 6ab3f3069a6356dde2786b6e7caa4cafd475a24a 2169 freexl_1.0.2-2+deb9u1build0.17.04.1.dsc
+ 9878a2dfb23ba00be34605557ac454539411071d 939064 freexl_1.0.2.orig.tar.gz
+ 190418da2db0fc0ae0944a646de61ba414dcf7e4 14704 freexl_1.0.2-2+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ b94bbdd0b2b4dc323535c380116eb6f36cfcf50b69b8037e721cd78ca348e238 2169 freexl_1.0.2-2+deb9u1build0.17.04.1.dsc
+ b39a4814a0f53f5e09a9192c41e3e51bd658843f770399023a963eb064f6409d 939064 freexl_1.0.2.orig.tar.gz
+ 9d7c21c2dcd1035796486adc4ac6245197dfc5e111242a995546f6f7cde6d276 14704 freexl_1.0.2-2+deb9u1build0.17.04.1.debian.tar.xz
+
+Package: gnome-exe-thumbnailer
+Format: 3.0 (quilt)
+Binary: gnome-exe-thumbnailer
+Architecture: all
+Version: 0.9.4-2ubuntu0.1
+Priority: extra
+Section: universe/gnome
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Debian Wine Party <pkg-wine-party@lists.alioth.debian.org>
+Uploaders: James Lu <bitflip3@gmail.com>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 9)
+Homepage: https://github.com/gnome-exe-thumbnailer/gnome-exe-thumbnailer
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-wine/gnome-exe-thumbnailer.git/
+Vcs-Git: https://anonscm.debian.org/git/pkg-wine/gnome-exe-thumbnailer.git
+Directory: pool/universe/g/gnome-exe-thumbnailer
+Package-List:
+ gnome-exe-thumbnailer deb gnome optional arch=all
+Files:
+ 25411f0a1acda681747d41c36466fcb6 2172 gnome-exe-thumbnailer_0.9.4-2ubuntu0.1.dsc
+ 82c8194d399d888d71c3145ba3b7a39b 55909 gnome-exe-thumbnailer_0.9.4.orig.tar.gz
+ 08e61fe8ee1532388f51f4bbb52b47a6 5840 gnome-exe-thumbnailer_0.9.4-2ubuntu0.1.debian.tar.xz
+Checksums-Sha1:
+ 4fa595259083d3790b7e73842ec13a5560ccf27b 2172 gnome-exe-thumbnailer_0.9.4-2ubuntu0.1.dsc
+ ae42e0dfd0f4f39e750179bf58a82e6e6857f047 55909 gnome-exe-thumbnailer_0.9.4.orig.tar.gz
+ e0842a71cf11c3ab5cf98b1cf0d5402a709c2c72 5840 gnome-exe-thumbnailer_0.9.4-2ubuntu0.1.debian.tar.xz
+Checksums-Sha256:
+ 1ea039e0925bc887b4b4ecb569ca395bbdb2dd0b4f113f2bd605ff042f5156bc 2172 gnome-exe-thumbnailer_0.9.4-2ubuntu0.1.dsc
+ 66258a1c68f06d56e3a35336b21778eb1eb10f06ee757c4f54bf5a0a646d2bce 55909 gnome-exe-thumbnailer_0.9.4.orig.tar.gz
+ 14f23e5decea38b27df4eb343f0076a2504867fe4c7d36680771edfe1f65ef4a 5840 gnome-exe-thumbnailer_0.9.4-2ubuntu0.1.debian.tar.xz
+
+Package: jabberd2
+Format: 3.0 (quilt)
+Binary: jabberd2
+Architecture: any
+Version: 2.4.0-3+deb9u1build0.17.04.1
+Priority: optional
+Section: universe/net
+Maintainer: Debian XMPP Maintainers <pkg-xmpp-devel@lists.alioth.debian.org>
+Uploaders: Willem van den Akker <wvdakker@wilsoft.nl>, Simon Josefsson <simon@josefsson.org>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5), dh-autoreconf, libssl1.0-dev | libssl-dev (<< 1.1.0~), libgsasl7-dev (>= 1.4.0), libdb-dev, libpam0g-dev, default-libmysqlclient-dev, libpq-dev, libldap2-dev, libsqlite3-dev, libidn11-dev, libexpat1-dev, libudns-dev, libhttp-parser-dev, check
+Homepage: http://jabberd2.org/
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-xmpp/jabberd2.git
+Vcs-Git: https://anonscm.debian.org/git/pkg-xmpp/jabberd2.git
+Directory: pool/universe/j/jabberd2
+Package-List:
+ jabberd2 deb net optional arch=any
+Files:
+ 5171477f5915ead54f69f1e7ce6cb739 2282 jabberd2_2.4.0-3+deb9u1build0.17.04.1.dsc
+ 1871f97d86affb0150ad8c3a6691cb46 625496 jabberd2_2.4.0.orig.tar.gz
+ 494a9d44aa52d67e59d1760fd5444942 17660 jabberd2_2.4.0-3+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ a9cb39605a9e289025427f22d4f55c49d0492580 2282 jabberd2_2.4.0-3+deb9u1build0.17.04.1.dsc
+ 726794ec1a99da3cca4da4ea4c17ec9f6d05e84e 625496 jabberd2_2.4.0.orig.tar.gz
+ 93035052fea781d763fb24cd6e2d5cdbb5560c29 17660 jabberd2_2.4.0-3+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ aefef440562b441e47e730754ca599819fb9c294fa0ddf61a680fb903f456220 2282 jabberd2_2.4.0-3+deb9u1build0.17.04.1.dsc
+ d6b0ef9a03fc36b0f66f785c09b3a7a8cacbf0d438e0ac1d6ec6b45029d2f816 625496 jabberd2_2.4.0.orig.tar.gz
+ b4539f5a903979a3ffbe39d1cc14b7842fd7bfdc9b40803ddc874ae16847f718 17660 jabberd2_2.4.0-3+deb9u1build0.17.04.1.debian.tar.xz
+
+Package: jython
+Format: 3.0 (quilt)
+Binary: jython, jython-doc
+Architecture: all
+Version: 2.5.3-15ubuntu0.1
+Priority: optional
+Section: universe/python
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Debian Java Maintainers <pkg-java-maintainers@lists.alioth.debian.org>
+Uploaders: Jakub Adam <jakub.adam@ktknet.cz>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 10), dh-exec, ant, gawk, maven-repo-helper, python
+Build-Depends-Indep: default-jdk, dh-python, junit, antlr3.2, bnd (>= 2.1.0), libasm3-java, libguava-java, libjffi-java (>= 1.2.7~), libjline-java, libjnr-constants-java (>= 0.8.6~), libjnr-ffi-java (>= 1.0.10~), libjnr-netdb-java, libjnr-posix-java (>= 3.0.10~), libjnr-x86asm-java, liblivetribe-jsr223-java, libreadline-java, libmysql-java, libpostgresql-jdbc-java, libservlet3.1-java
+Homepage: http://www.jython.org
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-java/jython.git
+Vcs-Git: https://anonscm.debian.org/git/pkg-java/jython.git
+Directory: pool/universe/j/jython
+Package-List:
+ jython deb python optional arch=all
+ jython-doc deb doc optional arch=all
+Files:
+ f194529a6706c2acb411940308b943c2 2137 jython_2.5.3-15ubuntu0.1.dsc
+ 2e4210614f20aa3cbcef9031601679b7 5731140 jython_2.5.3.orig.tar.bz2
+ ea59bff4bba1efc84630536e76f844c7 22512 jython_2.5.3-15ubuntu0.1.debian.tar.xz
+Checksums-Sha1:
+ 7563853a6c22799e3e4d324308f837bc91911d61 2137 jython_2.5.3-15ubuntu0.1.dsc
+ fb2329935da29375f6c58e80c361a22fef1ce694 5731140 jython_2.5.3.orig.tar.bz2
+ f9d886c5cdf00b94d5c6626adbccfee7c7fa3715 22512 jython_2.5.3-15ubuntu0.1.debian.tar.xz
+Checksums-Sha256:
+ b596ccd38f0d63908423dbfdd466d19dd00599736af7975f8479c56e13b07327 2137 jython_2.5.3-15ubuntu0.1.dsc
+ f65ba40098f9312ed487219e64c4ea01fecad927411b1a72dc1d8cadf0ddc947 5731140 jython_2.5.3.orig.tar.bz2
+ 4b1f49d3e36a57789da2ea00d550425457bd28443cc823e019554be56f712a36 22512 jython_2.5.3-15ubuntu0.1.debian.tar.xz
+
+Package: kauth
+Format: 3.0 (quilt)
+Binary: libkf5auth-dev, libkf5auth-bin-dev, libkf5auth5, libkf5auth-data
+Architecture: any all
+Version: 5.31.0-0ubuntu1.1
+Priority: optional
+Section: universe/libs
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Debian/Kubuntu Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
+Uploaders: Maximiliano Curia <maxy@debian.org>
+Standards-Version: 3.9.8
+Build-Depends: cmake (>= 2.8.12), debhelper (>= 9), extra-cmake-modules (>= 5.31.0~), libkf5coreaddons-dev (>= 5.31.0~), libpolkit-qt5-1-dev, pkg-config, pkg-kde-tools (>= 0.15.15ubuntu1~), qtbase5-dev (>= 5.6.1~), qttools5-dev (>= 5.6.1~), qttools5-dev-tools (>= 5.6.1~)
+Testsuite: autopkgtest
+Homepage: https://projects.kde.org/projects/frameworks/kauth
+Vcs-Browser: https://code.launchpad.net/~kubuntu-packagers/kubuntu-packaging/+git/kauth
+Vcs-Git: https://git.launchpad.net/~kubuntu-packagers/kubuntu-packaging/+git/kauth
+Directory: pool/universe/k/kauth
+Package-List:
+ libkf5auth-bin-dev deb libdevel optional arch=any
+ libkf5auth-data deb libs optional arch=all
+ libkf5auth-dev deb libdevel optional arch=any
+ libkf5auth5 deb libs optional arch=any
+Files:
+ 98dac6860aca067d6ad95496b234531f 2608 kauth_5.31.0-0ubuntu1.1.dsc
+ ec49b90d1566a37e91b9710557e102f2 83440 kauth_5.31.0.orig.tar.xz
+ 8aa630c561fd8d426f26759ee506b5dd 10240 kauth_5.31.0-0ubuntu1.1.debian.tar.xz
+Checksums-Sha1:
+ 546ec413b98b692de2f32fc8f4975333b7ab3870 2608 kauth_5.31.0-0ubuntu1.1.dsc
+ 70be181c78a8e127cd3f7808ab558a8cb9e170b8 83440 kauth_5.31.0.orig.tar.xz
+ 3c6f151beb616b1a1f742f4533267d1e32ca588c 10240 kauth_5.31.0-0ubuntu1.1.debian.tar.xz
+Checksums-Sha256:
+ e5da03a6cbe4d72b1b7179fa7bd318a869f84a1a8eac611eb29b3e9a7cdbbd21 2608 kauth_5.31.0-0ubuntu1.1.dsc
+ 288be84e0babab37cd7b14edb3601f194f2a908b52e057dbcddc8c86ec608f78 83440 kauth_5.31.0.orig.tar.xz
+ 54c1b894b9371df83cc3a4b066f12ae921b69c4c54e10539bd083782ee6dd0f4 10240 kauth_5.31.0-0ubuntu1.1.debian.tar.xz
+Testsuite-Triggers: build-essential, dbus, dh-acc, exuberant-ctags, xauth, xvfb
+
+Package: kde4libs
+Format: 3.0 (quilt)
+Binary: libkdecore5, libkdeui5, libkpty4, libkdesu5, libkjsapi4, libkjsembed4, libkio5, libkntlm4, libsolid4, libkde3support4, libkfile4, libknewstuff2-4, libknewstuff3-4, libkparts4, libkutils4, libthreadweaver4, libkhtml5, libkimproxy4, libkmediaplayer4, libktexteditor4, libknotifyconfig4, libkdnssd4, libkrosscore4, libkrossui4, libplasma3, libkunitconversion4, libkdewebkit5, libkcmutils4, libkemoticons4, libkidletime4, libkprintutils4, libkdeclarative5, kdelibs-bin, kdelibs5-plugins, kdelibs5-data, kdoctools, kdelibs5-dev, kdelibs5-dbg
+Architecture: any all
+Version: 4:4.14.30-0ubuntu1.1
+Priority: optional
+Section: universe/libs
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Debian/Kubuntu Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
+Uploaders: Sune Vuorela <sune@debian.org>, Fathi Boudra <fabo@debian.org>, Modestas Vainius <modax@debian.org>, George Kiagiadakis <kiagiadakis.george@gmail.com>, Lisandro Damián Nicanor Pérez Meyer <lisandro@debian.org>, Maximiliano Curia <maxy@debian.org>, Diane Trout <diane@debian.org>
+Standards-Version: 3.9.6
+Build-Depends: aspell, automoc (>= 1.0~version-0.9.88), bison, cmake (>= 2.8.9~), debhelper (>= 9), docbook-xml, docbook-xsl, dpkg-dev (>= 1.15.5), flex, hspell, libacl1-dev, libaspell-dev, libattica-dev (>= 0.4.2), libavahi-common-dev, libbz2-dev, libdbusmenu-qt-dev, libdlrestrictions-dev (>= 0.14), libenchant-dev, libgif-dev, libgrantlee-dev (>= 0.1.0), libjpeg-dev, libkrb5-dev, liblzma-dev, libopenexr-dev, libpcre3-dev, libphonon-dev (>= 4:4.6.0really4.3.80), libpng-dev, libpolkit-qt-1-dev (>= 0.99.0), libqca2-dev (>= 2.0.0), libqt4-dev (>= 4:4.8.0), libqt4-opengl-dev (>= 4:4.8.0), libqtwebkit-dev, libsm-dev, libssl-dev, libstreamanalyzer-dev (>= 0.6.3), libudev-dev [linux-any], libutempter-dev, libxml2-dev, libxml2-utils, libxrender-dev, libxslt1-dev, libxss-dev, pkg-kde-tools (>= 0.14), shared-mime-info (>= 0.60), zlib1g-dev
+Build-Conflicts: libqtwebkit-dev (<< 2.2.1)
+Testsuite: autopkgtest
+Homepage: http://www.kde.org/
+Vcs-Browser: https://code.launchpad.net/~kubuntu-packagers/kubuntu-packaging/+git/kdelibs
+Vcs-Git: https://git.launchpad.net/~kubuntu-packagers/kubuntu-packaging/+git/kdelibs
+Directory: pool/universe/k/kde4libs
+Package-List:
+ kdelibs-bin deb libs optional arch=any
+ kdelibs5-data deb libs optional arch=all
+ kdelibs5-dbg deb debug extra arch=any
+ kdelibs5-dev deb libdevel optional arch=any
+ kdelibs5-plugins deb libs optional arch=any
+ kdoctools deb doc optional arch=any
+ libkcmutils4 deb libs optional arch=any
+ libkde3support4 deb libs optional arch=any
+ libkdeclarative5 deb libs optional arch=any
+ libkdecore5 deb libs optional arch=any
+ libkdesu5 deb libs optional arch=any
+ libkdeui5 deb libs optional arch=any
+ libkdewebkit5 deb libs optional arch=any
+ libkdnssd4 deb libs optional arch=any
+ libkemoticons4 deb libs optional arch=any
+ libkfile4 deb libs optional arch=any
+ libkhtml5 deb libs optional arch=any
+ libkidletime4 deb libs optional arch=any
+ libkimproxy4 deb libs optional arch=any
+ libkio5 deb libs optional arch=any
+ libkjsapi4 deb libs optional arch=any
+ libkjsembed4 deb libs optional arch=any
+ libkmediaplayer4 deb libs optional arch=any
+ libknewstuff2-4 deb libs optional arch=any
+ libknewstuff3-4 deb libs optional arch=any
+ libknotifyconfig4 deb libs optional arch=any
+ libkntlm4 deb libs optional arch=any
+ libkparts4 deb libs optional arch=any
+ libkprintutils4 deb libs optional arch=any
+ libkpty4 deb libs optional arch=any
+ libkrosscore4 deb libs optional arch=any
+ libkrossui4 deb libs optional arch=any
+ libktexteditor4 deb libs optional arch=any
+ libkunitconversion4 deb libs optional arch=any
+ libkutils4 deb libs optional arch=any
+ libplasma3 deb libs optional arch=any
+ libsolid4 deb libs optional arch=any
+ libthreadweaver4 deb libs optional arch=any
+Files:
+ 9388e65ac435b5447d3b2584a4722b5f 5437 kde4libs_4.14.30-0ubuntu1.1.dsc
+ 2bf074c6affa09a3fbda1d04f8f0bf05 11643248 kde4libs_4.14.30.orig.tar.xz
+ 72898176b4a818453e83a2b2405fa255 289656 kde4libs_4.14.30-0ubuntu1.1.debian.tar.xz
+Checksums-Sha1:
+ 53ae657f8d059d5760364090b3f0ca6797a134c2 5437 kde4libs_4.14.30-0ubuntu1.1.dsc
+ a6274c7306495aeaa7b7b2fa1d0982dce2a9da4a 11643248 kde4libs_4.14.30.orig.tar.xz
+ 3879b43940712de473a3f356d28a00da2e507668 289656 kde4libs_4.14.30-0ubuntu1.1.debian.tar.xz
+Checksums-Sha256:
+ 389f0189f4c5180f8bae98c2b46e18fa349c7cf43c647d3009aaaaf9e48bd99e 5437 kde4libs_4.14.30-0ubuntu1.1.dsc
+ a39fc3ef320c27ea49e5d238b2a860ef61824a20922268a18392b0521a38196d 11643248 kde4libs_4.14.30.orig.tar.xz
+ 033a2d20f2808af98fb996f77d3b3594ca0a4ef0efbd671c7d90c609bb841a3e 289656 kde4libs_4.14.30-0ubuntu1.1.debian.tar.xz
+Testsuite-Triggers: build-essential, dbus-x11, dh-acc, exuberant-ctags, inetutils-ping, iputils-ping, kde-runtime, libqt4-sql-sqlite, libxml2-utils, oxygen-icon-theme, xauth, xvfb
+
+Package: kodi
+Format: 3.0 (quilt)
+Binary: kodi, kodi-data, kodi-bin, kodi-eventclients-common, kodi-eventclients-dev, kodi-eventclients-wiiremote, kodi-eventclients-ps3, kodi-eventclients-kodi-send, kodi-addons-dev, xbmc, xbmc-bin, xbmc-eventclients-common, xbmc-eventclients-dev, xbmc-eventclients-wiiremote, xbmc-eventclients-ps3, xbmc-eventclients-xbmc-send, xbmc-addons-dev
+Architecture: any all
+Version: 2:17.1+dfsg1-1ubuntu0.1
+Priority: optional
+Section: universe/misc
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Debian Multimedia Maintainers <pkg-multimedia-maintainers@lists.alioth.debian.org>
+Uploaders: Balint Reczey <rbalint@ubuntu.com>
+Standards-Version: 3.9.8
+Build-Depends: autoconf, automake, autopoint, autotools-dev, cmake, curl, debhelper (>= 10~), default-jre, dh-autoreconf, dh-python, doxygen, fontforge, fonts-dejavu-core, fonts-droid-fallback, gawk, gperf, groovy, inkscape, libasound2-dev | libasound-dev, libass-dev (>= 0.9.8), libavahi-client-dev, libavahi-common-dev, libavcodec-dev (>= 7:2.7.1), libavfilter-dev (>= 7:2.7.1), libavformat-dev (>= 7:2.7.1), libavresample-dev (>= 7:2.7.1), libavutil-dev (>= 7:2.7.1), libbluetooth-dev, libbluray-dev (>= 1:0.7.0), libboost-dev, libboost-thread-dev, libbz2-dev, libcap-dev, libcdio-dev, libcec-dev (>= 4~), libp8-platform-dev, libcommons-lang-java, libcurl4-gnutls-dev | libcurl-dev, libcwiid-dev [linux-any], libdbus-1-dev, libcrossguid-dev, libfontconfig-dev, libfreetype6-dev, libfribidi-dev, libgif-dev, libgles2-mesa-dev [armel armhf arm64] | libgl1-mesa-dev | libgl-dev, libglu1-mesa-dev | libglu-dev, libgtest-dev, libiso9660-dev, libjpeg-dev, liblcms2-dev, libltdl-dev, liblzo2-dev, libmicrohttpd-dev, libmodplug-dev, default-libmysqlclient-dev, libnfs-dev, libomxil-bellagio-dev [armel armhf arm64 mipsel mips], libpcre3-dev, libplist-dev, libpng-dev, libpostproc-dev (>= 7:2.7.1), libpulse-dev, libsdl2-dev, libsdl2-image-dev, libsdl2-mixer-dev, libshairport-dev, libsmbclient-dev, libsqlite3-dev, libssh-gcrypt-dev, libgcrypt-dev, libswscale-dev (>= 7:2.7.1), libtag1-dev (>= 1.8), libtinyxml-dev (>= 2.6.2), libtool, libudev-dev, libva-dev [!armel !armhf !arm64 !mipsel !mips], libvdpau-dev [!armel !armhf !arm64 !mipsel !mips], libxmu-dev, libxrandr-dev, libxslt1-dev, libxt-dev, libyajl-dev, nasm [i386], python-dev (>= 2.6.6-3~), python-imaging, swig, udev, unzip, uuid-dev, valgrind [amd64 i386], yasm, zip, zlib1g-dev
+Homepage: http://kodi.tv/
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-multimedia/kodi.git
+Vcs-Git: git://anonscm.debian.org/pkg-multimedia/kodi.git
+Directory: pool/universe/k/kodi
+Package-List:
+ kodi deb video optional arch=any
+ kodi-addons-dev deb libdevel optional arch=any
+ kodi-bin deb video optional arch=any
+ kodi-data deb video optional arch=all
+ kodi-eventclients-common deb video optional arch=all
+ kodi-eventclients-dev deb libdevel optional arch=all
+ kodi-eventclients-kodi-send deb video optional arch=all
+ kodi-eventclients-ps3 deb video optional arch=all
+ kodi-eventclients-wiiremote deb video optional arch=any
+ xbmc deb video optional arch=all
+ xbmc-addons-dev deb video optional arch=all
+ xbmc-bin deb video optional arch=any
+ xbmc-eventclients-common deb video optional arch=all
+ xbmc-eventclients-dev deb video optional arch=all
+ xbmc-eventclients-ps3 deb video optional arch=all
+ xbmc-eventclients-wiiremote deb video optional arch=any
+ xbmc-eventclients-xbmc-send deb video optional arch=all
+Files:
+ 31f1bb5b78cb36f1ca68150fa138a1cc 5413 kodi_17.1+dfsg1-1ubuntu0.1.dsc
+ 0b8eb73603514a9c39444c2235cdb45c 369621 kodi_17.1+dfsg1.orig-libdvdnav-5-0-3.tar.bz2
+ b7b7d2a782087ed2a913263087083715 394885 kodi_17.1+dfsg1.orig-libdvdread-5-0-3.tar.bz2
+ 7cfcb00a22c55c023966ce7d9abc1f4a 246480 kodi_17.1+dfsg1.orig-webinterface-default.tar.xz
+ ee79d7fd6ba0d4d363a894d62e7c2671 20483796 kodi_17.1+dfsg1.orig.tar.xz
+ b664edf7bf32e713fb60e66f34107527 39364 kodi_17.1+dfsg1-1ubuntu0.1.debian.tar.xz
+Checksums-Sha1:
+ 7dc46855dda2f42f8ff599414ec62b12a4698a58 5413 kodi_17.1+dfsg1-1ubuntu0.1.dsc
+ 6843449c4d26cc97950b3dd93161b66be63d9945 369621 kodi_17.1+dfsg1.orig-libdvdnav-5-0-3.tar.bz2
+ 3cda64c06ca9b617d976c490651db4391a162e1f 394885 kodi_17.1+dfsg1.orig-libdvdread-5-0-3.tar.bz2
+ 08f0d3cbe066a515d13c7445475f23be233bf21c 246480 kodi_17.1+dfsg1.orig-webinterface-default.tar.xz
+ 1f745a5dd39d09ef77517f04460aa3cb03b31e4e 20483796 kodi_17.1+dfsg1.orig.tar.xz
+ e5c1ba84eaa561021ab860b3ca5c763e0adf6ab9 39364 kodi_17.1+dfsg1-1ubuntu0.1.debian.tar.xz
+Checksums-Sha256:
+ 353aaf0fc37803134351d12e65983972ecb2b9d979a1c5acc9a917d9d3d2a69d 5413 kodi_17.1+dfsg1-1ubuntu0.1.dsc
+ 3ff45551e81378e994c5a2381962d35282570e303fa16357ecb98f6fb616fd3c 369621 kodi_17.1+dfsg1.orig-libdvdnav-5-0-3.tar.bz2
+ 321cdf2dbdc83c96572bc583cd27d8c660ddb540ff16672ecb28607d018ed82b 394885 kodi_17.1+dfsg1.orig-libdvdread-5-0-3.tar.bz2
+ 693fa280d5f5622b1d197332d37124fbc8dbde80204d25b6a7a3bf8d85fcfb0f 246480 kodi_17.1+dfsg1.orig-webinterface-default.tar.xz
+ 5dff6fa08dc00278eea24868229bbe9da326a93c61d0ed578f6825cc7db92714 20483796 kodi_17.1+dfsg1.orig.tar.xz
+ dfc2636b1495e1b0e27205097bdc86e575544e22b4b6caec980b7b3a58d4d0c2 39364 kodi_17.1+dfsg1-1ubuntu0.1.debian.tar.xz
+
+Package: libosip2
+Format: 3.0 (quilt)
+Binary: libosip2-dev, libosip2-11
+Architecture: any
+Version: 4.1.0-2+deb8u1build0.17.04.1
+Priority: optional
+Section: universe/comm
+Maintainer: Debian VoIP Team <pkg-voip-maintainers@lists.alioth.debian.org>
+Uploaders: Mark Purcell <msp@debian.org>, Kilian Krause <kilian@debian.org>
+Standards-Version: 3.9.5
+Build-Depends: debhelper (>= 9), dpkg-dev (>= 1.13.19), dh-autoreconf, docbook-to-man
+Homepage: http://www.gnu.org/software/osip/
+Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-voip/libosip2/trunk/
+Vcs-Svn: svn://anonscm.debian.org/pkg-voip/libosip2/trunk/
+Directory: pool/universe/libo/libosip2
+Package-List:
+ libosip2-11 deb libs optional arch=any
+ libosip2-dev deb libdevel optional arch=any
+Files:
+ 7fb8774b9fb3f6e1ec81c4dd4a458411 2130 libosip2_4.1.0-2+deb8u1build0.17.04.1.dsc
+ 756423628683c07f817432f046a26516 636382 libosip2_4.1.0.orig.tar.gz
+ a73e9fd83b061069ee68cc8e015485d5 7216 libosip2_4.1.0-2+deb8u1build0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ f10d9d96612017464da206eb2e3fe6cceee59d0d 2130 libosip2_4.1.0-2+deb8u1build0.17.04.1.dsc
+ 61459c9052ca2f5e77a6936c9b369e2b0602c080 636382 libosip2_4.1.0.orig.tar.gz
+ 8620fc3fdc1a55fa99614f21306e265c72d42294 7216 libosip2_4.1.0-2+deb8u1build0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ 81e0089f2c6c2013bdd58ed60e3603e05fbe6a242e2686e8d5c263ccc9a5a3cd 2130 libosip2_4.1.0-2+deb8u1build0.17.04.1.dsc
+ 996aa0363316a871915b6f12562af53853a9962bb93f6abe1ae69f8de7008504 636382 libosip2_4.1.0.orig.tar.gz
+ c7dfbcb1565c424ba5c70e6677a151d70cae1ca64704f79d3c7a83690260092a 7216 libosip2_4.1.0-2+deb8u1build0.17.04.1.debian.tar.xz
+
+Package: linux-meta-raspi2
+Format: 3.0 (native)
+Binary: linux-headers-raspi2, linux-image-raspi2, linux-raspi2, linux-tools-raspi2
+Architecture: armhf arm64
+Version: 4.10.0.1019.20
+Priority: optional
+Section: universe/devel
+Maintainer: Ubuntu Kernel Team <kernel-team@lists.ubuntu.com>
+Standards-Version: 3.9.8
+Build-Depends: dpkg (>= 1.13.19), debhelper (>= 9), gawk
+Vcs-Git: git://kernel.ubuntu.com/ubuntu/ubuntu-yakkety-meta.git raspi2
+Directory: pool/universe/l/linux-meta-raspi2
+Package-List:
+ linux-headers-raspi2 deb kernel optional arch=armhf,arm64
+ linux-image-raspi2 deb kernel optional arch=armhf,arm64
+ linux-raspi2 deb kernel optional arch=armhf,arm64
+ linux-tools-raspi2 deb kernel optional arch=armhf,arm64
+Files:
+ 5131c3ebe32113a14d2c4fd7c0b7f419 1493 linux-meta-raspi2_4.10.0.1019.20.dsc
+ eae744f063c46d6d40c43ad77f59d0e5 6592 linux-meta-raspi2_4.10.0.1019.20.tar.xz
+Checksums-Sha1:
+ f4ae4b922f195c4824e019d68cfa328889dcd5f8 1493 linux-meta-raspi2_4.10.0.1019.20.dsc
+ d8eab87c3a23bd06b251089ee097715e38229fac 6592 linux-meta-raspi2_4.10.0.1019.20.tar.xz
+Checksums-Sha256:
+ 85f2b802c6825df89a9c4772eebb8d59f7d49cf99dee609ced38fee4b4f30911 1493 linux-meta-raspi2_4.10.0.1019.20.dsc
+ bf930b27acfed9f1091428302c61e60011329bf249d3fdfb13d1cf04e5102277 6592 linux-meta-raspi2_4.10.0.1019.20.tar.xz
+
+Package: linux-meta-snapdragon
+Format: 1.0
+Binary: linux-headers-snapdragon, linux-image-snapdragon, linux-snapdragon, linux-tools-snapdragon
+Architecture: arm64
+Version: 4.4.0.1077.69
+Priority: optional
+Section: universe/devel
+Maintainer: Ubuntu Kernel Team <kernel-team@lists.ubuntu.com>
+Standards-Version: 3.6.1
+Build-Depends: dpkg (>= 1.13.19), debhelper (>= 5), gawk
+Vcs-Git: git://kernel.ubuntu.com/ubuntu/ubuntu-xenial-meta.git snapdragon
+Directory: pool/universe/l/linux-meta-snapdragon
+Package-List:
+ linux-headers-snapdragon deb metapackages optional arch=arm64
+ linux-image-snapdragon deb metapackages optional arch=arm64
+ linux-snapdragon deb metapackages optional arch=arm64
+ linux-tools-snapdragon deb metapackages optional arch=arm64
+Files:
+ 5a9c6df6ac9ac50186d6ebd9571ec328 1525 linux-meta-snapdragon_4.4.0.1077.69.dsc
+ 6ec25848bf9f8eb3504148bf7fac4042 7174 linux-meta-snapdragon_4.4.0.1077.69.tar.gz
+Checksums-Sha1:
+ 0e771cecba08b5724c6c63549f61a6d83eac5276 1525 linux-meta-snapdragon_4.4.0.1077.69.dsc
+ 45fc8912d437852f6a067647c3704a4b577a657f 7174 linux-meta-snapdragon_4.4.0.1077.69.tar.gz
+Checksums-Sha256:
+ 45904320ff91152e54597f3a9f76f62d8320d4554918c904d1d4c10e9eab9bc3 1525 linux-meta-snapdragon_4.4.0.1077.69.dsc
+ e4e8c8cf889b5bd82d4fda137283ec6bdf2df0336097ef82f81aef017f708829 7174 linux-meta-snapdragon_4.4.0.1077.69.tar.gz
+
+Package: linux-raspi2
+Format: 1.0
+Binary: linux-raspi2-headers-4.10.0-1019, linux-raspi2-tools-4.10.0-1019, linux-image-4.10.0-1019-raspi2, linux-headers-4.10.0-1019-raspi2, linux-image-4.10.0-1019-raspi2-dbgsym, linux-tools-4.10.0-1019-raspi2
+Architecture: armhf arm64
+Version: 4.10.0-1019.22
+Priority: optional
+Section: universe/devel
+Maintainer: Ubuntu Kernel Team <kernel-team@lists.ubuntu.com>
+Standards-Version: 3.9.4.0
+Build-Depends: debhelper (>= 5), dh-systemd, cpio, kernel-wedge (>= 2.24ubuntu1), kmod <!stage1>, makedumpfile [amd64 i386] <!stage1>, libelf-dev <!stage1>, libnewt-dev <!stage1>, libiberty-dev <!stage1>, rsync <!stage1>, libdw-dev <!stage1>, libpci-dev <!stage1>, dpkg (>= 1.16.0~ubuntu4) <!stage1>, pkg-config <!stage1>, flex <!stage1>, bison <!stage1>, libunwind8-dev <!stage1>, openssl <!stage1>, libssl-dev <!stage1>, libaudit-dev <!stage1>, bc <!stage1>, python-dev <!stage1>, gawk <!stage1>, device-tree-compiler [powerpc] <!stage1>, u-boot-tools [powerpc] <!stage1>, libc6-dev-ppc64 [powerpc] <!stage1>, libudev-dev <!stage1>, autoconf <!stage1>, automake <!stage1>, libtool <!stage1>, uuid-dev <!stage1>
+Build-Depends-Indep: xmlto <!stage1>, docbook-utils <!stage1>, ghostscript <!stage1>, transfig <!stage1>, bzip2 <!stage1>, sharutils <!stage1>, asciidoc <!stage1>
+Testsuite: autopkgtest
+Vcs-Git: git://kernel.ubuntu.com/ubuntu/ubuntu-xenial.git raspi2
+Directory: pool/universe/l/linux-raspi2
+Package-List:
+ linux-headers-4.10.0-1019-raspi2 deb devel optional arch=armhf,arm64 profile=!stage1
+ linux-image-4.10.0-1019-raspi2 deb kernel optional arch=armhf,arm64 profile=!stage1
+ linux-image-4.10.0-1019-raspi2-dbgsym deb devel optional arch=armhf,arm64 profile=!stage1
+ linux-raspi2-headers-4.10.0-1019 deb devel optional arch=armhf,arm64 profile=!stage1
+ linux-raspi2-tools-4.10.0-1019 deb devel optional arch=armhf,arm64 profile=!stage1
+ linux-tools-4.10.0-1019-raspi2 deb devel optional arch=armhf,arm64 profile=!stage1
+Files:
+ f29e8e8559b1709d32a2dcd07d04b8b4 3004 linux-raspi2_4.10.0-1019.22.dsc
+ ed725edc64dfd0a94e09244ecbc9fbfb 143917000 linux-raspi2_4.10.0.orig.tar.gz
+ 70e503b611c1eee12c67f6070ab972c4 10497141 linux-raspi2_4.10.0-1019.22.diff.gz
+Checksums-Sha1:
+ aaa3770e9c65f9279d9eb89fe4cb0f8c1b02e7e7 3004 linux-raspi2_4.10.0-1019.22.dsc
+ f3a20cbd8c140acbbba76eb6ca1f56a8812c321f 143917000 linux-raspi2_4.10.0.orig.tar.gz
+ baaa3b07da325cf94512e29fdff1ee938cc70dd4 10497141 linux-raspi2_4.10.0-1019.22.diff.gz
+Checksums-Sha256:
+ 78aff2dc0836271bf09199fe61cf397aa4c93af733ad2c98dbb2ada862b7d75f 3004 linux-raspi2_4.10.0-1019.22.dsc
+ 1221bcded9062e5740e7cd1b047479494312b13a2a3ba8a48c820d12276c417d 143917000 linux-raspi2_4.10.0.orig.tar.gz
+ 63f31165052547049753a3d4d58fb10c9c4cffa6ea47ecfe220fdce29c12760f 10497141 linux-raspi2_4.10.0-1019.22.diff.gz
+
+Package: linux-snapdragon
+Format: 1.0
+Binary: linux-snapdragon-headers-4.4.0-1077, linux-snapdragon-tools-4.4.0-1077, linux-image-4.4.0-1077-snapdragon, linux-headers-4.4.0-1077-snapdragon, linux-image-4.4.0-1077-snapdragon-dbgsym, linux-tools-4.4.0-1077-snapdragon
+Architecture: arm64
+Version: 4.4.0-1077.82
+Priority: optional
+Section: universe/devel
+Maintainer: Ubuntu Kernel Team <kernel-team@lists.ubuntu.com>
+Standards-Version: 3.9.4.0
+Build-Depends: debhelper (>= 5), dh-systemd, cpio, kernel-wedge (>= 2.24ubuntu1), kmod <!stage1>, makedumpfile [amd64 i386] <!stage1>, libelf-dev <!stage1>, libnewt-dev <!stage1>, libiberty-dev <!stage1>, rsync <!stage1>, libdw-dev <!stage1>, libpci-dev <!stage1>, dpkg (>= 1.16.0~ubuntu4) <!stage1>, pkg-config <!stage1>, flex <!stage1>, bison <!stage1>, libunwind8-dev <!stage1>, openssl <!stage1>, libssl-dev <!stage1>, libaudit-dev <!stage1>, bc <!stage1>, python-dev <!stage1>, gawk <!stage1>, device-tree-compiler [powerpc] <!stage1>, u-boot-tools [powerpc] <!stage1>, libc6-dev-ppc64 [powerpc] <!stage1>, libudev-dev <!stage1>, autoconf <!stage1>, automake <!stage1>, libtool <!stage1>, uuid-dev <!stage1>
+Build-Depends-Indep: xmlto <!stage1>, docbook-utils <!stage1>, ghostscript <!stage1>, transfig <!stage1>, bzip2 <!stage1>, sharutils <!stage1>, asciidoc <!stage1>
+Testsuite: autopkgtest
+Vcs-Git: git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/xenial
+Directory: pool/universe/l/linux-snapdragon
+Package-List:
+ linux-headers-4.4.0-1077-snapdragon deb devel optional arch=arm64 profile=!stage1
+ linux-image-4.4.0-1077-snapdragon deb kernel optional arch=arm64 profile=!stage1
+ linux-image-4.4.0-1077-snapdragon-dbgsym deb devel optional arch=arm64 profile=!stage1
+ linux-snapdragon-headers-4.4.0-1077 deb devel optional arch=arm64 profile=!stage1
+ linux-snapdragon-tools-4.4.0-1077 deb devel optional arch=arm64 profile=!stage1
+ linux-tools-4.4.0-1077-snapdragon deb devel optional arch=arm64 profile=!stage1
+Files:
+ c127ca40d2c2994144047a044c8c5dca 3035 linux-snapdragon_4.4.0-1077.82.dsc
+ 2070b49688e8d7ee7ff4c33590afc698 132860730 linux-snapdragon_4.4.0.orig.tar.gz
+ 36732d5c64ecb31008f9b352b3d17522 14733402 linux-snapdragon_4.4.0-1077.82.diff.gz
+Checksums-Sha1:
+ e2ec1e51fa1fa1c8ef44cdd6a0ef5e109ecf89c5 3035 linux-snapdragon_4.4.0-1077.82.dsc
+ 180ab617036593212274177eff3a67f437c1b5ea 132860730 linux-snapdragon_4.4.0.orig.tar.gz
+ 31db3019de4682b4cf1efd338a2c12b811efa997 14733402 linux-snapdragon_4.4.0-1077.82.diff.gz
+Checksums-Sha256:
+ 39cf1b8300a0d8fe4f9666bf5cec2ee5c3d3b42eae3266f81da8c7a67810d744 3035 linux-snapdragon_4.4.0-1077.82.dsc
+ 730e75919b5d30a9bc934ccb300eaedfdf44994ca9ee1d07a46901c46c221357 132860730 linux-snapdragon_4.4.0.orig.tar.gz
+ 5df4b5d91e7dfe7853d8f0bcdceadcb13026d58233cfe85ecabd3473807f9c51 14733402 linux-snapdragon_4.4.0-1077.82.diff.gz
+
+Package: lxterminal
+Format: 3.0 (quilt)
+Binary: lxterminal, lxterminal-dbg
+Architecture: any
+Version: 0.3.0-1ubuntu0.1
+Priority: extra
+Section: universe/x11
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Debian LXDE Maintainers <pkg-lxde-maintainers@lists.alioth.debian.org>
+Uploaders:  Andrew Lee (李健秋) <ajqlee@debian.org>, Yao Wei (魏銘廷) <mwei@lxde.org>, Andriy Grytsenko <andrej@rep.kiev.ua>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 9), autotools-dev, intltool, libglib2.0-dev, libgtk2.0-dev, libvte-dev
+Homepage: http://www.lxde.org/
+Vcs-Browser: https://git.lxde.org/gitweb/?p=debian/lxterminal.git
+Vcs-Git: https://git.lxde.org/git/debian/lxterminal.git
+Directory: pool/universe/l/lxterminal
+Package-List:
+ lxterminal deb x11 optional arch=any
+ lxterminal-dbg deb debug extra arch=any
+Files:
+ ce00de941c44df39fc6dc72d47ac6370 2225 lxterminal_0.3.0-1ubuntu0.1.dsc
+ 235cda66f5a35654cb162dcc518a5171 193056 lxterminal_0.3.0.orig.tar.xz
+ 381c6d0062894a64c5ec19df88fdcb7b 7160 lxterminal_0.3.0-1ubuntu0.1.debian.tar.xz
+Checksums-Sha1:
+ af30388087cd775d2d88a66aeb25f425e9546c81 2225 lxterminal_0.3.0-1ubuntu0.1.dsc
+ ce7684c3f5588b431b60dbdb0d948818e2781213 193056 lxterminal_0.3.0.orig.tar.xz
+ 8679aed7c7b51762cd0fe5953a81f4841618dc8a 7160 lxterminal_0.3.0-1ubuntu0.1.debian.tar.xz
+Checksums-Sha256:
+ ac4709bc8fe1105c908e067555a747254fe5127c7bd524a047497f0c6cb40517 2225 lxterminal_0.3.0-1ubuntu0.1.dsc
+ 2a424653565f04f4459cc86756e583f3107ca90e5e81250804dced5f8236c7f9 193056 lxterminal_0.3.0.orig.tar.xz
+ 3a6ee23cbac16980e281566b5908b85dfb2cc382cf2c8fa61b9299828e0e9292 7160 lxterminal_0.3.0-1ubuntu0.1.debian.tar.xz
+
+Package: mariadb-10.1
+Format: 3.0 (quilt)
+Binary: libmariadbclient18, libmariadbclient-dev, libmariadbclient-dev-compat, libmariadbd18, libmariadbd-dev, mariadb-common, mariadb-client-core-10.1, mariadb-client-10.1, mariadb-server-core-10.1, mariadb-server-10.1, mariadb-server, mariadb-client, mariadb-plugin-connect, mariadb-plugin-oqgraph, mariadb-plugin-tokudb, mariadb-plugin-mroonga, mariadb-plugin-spider, mariadb-plugin-gssapi-server, mariadb-plugin-gssapi-client, mariadb-plugin-cracklib-password-check, mariadb-test, mariadb-test-data
+Architecture: any all
+Version: 10.1.25-0ubuntu0.17.04.1
+Priority: optional
+Section: universe/misc
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Debian MySQL Maintainers <pkg-mysql-maint@lists.alioth.debian.org>
+Uploaders: Otto Kekäläinen <otto@debian.org>, Arnaud Fontaine <arnau@debian.org>, Ondřej Surý <ondrej@debian.org>
+Standards-Version: 3.9.8
+Build-Depends: bison, chrpath, cmake, cracklib-runtime, debhelper (>= 9), dh-apparmor, dh-exec, dh-systemd, gdb, libaio-dev [linux-any], libboost-dev, libcrack2-dev (>= 2.9.0), libjemalloc-dev [linux-any], libjudy-dev, libkrb5-dev, libncurses5-dev (>= 5.0-6~), libpam0g-dev, libpcre3-dev (>= 2:8.35-3.2~), libreadline-gplv2-dev, libsystemd-dev, libxml2-dev, lsb-release, perl, po-debconf, psmisc, unixodbc-dev, zlib1g-dev (>= 1:1.1.3-5~)
+Testsuite: autopkgtest
+Homepage: https://mariadb.org/
+Vcs-Browser: https://anonscm.debian.org/git/pkg-mysql/mariadb-10.1.git
+Vcs-Git: https://anonscm.debian.org/git/pkg-mysql/mariadb-10.1.git
+Directory: pool/universe/m/mariadb-10.1
+Package-List:
+ libmariadbclient-dev deb libdevel optional arch=any
+ libmariadbclient-dev-compat deb libdevel optional arch=any
+ libmariadbclient18 deb libs optional arch=any
+ libmariadbd-dev deb libdevel optional arch=any
+ libmariadbd18 deb libs optional arch=any
+ mariadb-client deb database optional arch=all
+ mariadb-client-10.1 deb database optional arch=any
+ mariadb-client-core-10.1 deb database optional arch=any
+ mariadb-common deb database optional arch=all
+ mariadb-plugin-connect deb database optional arch=any
+ mariadb-plugin-cracklib-password-check deb database optional arch=any
+ mariadb-plugin-gssapi-client deb database optional arch=any
+ mariadb-plugin-gssapi-server deb database optional arch=any
+ mariadb-plugin-mroonga deb database optional arch=any-i386,any-ia64,any-alpha,any-amd64,any-arm,any-arm64,any-mipsel,any-mipsr6el,any-mips64el,any-mips64r6el,any-nios2,any-powerpcel,any-ppc64el,any-sh3,any-sh4,any-tilegx
+ mariadb-plugin-oqgraph deb database optional arch=any
+ mariadb-plugin-spider deb database optional arch=any
+ mariadb-plugin-tokudb deb database optional arch=base-any-any-amd64
+ mariadb-server deb database optional arch=all
+ mariadb-server-10.1 deb database optional arch=any
+ mariadb-server-core-10.1 deb database optional arch=any
+ mariadb-test deb database optional arch=any
+ mariadb-test-data deb database optional arch=all
+Files:
+ deb9a527113d06c0e6d8aeb2da0fedfa 4394 mariadb-10.1_10.1.25-0ubuntu0.17.04.1.dsc
+ 6349e524bc449767c4650196d4141a02 61790542 mariadb-10.1_10.1.25.orig.tar.gz
+ 2527675040734772991d363ebb31dc33 218640 mariadb-10.1_10.1.25-0ubuntu0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ 0316e1aa171f4bad1bee364485e9198aaa0fb2c0 4394 mariadb-10.1_10.1.25-0ubuntu0.17.04.1.dsc
+ 26808a4005ffcf39360bbc4021ae2048d601a7b9 61790542 mariadb-10.1_10.1.25.orig.tar.gz
+ f507b7ea5dc870ea162efa1d057aa3c73ba641d9 218640 mariadb-10.1_10.1.25-0ubuntu0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ 372a7bd686f48d770b6df659d516b066f935faaadc08fa6651fbd2cccd92dcae 4394 mariadb-10.1_10.1.25-0ubuntu0.17.04.1.dsc
+ 7205ecaa6f1bc16335ad88faa5c46be52b3ac628a5e795cb942a3f4335b2a0d6 61790542 mariadb-10.1_10.1.25.orig.tar.gz
+ 85191fa175d83e09cf7d36c2f9b53cfc36f3e899dfd65d53f3ebf1809c46343c 218640 mariadb-10.1_10.1.25-0ubuntu0.17.04.1.debian.tar.xz
+
+Package: mbedtls
+Format: 3.0 (quilt)
+Binary: libmbedtls-dev, libmbedcrypto0, libmbedtls10, libmbedx509-0, libmbedtls-doc
+Architecture: any all
+Version: 2.4.2-1ubuntu0.1
+Priority: optional
+Section: universe/misc
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: James Cowgill <jcowgill@debian.org>
+Standards-Version: 3.9.8
+Build-Depends: cmake, debhelper (>= 9), faketime
+Build-Depends-Indep: doxygen, graphviz
+Testsuite: autopkgtest
+Homepage: https://tls.mbed.org/
+Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/mbedtls.git
+Vcs-Git: https://anonscm.debian.org/git/collab-maint/mbedtls.git
+Directory: pool/universe/m/mbedtls
+Package-List:
+ libmbedcrypto0 deb libs optional arch=any
+ libmbedtls-dev deb libdevel optional arch=any
+ libmbedtls-doc deb doc optional arch=all
+ libmbedtls10 deb libs optional arch=any
+ libmbedx509-0 deb libs optional arch=any
+Files:
+ daf7e6fa79e159c1755c06a65fa3b69d 2292 mbedtls_2.4.2-1ubuntu0.1.dsc
+ 8e3a8357e0fc23a3954a819027f5167e 1925368 mbedtls_2.4.2.orig.tar.gz
+ b2dbec293546bf8c78f0c01021e50956 12580 mbedtls_2.4.2-1ubuntu0.1.debian.tar.xz
+Checksums-Sha1:
+ 5e2f73e178dfc49b55fab33231a7413bc45eec73 2292 mbedtls_2.4.2-1ubuntu0.1.dsc
+ 71e0aa93e4548611fdb15af93e8b93b30c764e4c 1925368 mbedtls_2.4.2.orig.tar.gz
+ 88792361bbbfaf80d07c91a6048a9cb55a17d7e1 12580 mbedtls_2.4.2-1ubuntu0.1.debian.tar.xz
+Checksums-Sha256:
+ ac9aac6775a465a72defe513743a88b121db8afbd96a39b9e8167cc0f60312cb 2292 mbedtls_2.4.2-1ubuntu0.1.dsc
+ 17dd98af7478aadacc480c7e4159e447353b5b2037c1b6d48ed4fd157fb1b018 1925368 mbedtls_2.4.2.orig.tar.gz
+ b22a102cf4fbc26b5f094742f917075dcebd5eb697bb76b7e0325bc42e9bf68f 12580 mbedtls_2.4.2-1ubuntu0.1.debian.tar.xz
+Testsuite-Triggers: gcc, libc-dev
+
+Package: menu-cache
+Format: 3.0 (quilt)
+Binary: libmenu-cache3, libmenu-cache-dev, libmenu-cache-doc, libmenu-cache-dbg, libmenu-cache-bin, libmenu-cache-bin-dbg
+Architecture: any all
+Version: 1.0.2-1ubuntu0.1
+Priority: optional
+Section: universe/libs
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Debian LXDE Maintainers <pkg-lxde-maintainers@lists.alioth.debian.org>
+Uploaders:  Andrew Lee (李健秋) <ajqlee@debian.org>, Andriy Grytsenko <andrej@rep.kiev.ua>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 9), dh-autoreconf, libglib2.0-dev, gtk-doc-tools, libglib2.0-doc, libfm-dev (>= 1.2.0)
+Homepage: http://www.lxde.org/
+Vcs-Browser: http://git.lxde.org/gitweb/?p=debian/menu-cache.git
+Vcs-Git: git://git.lxde.org/git/debian/menu-cache.git
+Directory: pool/universe/m/menu-cache
+Package-List:
+ libmenu-cache-bin deb libs optional arch=any
+ libmenu-cache-bin-dbg deb debug extra arch=any
+ libmenu-cache-dbg deb debug extra arch=any
+ libmenu-cache-dev deb libdevel optional arch=any
+ libmenu-cache-doc deb doc optional arch=all
+ libmenu-cache3 deb libs optional arch=any
+Files:
+ d6db1a884842bc6a0621bed5bd966a10 2489 menu-cache_1.0.2-1ubuntu0.1.dsc
+ 8dde7a3f5bd9798d0129d1979a5d7640 264540 menu-cache_1.0.2.orig.tar.xz
+ a69a2854c8d186e479c6b2d20f5c5dd0 6260 menu-cache_1.0.2-1ubuntu0.1.debian.tar.xz
+Checksums-Sha1:
+ 07adedff9abafa06963fc6c275d9e4cb89129417 2489 menu-cache_1.0.2-1ubuntu0.1.dsc
+ 142eff74e2973349ac7bb95c976c5a9926405626 264540 menu-cache_1.0.2.orig.tar.xz
+ 56674f3df6e6621b5002f81ebb4810629ea25dfe 6260 menu-cache_1.0.2-1ubuntu0.1.debian.tar.xz
+Checksums-Sha256:
+ a9c258d1c1ff83178164b8718fb582f6f8b4aaf4248a9b036594f6fd9d7107e1 2489 menu-cache_1.0.2-1ubuntu0.1.dsc
+ 6f83edf2de34f83e701dcb52145d755250a5677580cd413476cc4d7f2d2012d5 264540 menu-cache_1.0.2.orig.tar.xz
+ 9d751bcd47896e5430578c873f1e84ec79bdd40aac4d36228184992e8ca472bf 6260 menu-cache_1.0.2-1ubuntu0.1.debian.tar.xz
+
+Package: mosquitto
+Format: 3.0 (quilt)
+Binary: mosquitto, mosquitto-dev, libmosquitto1, libmosquitto-dev, libmosquittopp1, libmosquittopp-dev, mosquitto-clients, mosquitto-dbg, libmosquitto1-dbg, libmosquittopp1-dbg
+Architecture: any all
+Version: 1.4.10-2ubuntu0.2
+Priority: optional
+Section: universe/net
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Roger A. Light <roger@atchoo.org>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 10), libc-ares-dev, libssl-dev (>= 1.0.0), libwebsockets-dev (>= 1.2), libwrap0-dev, python-all (>= 2.6.6-3~), uthash-dev, uuid-dev
+Homepage: http://mosquitto.org/
+Vcs-Browser: https://github.com/eclipse/mosquitto/tree/debian
+Vcs-Git: https://github.com/eclipse/mosquitto
+Directory: pool/universe/m/mosquitto
+Package-List:
+ libmosquitto-dev deb libdevel optional arch=any
+ libmosquitto1 deb libs optional arch=any
+ libmosquitto1-dbg deb debug extra arch=any
+ libmosquittopp-dev deb libdevel optional arch=any
+ libmosquittopp1 deb libs optional arch=any
+ libmosquittopp1-dbg deb debug extra arch=any
+ mosquitto deb net optional arch=any
+ mosquitto-clients deb net optional arch=any
+ mosquitto-dbg deb debug extra arch=any
+ mosquitto-dev deb devel optional arch=all
+Files:
+ 0854caafe547557abf7484d2deff7795 2616 mosquitto_1.4.10-2ubuntu0.2.dsc
+ 61839b47b58c5799aab76584f13ed66f 359569 mosquitto_1.4.10.orig.tar.gz
+ cc4e6651d39f9bc967550dddacec79c7 26284 mosquitto_1.4.10-2ubuntu0.2.debian.tar.xz
+Checksums-Sha1:
+ 75bb9983ce047586a8f288893e03b2c1701b1900 2616 mosquitto_1.4.10-2ubuntu0.2.dsc
+ f09641cd34eddb6747bc3e7ffee64d2a7cfd6183 359569 mosquitto_1.4.10.orig.tar.gz
+ b93f6f9949afff180c8526e03715c542189f1cc0 26284 mosquitto_1.4.10-2ubuntu0.2.debian.tar.xz
+Checksums-Sha256:
+ be3a3a6929c93d7e6afb50a394a0b8b4aedb59567d101c7fc7e45aeff4b4d604 2616 mosquitto_1.4.10-2ubuntu0.2.dsc
+ 437648d68a4a781dd8d913814cd5451f59ab4a5fcf84cccaf7c36e6a07459770 359569 mosquitto_1.4.10.orig.tar.gz
+ 2fa27f5e72f356b997be97ae483696d57edf688b2d5248fbd511652c30fa308c 26284 mosquitto_1.4.10-2ubuntu0.2.debian.tar.xz
+
+Package: mozjs38
+Format: 3.0 (quilt)
+Binary: libmozjs-38-0, libmozjs-38-dev
+Architecture: any
+Version: 38.8.0~repack1-0ubuntu0.1
+Priority: optional
+Section: universe/libs
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Laszlo Boszormenyi (GCS) <gcs@debian.org>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 10), autoconf2.13, libicu-dev, libffi-dev, libnspr4-dev (>= 2:4.9.2), libreadline-dev, zlib1g-dev (>= 1:1.2.3), pkg-config, pkg-kde-tools, python-dev, zip
+Homepage: https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/38
+Directory: pool/universe/m/mozjs38
+Package-List:
+ libmozjs-38-0 deb libs optional arch=any
+ libmozjs-38-dev deb libdevel optional arch=any
+Files:
+ e8bdec74c10b4cfb10423d69849f7479 2158 mozjs38_38.8.0~repack1-0ubuntu0.1.dsc
+ 9dae05d5deacaa37ff1aecabce65bd29 24968465 mozjs38_38.8.0~repack1.orig.tar.bz2
+ b681a56e4032a56511cd580890d82f86 21876 mozjs38_38.8.0~repack1-0ubuntu0.1.debian.tar.xz
+Checksums-Sha1:
+ e6cb40d118d564473912f298d9e4ee80b3d4a5f8 2158 mozjs38_38.8.0~repack1-0ubuntu0.1.dsc
+ 406bc10d1d87984175ede21f63cd4957b27d870a 24968465 mozjs38_38.8.0~repack1.orig.tar.bz2
+ 630c81418e2fffda7c6a8d785823b2e00930f2a3 21876 mozjs38_38.8.0~repack1-0ubuntu0.1.debian.tar.xz
+Checksums-Sha256:
+ 12804e579d2057f816d1402b41fce4b2ced76a5dc09da6410bfd797b0b919ad4 2158 mozjs38_38.8.0~repack1-0ubuntu0.1.dsc
+ b6089b17eb7c95e454138306ca912cdd41db9f12bf2563f4f67181b7c032065f 24968465 mozjs38_38.8.0~repack1.orig.tar.bz2
+ 550922eaf9d910128039370e2faade358085d2e7d1bc6155a229fcfdbbf698fd 21876 mozjs38_38.8.0~repack1-0ubuntu0.1.debian.tar.xz
+
+Package: newsbeuter
+Format: 3.0 (quilt)
+Binary: newsbeuter
+Architecture: any
+Version: 2.9-5+deb9u2build0.17.04.1
+Priority: optional
+Section: universe/net
+Maintainer: Nikos Tsipinakis <nikos@tsipinakis.com>
+Standards-Version: 3.9.8
+Build-Depends: libncursesw5-dev, debhelper (>= 9), libxml2-dev, libstfl-dev (>= 0.19), libsqlite3-dev, perl, pkg-config, libcurl4-gnutls-dev, libjson-c-dev, dpkg-dev (>= 1.16.1~), asciidoc, libxml2-utils, xsltproc, docbook-xml, docbook-xsl
+Homepage: https://www.newsbeuter.org
+Directory: pool/universe/n/newsbeuter
+Package-List:
+ newsbeuter deb net optional arch=any
+Files:
+ 296bf60b0508fec329eb47af215204f8 1988 newsbeuter_2.9-5+deb9u2build0.17.04.1.dsc
+ 9cf332dc7e591023147bda7add430835 432763 newsbeuter_2.9.orig.tar.gz
+ 0867150dc28bfad62928cb6cb7b639f4 26472 newsbeuter_2.9-5+deb9u2build0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ 51d83cbe7ade4b32c3df487e9633f0c41e08cc4e 1988 newsbeuter_2.9-5+deb9u2build0.17.04.1.dsc
+ e0d61cda874ea9b77ed27f2edfea50a6ea471894 432763 newsbeuter_2.9.orig.tar.gz
+ 2cdd5c2bee9ad21defd2c32b1946e7d11b325646 26472 newsbeuter_2.9-5+deb9u2build0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ 5cff08a3907186ff9ae246698c910e56cdb328cb130d39a1a702e40ee0d06a7e 1988 newsbeuter_2.9-5+deb9u2build0.17.04.1.dsc
+ 74a8bf019b09c3b270ba95adc29f2bbe48ea1f55cc0634276b21fcce1f043dc8 432763 newsbeuter_2.9.orig.tar.gz
+ 62588c947f5e7993f550d40c30bbe13755b03d591551294fb08c3c6900a2242a 26472 newsbeuter_2.9-5+deb9u2build0.17.04.1.debian.tar.xz
+
+Package: pcmanfm
+Format: 3.0 (quilt)
+Binary: pcmanfm, pcmanfm-dbg
+Architecture: any
+Version: 1.2.5-2ubuntu0.1
+Priority: optional
+Section: universe/utils
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Debian LXDE Maintainers <pkg-lxde-maintainers@lists.alioth.debian.org>
+Uploaders:  Andrew Lee (李健秋) <ajqlee@debian.org>, Andriy Grytsenko <andrej@rep.kiev.ua>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 9), intltool, pkg-config, libfm-gtk-dev (>= 1.2.0), libgtk2.0-dev
+Homepage: http://pcmanfm.sourceforge.net/
+Vcs-Browser: https://git.lxde.org/gitweb/?p=debian/pcmanfm.git
+Vcs-Git: https://git.lxde.org/git/debian/pcmanfm.git
+Directory: pool/universe/p/pcmanfm
+Package-List:
+ pcmanfm deb utils optional arch=any
+ pcmanfm-dbg deb debug extra arch=any
+Files:
+ c759933ecdbb7278b787067b1aa646c8 2160 pcmanfm_1.2.5-2ubuntu0.1.dsc
+ b4d1f8ce08d87e4f27805a246fc51ac2 417808 pcmanfm_1.2.5.orig.tar.xz
+ 533b302e42b4eefdb0d8485553f5f236 12628 pcmanfm_1.2.5-2ubuntu0.1.debian.tar.xz
+Checksums-Sha1:
+ 757d57b31a27bd78ccd146165d3072ab787dc972 2160 pcmanfm_1.2.5-2ubuntu0.1.dsc
+ 9a8a2b4abebdf859e5ba2486eff84d505ad17b89 417808 pcmanfm_1.2.5.orig.tar.xz
+ c8bb32077501cc37ff2dade69e2e8b19b29e400c 12628 pcmanfm_1.2.5-2ubuntu0.1.debian.tar.xz
+Checksums-Sha256:
+ 36f39d33c951661c671517fd28bf13244ea5b6c11a0db8885cb4c40621253e3a 2160 pcmanfm_1.2.5-2ubuntu0.1.dsc
+ 0c86cac028b705ff314c7464d814c2cf7ff604c17491c20aa204b1ef1a80ad67 417808 pcmanfm_1.2.5.orig.tar.xz
+ 08b55dfa7e9a46d7992b76ed7f0bedaad692a6d5aa432432bec4e73989c131ad 12628 pcmanfm_1.2.5-2ubuntu0.1.debian.tar.xz
+
+Package: picocom
+Format: 3.0 (quilt)
+Binary: picocom
+Architecture: any
+Version: 1.7-2build0.17.04.1
+Priority: optional
+Section: universe/comm
+Maintainer: Matt Palmer <mpalmer@debian.org>
+Uploaders: W. Martin Borgert <debacle@debian.org>
+Standards-Version: 3.9.3
+Build-Depends: debhelper (>= 8.0.0)
+Homepage: http://code.google.com/p/picocom/
+Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/picocom.git
+Vcs-Git: https://anonscm.debian.org/git/collab-maint/picocom.git
+Directory: pool/universe/p/picocom
+Package-List:
+ picocom deb comm optional arch=any
+Files:
+ e71d5484724fba8cb75a21d84ea8e436 1907 picocom_1.7-2build0.17.04.1.dsc
+ 8eaba1d31407e8408674d6e57af447ef 42857 picocom_1.7.orig.tar.gz
+ e93b642723ed63bb267950c53366c917 6656 picocom_1.7-2build0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ 32b57acfb895e6a1389eec66d21b29486d14378e 1907 picocom_1.7-2build0.17.04.1.dsc
+ bde6e36af71db845913f9d61f28dee1b485218fa 42857 picocom_1.7.orig.tar.gz
+ a0ababe4a0023daa0bb70307e55e1d4b87a9d401 6656 picocom_1.7-2build0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ 2cd64d2add9be02f0d43bb10909c29edf3007a84b87d096d2963c96af41c5fe1 1907 picocom_1.7-2build0.17.04.1.dsc
+ d0f31c8f7a215a76922d30c81a52b9a2348c89e02a84935517002b3bc2c1129e 42857 picocom_1.7.orig.tar.gz
+ 80711748c0577cd206367318367347bc43907d71ab8f4e3f2dbeb5497efcc610 6656 picocom_1.7-2build0.17.04.1.debian.tar.xz
+
+Package: request-tracker4
+Format: 3.0 (quilt)
+Binary: request-tracker4, rt4-clients, rt4-standalone, rt4-fcgi, rt4-apache2, rt4-db-postgresql, rt4-db-mysql, rt4-db-sqlite, rt4-doc-html
+Architecture: all
+Version: 4.4.1-3+deb9u2build0.17.04.1
+Priority: optional
+Section: universe/misc
+Maintainer: Debian Request Tracker Group <pkg-request-tracker-maintainers@lists.alioth.debian.org>
+Uploaders: Niko Tyni <ntyni@debian.org>, Dominic Hargreaves <dom@earth.li>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 9), dh-autoreconf, dh-systemd, gnupg1, libapache-session-perl, libbusiness-hours-perl, libcgi-emulate-psgi-perl, libcgi-pm-perl, libcgi-psgi-perl, libcss-minifier-xs-perl, libclass-accessor-perl, libconvert-color-perl, libcrypt-eksblowfish-perl, libcrypt-ssleay-perl, libcrypt-x509-perl, libcss-squish-perl, libdata-guid-perl, libdata-ical-perl, libdata-page-pageset-perl, libdate-extract-perl, libdate-manip-perl, libdatetime-format-natural-perl, libdatetime-locale-perl (>= 1:1.02), libdatetime-perl, libdbd-mysql-perl, libdbd-sqlite3-perl, libdbi-perl, libdbix-searchbuilder-perl (>= 1.66), libdevel-globaldestruction-perl, libemail-abstract-perl, libemail-address-list-perl, libemail-address-perl (>= 1.897), libfcgi-perl, libfile-sharedir-perl, libfile-which-perl, libgd-graph-perl (>= 1.47), libgd-text-perl, libgnupg-interface-perl, libgraphviz-perl, libhtml-formattext-withlinks-andtables-perl (>= 0.06), libhtml-formattext-withlinks-perl, libhtml-mason-perl, libhtml-mason-psgihandler-perl, libhtml-parser-perl, libhtml-quoted-perl, libhtml-rewriteattributes-perl (>= 0.05), libhtml-scrubber-perl, libhttp-message-perl, libipc-run-perl, libipc-run3-perl, libjavascript-minifier-xs-perl, libjson-perl, liblist-moreutils-perl, liblocale-maketext-fuzzy-perl, liblocale-maketext-lexicon-perl, liblocale-po-perl, liblog-dispatch-perl, liblog-dispatch-perl-perl, libmailtools-perl (>= 2.12), libmime-tools-perl (>= 5.504), libmime-types-perl, libmodule-refresh-perl, libmodule-versions-report-perl, libmojolicious-perl, libnet-cidr-perl, libnet-ip-perl, libnet-ldap-perl, libnet-ldap-server-test-perl, libnet-ssleay-perl, libperlio-eol-perl, libplack-middleware-test-stashwarnings-perl (>= 0.08), libplack-perl (>= 1.0002), libregexp-common-net-cidr-perl, libregexp-common-perl, libregexp-ipv6-perl, librole-basic-perl, libscope-upper-perl, libset-tiny-perl, libstring-shellquote-perl, libsymbol-global-name-perl, libterm-readkey-perl, libtest-deep-perl, libtest-email-perl, libtest-expect-perl, libtest-longstring-perl, libtest-mocktime-perl, libtest-nowarnings-perl, libtest-pod-perl, libtest-warn-perl, libtest-www-mechanize-perl, libtest-www-mechanize-psgi-perl, libtext-autoformat-perl, libtext-password-pronounceable-perl, libtext-quoted-perl (>= 2.07), libtext-template-perl, libtext-wikiformat-perl, libtext-wrapper-perl, libtime-parsedate-perl, libtimedate-perl, libtree-simple-perl, libuniversal-require-perl, liburi-perl, libwww-mechanize-perl, libwww-perl, libxml-rss-perl, libxml-simple-perl, perl (>= 5.17.10) | libpod-simple-perl (>= 3.24), perl (>= 5.21.6) | libencode-perl (>= 2.64), perl, po-debconf, tzdata
+Homepage: http://bestpractical.com/rt/
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-request-tracker/request-tracker4.git
+Vcs-Git: https://anonscm.debian.org/git/pkg-request-tracker/request-tracker4.git
+Directory: pool/universe/r/request-tracker4
+Package-List:
+ request-tracker4 deb misc optional arch=all
+ rt4-apache2 deb misc optional arch=all
+ rt4-clients deb misc optional arch=all
+ rt4-db-mysql deb misc optional arch=all
+ rt4-db-postgresql deb misc optional arch=all
+ rt4-db-sqlite deb misc optional arch=all
+ rt4-doc-html deb doc optional arch=all
+ rt4-fcgi deb misc optional arch=all
+ rt4-standalone deb misc optional arch=all
+Files:
+ 1cd4ca2a7900273d1f2b8479d22b05f8 5540 request-tracker4_4.4.1-3+deb9u2build0.17.04.1.dsc
+ 8b0d4487be2741b20083de3ac199cc72 1132767 request-tracker4_4.4.1.orig-third-party-source.tar.gz
+ 3587522b92a02d3866e07dc9361ca1e2 9057212 request-tracker4_4.4.1.orig.tar.gz
+ 5b0e5a575317902a10e9bb0f7544801c 83740 request-tracker4_4.4.1-3+deb9u2build0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ 0dac645b79a0c65b4614f7cc5bd4b1653948bc35 5540 request-tracker4_4.4.1-3+deb9u2build0.17.04.1.dsc
+ 3d4f9fa07e52981f4ab7ce9c7a4a788a8d84d94e 1132767 request-tracker4_4.4.1.orig-third-party-source.tar.gz
+ a3c7aa5398af4f53c947b4bee8c91cecd5beb432 9057212 request-tracker4_4.4.1.orig.tar.gz
+ dabd677fe9daad9c50fc024f543a29a618007b25 83740 request-tracker4_4.4.1-3+deb9u2build0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ 4666be75253b7bfde904ebce6a7e712b61c31680cabdebc9e184d4655164a39c 5540 request-tracker4_4.4.1-3+deb9u2build0.17.04.1.dsc
+ 5cdc9d979a44ac53aa67e2ddecc17477dbe53fa8be8b4147b5f9a3b83cabdaf8 1132767 request-tracker4_4.4.1.orig-third-party-source.tar.gz
+ f87329911020e01b39948070aec2bd7abf0c81641f0cf2f25e01c690a19f24f5 9057212 request-tracker4_4.4.1.orig.tar.gz
+ e941046174d49e4b3103201363db0c625f661bde1fb9a752092867de85fc3f78 83740 request-tracker4_4.4.1-3+deb9u2build0.17.04.1.debian.tar.xz
+
+Package: ruby-rack-cors
+Format: 3.0 (quilt)
+Binary: ruby-rack-cors
+Architecture: all
+Version: 0.4.0-1+deb9u1build0.17.04.1
+Priority: optional
+Section: universe/misc
+Maintainer: Debian Ruby Extras Maintainers <pkg-ruby-extras-maintainers@lists.alioth.debian.org>
+Uploaders: Pirate Praveen <praveen@debian.org>
+Standards-Version: 3.9.6
+Build-Depends: debhelper (>= 7.0.50~), gem2deb (>= 0.7.5~), ruby-rack-test, ruby-shoulda, ruby-mocha
+Homepage: http://github.com/cyu/rack-cors
+Vcs-Browser: http://anonscm.debian.org/?p=pkg-ruby-extras/ruby-rack-cors.git;a=summary
+Vcs-Git: git://anonscm.debian.org/pkg-ruby-extras/ruby-rack-cors.git
+Directory: pool/universe/r/ruby-rack-cors
+Package-List:
+ ruby-rack-cors deb ruby optional arch=all
+Files:
+ c56998005c93b32da33606525f0bd546 2166 ruby-rack-cors_0.4.0-1+deb9u1build0.17.04.1.dsc
+ 723761bd5664421c46851bd07a630c90 47596 ruby-rack-cors_0.4.0.orig.tar.gz
+ 82ee98ef569926e2db26520f9dd96dec 3196 ruby-rack-cors_0.4.0-1+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ bb74504918d60b95d6fbbbb513f920bed014a087 2166 ruby-rack-cors_0.4.0-1+deb9u1build0.17.04.1.dsc
+ 6a29c595f7ee83391ca1f98735321db31eb74dab 47596 ruby-rack-cors_0.4.0.orig.tar.gz
+ 83a2fba52f00f2f61c09bf021984871f8ffc3ae9 3196 ruby-rack-cors_0.4.0-1+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ 8d070c5b5ca710d151def9f050ab68b50837ecdb1ed0c32729b4150a408533bd 2166 ruby-rack-cors_0.4.0-1+deb9u1build0.17.04.1.dsc
+ 1fa07dfdda85cb1eb0787b52f083c3aa4f264e1105cd5355650a38e2891705cb 47596 ruby-rack-cors_0.4.0.orig.tar.gz
+ e5ff52915a591a617c17696a552a8a284867bb18aacf92aa3cede6ecad2a36af 3196 ruby-rack-cors_0.4.0-1+deb9u1build0.17.04.1.debian.tar.xz
+Ruby-Versions: all
+
+Package: rustc
+Format: 3.0 (quilt)
+Binary: rustc, libstd-rust-1.17, libstd-rust-dev, rust-gdb, rust-lldb, rust-doc, rust-src
+Architecture: any all
+Version: 1.17.0+dfsg2-8~ubuntu0.17.04.1
+Priority: extra
+Section: universe/misc
+Maintainer: Rust Maintainers <pkg-rust-maintainers@lists.alioth.debian.org>
+Uploaders: Jordan Justen <jordan.l.justen@intel.com>, Luca Bruno <lucab@debian.org>, Sylvestre Ledru <sylvestre@debian.org>, Angus Lees <gus@debian.org>, Ximin Luo <infinity0@debian.org>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 9), dpkg-dev (>= 1.17.14), python:native, cargo (>= 0.17.0) <!pkg.rustc.dlstage0>, rustc (>= 1.16.0+dfsg) <!pkg.rustc.dlstage0>, rustc (<= 1.17.0++) <!pkg.rustc.dlstage0>, llvm-3.9-dev:native (>= 1:3.9.1-4~), llvm-3.9-tools:native (>= 1:3.9.1-4~), libllvm3.9 (>= 1:3.9.1-4~), autotools-dev, cmake | cmake3, gperf, binutils (>= 2.26) <!nocheck> | binutils-2.26 <!nocheck>, nodejs <!nocheck>, valgrind <!nocheck>, git <!nocheck>, procps <!nocheck>, libjs-jquery <!nocheck>, antlr4 <!nocheck> | antlr <!nocheck>, bison <!nocheck>, flex <!nocheck>, gdb (>= 7.12) <!nocheck>, default-jdk-headless <!nocheck> | default-jdk <!nocheck>
+Build-Depends-Indep: libjs-jquery <!nodoc>
+Build-Conflicts: gdb-minimal <!nocheck>
+Homepage: http://www.rust-lang.org/
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-rust/rust.git
+Vcs-Git: https://anonscm.debian.org/git/pkg-rust/rust.git
+Directory: pool/universe/r/rustc
+Package-List:
+ libstd-rust-1.17 deb libs extra arch=any
+ libstd-rust-dev deb libdevel extra arch=any
+ rust-doc deb doc extra arch=all profile=!nodoc
+ rust-gdb deb devel extra arch=all
+ rust-lldb deb devel extra arch=all
+ rust-src deb devel extra arch=all
+ rustc deb devel extra arch=any
+Files:
+ 6b0c18c9dee5a5d2c8e71d4cd1402060 2817 rustc_1.17.0+dfsg2-8~ubuntu0.17.04.1.dsc
+ 6b9353e43f137d109cffe4d86de5242b 8017340 rustc_1.17.0+dfsg2.orig.tar.xz
+ 8f71e911a53462e5b1621f66ebf6f596 55364 rustc_1.17.0+dfsg2-8~ubuntu0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ 5f92196c4cdcd0c55702bcccd73a4a12210bd5ea 2817 rustc_1.17.0+dfsg2-8~ubuntu0.17.04.1.dsc
+ 542d0c431be985e44226186a540cc7400a4e5596 8017340 rustc_1.17.0+dfsg2.orig.tar.xz
+ 3a548a1454673aad8bd0a01bc6315d3c2b6afc5b 55364 rustc_1.17.0+dfsg2-8~ubuntu0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ 0084350cb0db77af5526f338d746379a02ab412ab53d17249fcc15e5017f1334 2817 rustc_1.17.0+dfsg2-8~ubuntu0.17.04.1.dsc
+ 4597f522ef804e7eeee9d3cc4e766e0ae5ea1b0ec6bc366645ad661d1eac5893 8017340 rustc_1.17.0+dfsg2.orig.tar.xz
+ 4428128738cc7859f09172b45d7817410bb45a4bbb592cad614cfa08c916ff31 55364 rustc_1.17.0+dfsg2-8~ubuntu0.17.04.1.debian.tar.xz
+
+Package: supervisor
+Format: 3.0 (quilt)
+Binary: supervisor, supervisor-doc
+Architecture: all
+Version: 3.3.1-1+deb9u1build0.17.04.1
+Priority: optional
+Section: universe/admin
+Maintainer: Orestis Ioannou <orestis@oioannou.com>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 9), dh-python, dh-systemd, python-all, python-meld3, python-mock, python-pkg-resources, python-setuptools, python-sphinx
+Homepage: http://supervisord.org/
+Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/supervisor.git
+Vcs-Git: https://anonscm.debian.org/git/collab-maint/supervisor.git
+Directory: pool/universe/s/supervisor
+Package-List:
+ supervisor deb admin optional arch=all
+ supervisor-doc deb doc optional arch=all
+Files:
+ 5d85a596c8f59e60533cd4ea0a27eb2a 2109 supervisor_3.3.1-1+deb9u1build0.17.04.1.dsc
+ 202f760f9bf4930ec06557bac73e5cf2 415246 supervisor_3.3.1.orig.tar.gz
+ 3fabbbaa563f7776aca4075d73559c0e 34880 supervisor_3.3.1-1+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ 459af3d438a91a550966b9f00d883f1c3226a469 2109 supervisor_3.3.1-1+deb9u1build0.17.04.1.dsc
+ d8dc4e7a091301cef1a212ac8ea9c12e3d157e29 415246 supervisor_3.3.1.orig.tar.gz
+ 938c8a029b431ff9a461c3feffb300ad1bb9aa04 34880 supervisor_3.3.1-1+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ f63101918b37485cc71e30904de1469a8760c0a41290c64c4a237f18657e718c 2109 supervisor_3.3.1-1+deb9u1build0.17.04.1.dsc
+ fc3af22e5a7af2f6c3be787acf055c1c17777f5607cd4dc935fe633ab97061fd 415246 supervisor_3.3.1.orig.tar.gz
+ 9951b2ddddb5cd840f7093ca501b01b963603c838d5d8e848f56a5dab4128c4c 34880 supervisor_3.3.1-1+deb9u1build0.17.04.1.debian.tar.xz
+
+Package: tenshi
+Format: 3.0 (quilt)
+Binary: tenshi
+Architecture: all
+Version: 0.13-2+deb7u1~build0.17.04.1
+Priority: optional
+Section: universe/admin
+Maintainer: Ignace Mouzannar <mouzannar@gmail.com>
+Standards-Version: 3.9.2
+Build-Depends: debhelper (>= 7.0.8)
+Homepage: http://dev.inversepath.com/trac/tenshi
+Vcs-Browser: http://svn.debian.org/viewsvn/collab-maint/ext-maint/tenshi/trunk/
+Vcs-Svn: svn://svn.debian.org/collab-maint/ext-maint/tenshi/trunk/
+Directory: pool/universe/t/tenshi
+Package-List:
+ tenshi deb admin optional arch=all
+Files:
+ 3221f9bcbe9afd1255bf83d2aae4883c 1916 tenshi_0.13-2+deb7u1~build0.17.04.1.dsc
+ 86233a514b3a6fbc9a76493513119342 29179 tenshi_0.13.orig.tar.gz
+ 710d3ff3e60da67646d2878816096bd0 10032 tenshi_0.13-2+deb7u1~build0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ 7908dbb79f11d7d5a629dc3d32c254da5b46cc73 1916 tenshi_0.13-2+deb7u1~build0.17.04.1.dsc
+ 179b2edb7321276112d18fd7b6aa3a76cc01fea8 29179 tenshi_0.13.orig.tar.gz
+ c58769b4244340734c53dc320259c82c637dea73 10032 tenshi_0.13-2+deb7u1~build0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ bb4c2d913eb295ab755954e06278f2feba16b71da180a7c1ef1d5a1301e1280f 1916 tenshi_0.13-2+deb7u1~build0.17.04.1.dsc
+ a0b9e0ca95eec52b9bbf0c29529435da64af9b3dfa943dbeca0cd77bf223edf2 29179 tenshi_0.13.orig.tar.gz
+ b087f8f6fa69ba5c234e12f4ea01c5f058f3d562312a8709506407b7019d3d71 10032 tenshi_0.13-2+deb7u1~build0.17.04.1.debian.tar.xz
+
+Package: tnef
+Format: 3.0 (quilt)
+Binary: tnef
+Architecture: any
+Version: 1.4.12-1ubuntu0.1
+Priority: optional
+Section: universe/text
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Kevin Coyner <kcoyner@debian.org>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 9), autotools-dev, quilt, dh-autoreconf
+Homepage: https://github.com/verdammelt/tnef
+Directory: pool/universe/t/tnef
+Package-List:
+ tnef deb text optional arch=any
+Files:
+ b5a6c58834ea1afcc0985df3c4cf76cd 1818 tnef_1.4.12-1ubuntu0.1.dsc
+ 59d96464d8aa10349c02ca1edd47f0ac 8463407 tnef_1.4.12.orig.tar.gz
+ 9b085b166b647c5d1c4e1b537db4e0d4 7124 tnef_1.4.12-1ubuntu0.1.debian.tar.xz
+Checksums-Sha1:
+ d2273348f6bd480e807f07756b103e89b77ba987 1818 tnef_1.4.12-1ubuntu0.1.dsc
+ 1e6cb8a267157f9ee7696ef8fc4c602e40cb2902 8463407 tnef_1.4.12.orig.tar.gz
+ aa3090900b0b8f30662c857430fd915dfc26fa3a 7124 tnef_1.4.12-1ubuntu0.1.debian.tar.xz
+Checksums-Sha256:
+ 1a6e302dd11302a0963df80a0bfeb563de237253075a1de580f4ebacbd6e6875 1818 tnef_1.4.12-1ubuntu0.1.dsc
+ f7dea4c806d2263948ed027dbb8c593191f321b79c73816bb5608c957bc70254 8463407 tnef_1.4.12.orig.tar.gz
+ c58be03d797179542e061a5bc502d1438d3f3d6dba615203e11432ab293363e6 7124 tnef_1.4.12-1ubuntu0.1.debian.tar.xz
+
+Package: ubuntu-image
+Format: 3.0 (native)
+Binary: ubuntu-image, python3-ubuntu-image
+Architecture: all
+Version: 1.0+17.04ubuntu1.1
+Priority: optional
+Section: universe/utils
+Maintainer: Barry Warsaw <barry@ubuntu.com>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 9), dh-python, dosfstools, gdisk, grub-common, mtools, python3-all, python3-attr, python3-coverage, python3-debian, python3-docutils, python3-flake8, python3-nose2, python3-parted, python3-pkg-resources, python3-setuptools, python3-voluptuous, python3-yaml, snapd (>= 2.0.11~ppa0), tox
+Testsuite: autopkgtest
+Homepage: http://launchpad.net/ubuntu-image
+Directory: pool/universe/u/ubuntu-image
+Package-List:
+ python3-ubuntu-image deb python optional arch=all
+ ubuntu-image deb utils optional arch=all
+Files:
+ 17ced469b690a14e9ddf805198009b6b 1986 ubuntu-image_1.0+17.04ubuntu1.1.dsc
+ 765ce99282df17bc47086a8200f48fbe 3678120 ubuntu-image_1.0+17.04ubuntu1.1.tar.xz
+Checksums-Sha1:
+ 5f6e66de029519d42076b215010a068ac6f254ea 1986 ubuntu-image_1.0+17.04ubuntu1.1.dsc
+ 8ceb5e3f045877c38d1791a8f1c88a65c6004d8f 3678120 ubuntu-image_1.0+17.04ubuntu1.1.tar.xz
+Checksums-Sha256:
+ ae0648c7bb02af6b9cceca8486ffa3f6d2cd5bdd108f7e0f4fbd9f67a265e6d7 1986 ubuntu-image_1.0+17.04ubuntu1.1.dsc
+ 05402ef20b1a9d6209a0f6238a62dd2f796354d04419091dae1c78e21c940012 3678120 ubuntu-image_1.0+17.04ubuntu1.1.tar.xz
+Testsuite-Triggers: git, kpartx, lsb-release, man-db, python3-github, python3-requests, qemu-system-x86, snapcraft, snapd
+
+Package: undertow
+Format: 3.0 (quilt)
+Binary: libundertow-java, libundertow-java-doc
+Architecture: all
+Version: 1.4.8-1+deb9u1build0.17.04.1
+Priority: optional
+Section: universe/misc
+Maintainer: Debian Java Maintainers <pkg-java-maintainers@lists.alioth.debian.org>
+Uploaders:  Markus Koschany <apo@debian.org>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 10), default-jdk, default-jdk-doc, libapacheds-java, libeasymock-java, libh2-java (>= 1.3.175), libhttpclient-java, libhttpmime-java, libjboss-classfilewriter-java, libjboss-classfilewriter-java-doc, libjboss-logging-java, libjboss-logging-java-doc, libjboss-logging-tools-java, libjboss-logmanager-java, libjboss-logmanager-java-doc, libjboss-xnio-java, libjboss-xnio-java-doc, libmaven-dependency-plugin-java, libmaven-exec-plugin-java, libmaven-javadoc-plugin-java, libmaven-shade-plugin-java, libnetty-java, libtomcat8-java, maven-debian-helper (>= 1.5)
+Homepage: http://undertow.io/
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-java/undertow.git
+Vcs-Git: https://anonscm.debian.org/git/pkg-java/undertow.git
+Directory: pool/universe/u/undertow
+Package-List:
+ libundertow-java deb java optional arch=all
+ libundertow-java-doc deb doc optional arch=all
+Files:
+ 3651714d509dfefc9760c7f945f99bde 2616 undertow_1.4.8-1+deb9u1build0.17.04.1.dsc
+ 0cb50df7c574f61b30572db230e4c88f 706084 undertow_1.4.8.orig.tar.xz
+ e71c9fe3c9dc75134f5472453ee99281 12544 undertow_1.4.8-1+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha1:
+ 2a3796d4519a5fd4e0328b3594db276b181d8b25 2616 undertow_1.4.8-1+deb9u1build0.17.04.1.dsc
+ f6ed2e1985dfcae6be76a73e1539b2be045ec1b1 706084 undertow_1.4.8.orig.tar.xz
+ 6f17a074ae16bee484ed2ca61b488a3d60293fe0 12544 undertow_1.4.8-1+deb9u1build0.17.04.1.debian.tar.xz
+Checksums-Sha256:
+ 5473180924f6e46cdc34aa2656d403e235686a7187ca9f719179e04d3be5797e 2616 undertow_1.4.8-1+deb9u1build0.17.04.1.dsc
+ e8da6d0bbe8de5c98121579a9c66a3a5dbf78c658cc8d49918f979bcf4d4bc76 706084 undertow_1.4.8.orig.tar.xz
+ 2546b44ebbc77f27d65eb12f9bdb1cfc869f48a230c24319eef48878e8d0c017 12544 undertow_1.4.8-1+deb9u1build0.17.04.1.debian.tar.xz
+
+Package: varnish
+Format: 3.0 (quilt)
+Binary: varnish, varnish-doc, libvarnishapi1, libvarnishapi-dev
+Architecture: any all
+Version: 5.0.0-7ubuntu0.1
+Priority: optional
+Section: universe/web
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Varnish Package Maintainers <pkg-varnish-devel@lists.alioth.debian.org>
+Uploaders: Jan Wagner <waja@cyconet.org>, Lars Bahner <bahner@debian.org>, Stig Sandbeck Mathisen <ssm@debian.org>, Tollef Fog Heen <tfheen@debian.org>, Emanuele Rocca <ema@debian.org>
+Standards-Version: 3.9.8
+Build-Depends: automake, autotools-dev, debhelper (>= 10), dh-autoreconf, dh-systemd, graphviz, libedit-dev, libjemalloc-dev, libncurses-dev, libpcre3-dev, libtool, pkg-config, python-docutils, xsltproc
+Testsuite: autopkgtest
+Homepage: https://www.varnish-cache.org/
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-varnish/pkg-varnish.git
+Vcs-Git: https://anonscm.debian.org/git/pkg-varnish/pkg-varnish.git
+Directory: pool/universe/v/varnish
+Package-List:
+ libvarnishapi-dev deb libdevel optional arch=any
+ libvarnishapi1 deb libs optional arch=any
+ varnish deb web optional arch=any
+ varnish-doc deb doc optional arch=all
+Files:
+ 3afe98d6cc394b0459d1e6a9ccc0ad16 2231 varnish_5.0.0-7ubuntu0.1.dsc
+ 6c76ff181d21be595a18ae969a692ae7 2472963 varnish_5.0.0.orig.tar.gz
+ 31a247e91d5d2e86552a90ec01967695 21856 varnish_5.0.0-7ubuntu0.1.debian.tar.xz
+Checksums-Sha1:
+ 5290e182a5c3405b621d822c088a047cff4c3caa 2231 varnish_5.0.0-7ubuntu0.1.dsc
+ e5c88abc3744122f2d073547f18b061c5310e2ef 2472963 varnish_5.0.0.orig.tar.gz
+ 990bc8ecead12b352606f6683fa96473bfbdb13c 21856 varnish_5.0.0-7ubuntu0.1.debian.tar.xz
+Checksums-Sha256:
+ faa089f01ddf804e26becd6deb7fe9980fb5c85e31934df7337f5d27386cb4a2 2231 varnish_5.0.0-7ubuntu0.1.dsc
+ 5101ad72b29d288a07e2e5ded4c2abe850b70ff000c13ceb1764625e83823f4a 2472963 varnish_5.0.0.orig.tar.gz
+ 4d0111e597eb1c7b53f7e8ec2406466c850f2f6170106796b0ac9ceaf1577a94 21856 varnish_5.0.0-7ubuntu0.1.debian.tar.xz
+Testsuite-Triggers: ruby-serverspec
+
+Package: vlc
+Format: 3.0 (quilt)
+Binary: vlc, libvlc-dev, libvlc5, libvlccore-dev, libvlccore8, libvlc-bin, vlc-bin, vlc-data, vlc-l10n, vlc-plugin-base, vlc-plugin-access-extra, vlc-plugin-video-output, vlc-plugin-video-splitter, vlc-plugin-visualization, vlc-plugin-skins2, vlc-plugin-qt, vlc-plugin-fluidsynth, vlc-plugin-jack, vlc-plugin-notify, vlc-plugin-sdl, vlc-plugin-svg, vlc-plugin-zvbi, vlc-plugin-samba, vlc-nox
+Architecture: any all
+Version: 2.2.4-14ubuntu2.2
+Priority: optional
+Section: universe/graphics
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Debian Multimedia Maintainers <pkg-multimedia-maintainers@lists.alioth.debian.org>
+Uploaders: Loic Minier <lool@dooz.org>, Christophe Mutricy <xtophe@videolan.org>, Mohammed Adnène Trojette <adn+deb@diwi.org>, Reinhard Tartler <siretart@tauware.de>, Benjamin Drung <bdrung@debian.org>, Edward Wang <edward.c.wang@compdigitec.com>, Mateusz Łukasik <mati75@linuxmint.pl>, Sebastian Ramacher <sramacher@debian.org>
+Standards-Version: 3.9.8
+Build-Depends: autopoint, debhelper (>= 10), gettext, liba52-0.7.4-dev, libaa1-dev, libasound2-dev (>= 1.0.24) [linux-any], libass-dev (>= 0.9.8), libavahi-client-dev, libavc1394-dev (>= 0.5.3) [linux-any], libbluray-dev (>= 1:0.3.0), libcaca-dev (>= 0.99.beta4), libcairo2-dev (>= 1.13.1), libcddb2-dev, libcdio-dev (>= 0.78.2), libchromaprint-dev (>= 0.6.0), libcrystalhd-dev [amd64 i386], libdbus-1-dev (>= 1.6.0), libdc1394-22-dev (>= 2.1.0) [linux-any], libdca-dev, libdirectfb-dev, libdvbpsi-dev, libdvdnav-dev (>> 4.9.0), libdvdread-dev (>> 4.9.0), libegl1-mesa-dev, libfaad-dev, libflac-dev (>= 1.1.2-3), libfluidsynth-dev (>= 1.1.2), libfreerdp-dev (>= 1.0.1), libfreetype6-dev, libfribidi-dev, libgl1-mesa-dev, libgles2-mesa-dev, libgnutls28-dev (>= 3.0.20), libgtk2.0-dev, libidn11-dev, libiso9660-dev (>= 0.72), libjack-dev, libkate-dev (>= 0.3.0), liblirc-dev, liblivemedia-dev (>= 2011.12.23), liblua5.2-dev, libmad0-dev, libmatroska-dev (>= 1.0.0), libmpcdec-dev, libmpeg2-4-dev, libmtp-dev (>= 1.0.0), libncursesw5-dev, libnotify-dev, libogg-dev (>= 1.0), libomxil-bellagio-dev [linux-any], libopenmpt-modplug-dev | libmodplug-dev (>= 1:0.8.8.1), libopus-dev (>= 1.0.3), libpng-dev, libpulse-dev (>= 1.0), libqt5x11extras5-dev, libraw1394-dev (>= 2.0.1) [linux-any], libresid-builder-dev, librsvg2-dev, libsamplerate0-dev, libsdl-image1.2-dev, libsdl1.2-dev (>= 1.2.10), libshine-dev (>= 3.0.0), libshout3-dev, libsidplay2-dev, libsmbclient-dev [!hurd-any], libsndio-dev, libspeex-dev (>= 1.0.5), libspeexdsp-dev (>= 1.0.5), libssh2-1-dev, libtag1-dev (>= 1.9), libtheora-dev (>= 1.0), libtwolame-dev (>= 0.3.8), libudev-dev [linux-any], libupnp-dev, libv4l-dev [linux-any], libva-dev [kfreebsd-any linux-any], libvcdinfo-dev (>= 0.7.22), libvdpau-dev, libvncserver-dev (>= 0.9.9), libvorbis-dev, libx11-dev, libx264-dev (>= 2:0.86), libx265-dev, libxcb-composite0-dev, libxcb-keysyms1-dev (>= 0.3.4), libxcb-randr0-dev (>= 1.3), libxcb-shm0-dev, libxcb-xv0-dev (>= 1.1.90.1), libxcb1-dev (>= 1.6), libxext-dev, libxi-dev, libxinerama-dev, libxml2-dev, libxpm-dev, libzvbi-dev (>= 0.2.28), lua5.2, oss4-dev [kfreebsd-any], pkg-config, python3, qtbase5-dev (>= 5.1), zlib1g-dev, zsh, libbz2-dev, libgme-dev, libgsm1-dev, liblzma-dev, libmp3lame-dev, librtmp-dev, libsnappy-dev, libsoxr-dev, libssh-gcrypt-dev, libvpx-dev, libwavpack-dev, libwebp-dev, libxvidcore-dev, yasm
+Testsuite: autopkgtest
+Homepage: http://www.videolan.org/vlc/
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-multimedia/vlc.git
+Vcs-Git: https://anonscm.debian.org/git/pkg-multimedia/vlc.git
+Directory: pool/universe/v/vlc
+Package-List:
+ libvlc-bin deb video optional arch=any
+ libvlc-dev deb libdevel optional arch=any
+ libvlc5 deb libs optional arch=any
+ libvlccore-dev deb libdevel optional arch=any
+ libvlccore8 deb libs optional arch=any
+ vlc deb video optional arch=any
+ vlc-bin deb video optional arch=any
+ vlc-data deb video optional arch=all
+ vlc-l10n deb localization optional arch=all
+ vlc-nox deb oldlibs extra arch=any
+ vlc-plugin-access-extra deb video optional arch=any
+ vlc-plugin-base deb video optional arch=any
+ vlc-plugin-fluidsynth deb video optional arch=any
+ vlc-plugin-jack deb video optional arch=any
+ vlc-plugin-notify deb video optional arch=any
+ vlc-plugin-qt deb video optional arch=any
+ vlc-plugin-samba deb video optional arch=linux-any,kfreebsd-any
+ vlc-plugin-sdl deb video optional arch=any
+ vlc-plugin-skins2 deb video optional arch=any
+ vlc-plugin-svg deb video optional arch=any
+ vlc-plugin-video-output deb video optional arch=any
+ vlc-plugin-video-splitter deb video optional arch=any
+ vlc-plugin-visualization deb video optional arch=any
+ vlc-plugin-zvbi deb video optional arch=any
+Files:
+ d759432b3ead1dc660b29837771a8cf1 6371 vlc_2.2.4-14ubuntu2.2.dsc
+ b8c6953c65d0c9ef120a878064282c75 7214980 vlc_2.2.4.orig-ffmpeg-2-8-11.tar.xz
+ 55666c9898f658c7fcca12725bf7dd1b 22199316 vlc_2.2.4.orig.tar.xz
+ f6ae9167f19f40a8903f71a638b37372 82728 vlc_2.2.4-14ubuntu2.2.debian.tar.xz
+Checksums-Sha1:
+ 4bed0e1ab6718c1b94e21b83614cfdf8fef7f2d4 6371 vlc_2.2.4-14ubuntu2.2.dsc
+ c008b4ee94fc29527fa270ef957a7a5f400910c5 7214980 vlc_2.2.4.orig-ffmpeg-2-8-11.tar.xz
+ ec171b0ad731d9d114540cd7b7fcb41fc3293696 22199316 vlc_2.2.4.orig.tar.xz
+ fde844c96b8e5b13142556f386ea9b50c4b6a3f3 82728 vlc_2.2.4-14ubuntu2.2.debian.tar.xz
+Checksums-Sha256:
+ 9c4886e284fb84f81ba6fb1763f1f8604b4c56c353ae332f14ab27e64f419d61 6371 vlc_2.2.4-14ubuntu2.2.dsc
+ 38aa3aec93c480b34d33f3648aff9278581d151488b521995c084258613e1fe6 7214980 vlc_2.2.4.orig-ffmpeg-2-8-11.tar.xz
+ 1632e91d2a0087e0ef4c3fb4c95c3c2890f7715a9d1d43ffd46329f428cf53be 22199316 vlc_2.2.4.orig.tar.xz
+ 6b07038a1d9740911e78b57f7e30e65aff651680b1fd431ee1955c616872d183 82728 vlc_2.2.4-14ubuntu2.2.debian.tar.xz
+
+Package: weechat
+Format: 3.0 (quilt)
+Binary: weechat, weechat-curses, weechat-core, weechat-plugins, weechat-doc, weechat-dev, weechat-dbg
+Architecture: any all
+Version: 1.7-2ubuntu0.1
+Priority: optional
+Section: universe/net
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Emmanuel Bouthenot <kolter@debian.org>
+Standards-Version: 3.9.8
+Build-Depends: asciidoctor (>= 1.5.4), ruby-pygments.rb, debhelper (>= 9), dh-exec, cmake, pkg-config, libncursesw5-dev, gem2deb, libperl-dev, python-dev, libaspell-dev, liblua5.1-0-dev, tcl8.6-dev, guile-2.0-dev, libv8-dev [amd64 armel armhf hurd-i386 i386 kfreebsd-amd64 kfreebsd-i386 mips mipsel], libcurl4-gnutls-dev, libgcrypt20-dev, libgnutls28-dev, zlib1g-dev
+Homepage: https://weechat.org/
+Vcs-Browser: https://anonscm.debian.org/git/users/kolter/weechat.git
+Vcs-Git: https://anonscm.debian.org/git/users/kolter/weechat.git
+Directory: pool/universe/w/weechat
+Package-List:
+ weechat deb net optional arch=all
+ weechat-core deb net optional arch=any
+ weechat-curses deb net optional arch=any
+ weechat-dbg deb debug extra arch=any
+ weechat-dev deb devel optional arch=all
+ weechat-doc deb doc optional arch=all
+ weechat-plugins deb net optional arch=any
+Files:
+ a91e0b9ea3ec178c541c029dd8dce576 2239 weechat_1.7-2ubuntu0.1.dsc
+ 593e836e164e75520cbf0442154e59d6 2592656 weechat_1.7.orig.tar.bz2
+ 4d7c0d1fb3444b1e1d5403c695b0592b 16484 weechat_1.7-2ubuntu0.1.debian.tar.xz
+Checksums-Sha1:
+ 79cbd53c68bb6333c41fa532ccc887873d911ff2 2239 weechat_1.7-2ubuntu0.1.dsc
+ f8683d940417e8de1bfd933fff50fa1bbcf5d7b6 2592656 weechat_1.7.orig.tar.bz2
+ caf1225cbc0a9682998cb6c3029c39cd8c7cd623 16484 weechat_1.7-2ubuntu0.1.debian.tar.xz
+Checksums-Sha256:
+ 81466132f466a2f163f5c8d00698e95815510a571ebcd064d4fdbbd9396670e4 2239 weechat_1.7-2ubuntu0.1.dsc
+ c78a0063eee2f4cf3e67a3ff3936cfba0ed0012b1b7e5ec381c2d981f2cb64d0 2592656 weechat_1.7.orig.tar.bz2
+ fef6ec7fd7c496710e0dd298e6107e33bd5afd74a8c3bd6f8e4e25265d2c0b2b 16484 weechat_1.7-2ubuntu0.1.debian.tar.xz
+
+Package: wireguard
+Format: 1.0
+Binary: wireguard-dkms, wireguard-tools
+Architecture: all
+Version: 0.0.20170214-1ubuntu0.17.04.1
+Priority: extra
+Section: universe/misc
+Maintainer: Jason A. Donenfeld <Jason@zx2c4.com>
+Original-Maintainer: Daniel Kahn Gillmor <dkg@fifthhorseman.net>
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 10~)
+Homepage: https://www.wireguard.io
+Directory: pool/universe/w/wireguard
+Package-List:
+ wireguard-dkms deb net extra arch=all
+ wireguard-tools deb net extra arch=all
+Files:
+ 370f7b7957a9ec2c8d4e0460efb60c21 1618 wireguard_0.0.20170214-1ubuntu0.17.04.1.dsc
+ 35708212d0ef463bf98dbb59eb50c133 2629 wireguard_0.0.20170214-1ubuntu0.17.04.1.tar.gz
+Checksums-Sha1:
+ 1ad253adecc06ed68f2dd50bf9444ed2a81d0c3e 1618 wireguard_0.0.20170214-1ubuntu0.17.04.1.dsc
+ 4191bb77c63ef9c1e4c42bd6fe967b4d9eb4908f 2629 wireguard_0.0.20170214-1ubuntu0.17.04.1.tar.gz
+Checksums-Sha256:
+ 7a0dd7b05809a3bd5e1ba91b47d0fe2e694b4a2011046169b6ecc84fd001a3da 1618 wireguard_0.0.20170214-1ubuntu0.17.04.1.dsc
+ 3377724184ab9841b76cbb4e113bc5a7fc577ceab907da71e8ff8fade66b323c 2629 wireguard_0.0.20170214-1ubuntu0.17.04.1.tar.gz
+
+Package: wireshark
+Format: 3.0 (quilt)
+Binary: wireshark-common, wireshark, wireshark-qt, wireshark-gtk, tshark, wireshark-dev, wireshark-doc, libwireshark8, libwsutil7, libwsutil-dev, libwscodecs1, libwireshark-data, libwireshark-dev, libwiretap6, libwiretap-dev
+Architecture: any all
+Version: 2.2.6+g32dac6a-2ubuntu0.17.04
+Priority: optional
+Section: universe/net
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Balint Reczey <balint@balintreczey.hu>
+Standards-Version: 3.9.8
+Build-Depends: libgtk-3-dev, qtbase5-dev, qtbase5-dev-tools, qttools5-dev, qttools5-dev-tools, qtmultimedia5-dev, libqt5svg5-dev, libpcap0.8-dev, flex, libz-dev, debhelper (>= 9), po-debconf, libtool, python (>= 2.6.6-3~), python-ply, libc-ares-dev, xsltproc, dh-python, docbook-xsl (>= 1.64.1.0-0), docbook-xml, libxml2-utils, libpcre3-dev, libcap2-dev [linux-any] | libcap-dev (>= 2.17) [linux-any], lsb-release, bison, libgnutls28-dev (>= 3.2.14-1~), libgcrypt-dev, portaudio19-dev, libkrb5-dev, liblua5.2-dev, libsmi2-dev, libgeoip-dev, dpkg-dev (>= 1.16.1~), imagemagick, xdg-utils, libnl-genl-3-dev [linux-any], libnl-route-3-dev [linux-any], asciidoc, cmake (>= 2.8.8), w3m, libsbc-dev, libnghttp2-dev, libssh-gcrypt-dev
+Build-Conflicts: libsnmp-dev, libsnmp4.2-dev
+Testsuite: autopkgtest
+Homepage: http://www.wireshark.org/
+Vcs-Browser: http://anonscm.debian.org/viewvc/collab-maint/ext-maint/wireshark/trunk/
+Vcs-Svn: svn://anonscm.debian.org/collab-maint/ext-maint/wireshark/trunk
+Directory: pool/universe/w/wireshark
+Package-List:
+ libwireshark-data deb libs optional arch=all
+ libwireshark-dev deb libdevel optional arch=any
+ libwireshark8 deb libs optional arch=any
+ libwiretap-dev deb libdevel optional arch=any
+ libwiretap6 deb libs optional arch=any
+ libwscodecs1 deb libs optional arch=any
+ libwsutil-dev deb libdevel optional arch=any
+ libwsutil7 deb libs optional arch=any
+ tshark deb net optional arch=any
+ wireshark deb net optional arch=any
+ wireshark-common deb net optional arch=any
+ wireshark-dev deb devel optional arch=any
+ wireshark-doc deb doc extra arch=all
+ wireshark-gtk deb net optional arch=any
+ wireshark-qt deb net optional arch=any
+Files:
+ f6660a0447832d780239939d9591811e 3623 wireshark_2.2.6+g32dac6a-2ubuntu0.17.04.dsc
+ 956a3be59dd9f55d3d99ba958954b4fa 27224688 wireshark_2.2.6+g32dac6a.orig.tar.xz
+ d39ff0c005a4a9810fd3b0f96c53bb59 64840 wireshark_2.2.6+g32dac6a-2ubuntu0.17.04.debian.tar.xz
+Checksums-Sha1:
+ 0ff4012d718701a24e824947e8a59888e865a182 3623 wireshark_2.2.6+g32dac6a-2ubuntu0.17.04.dsc
+ e4b19ba98cb5f402bf18031e9e8f44cef2a7895f 27224688 wireshark_2.2.6+g32dac6a.orig.tar.xz
+ 610f3e2f8318bc0414e8e8519d178f00a6841766 64840 wireshark_2.2.6+g32dac6a-2ubuntu0.17.04.debian.tar.xz
+Checksums-Sha256:
+ 489e4757947c7d8fec5739423e5ebabf645ec614f5130c4a500cbb3bc5b650c2 3623 wireshark_2.2.6+g32dac6a-2ubuntu0.17.04.dsc
+ abc662f07da7505c4a36fd5d682329096a0cdf1d11125f66baa39a7e3a23d0e8 27224688 wireshark_2.2.6+g32dac6a.orig.tar.xz
+ 8245a5bfe6f68655c773f681e58556453d479de735d9c96aa40ee7104570d401 64840 wireshark_2.2.6+g32dac6a-2ubuntu0.17.04.debian.tar.xz
+
+Package: wordpress-shibboleth
+Format: 1.0
+Binary: wordpress-shibboleth
+Architecture: all
+Version: 1.4-2+deb8u1build0.17.04.2
+Priority: optional
+Section: universe/php
+Maintainer: Dominic Hargreaves <dom@earth.li>
+Standards-Version: 3.9.1
+Build-Depends: debhelper (>= 6.0.7), cdbs
+Homepage: http://wordpress.org/extend/plugins/shibboleth/
+Vcs-Browser: http://git.debian.org/?p=users/dom/wordpress-shibboleth.git
+Vcs-Git: git://git.debian.org/~dom/wordpress-shibboleth.git
+Directory: pool/universe/w/wordpress-shibboleth
+Package-List:
+ wordpress-shibboleth deb php optional arch=all
+Files:
+ 19cf62d49b0f7d965ab4ccafd4de138d 1999 wordpress-shibboleth_1.4-2+deb8u1build0.17.04.2.dsc
+ 7b38a0d32e352afb644bcdef5bdd512c 491213 wordpress-shibboleth_1.4.orig.tar.gz
+ fe3f28ca77a5139ce3c3c1798dbf5960 2190 wordpress-shibboleth_1.4-2+deb8u1build0.17.04.2.diff.gz
+Checksums-Sha1:
+ 6de2d9c44bb52a62651f77ebf9ec70ffdd8c4aef 1999 wordpress-shibboleth_1.4-2+deb8u1build0.17.04.2.dsc
+ 0e8d76e555797fae6b8b153cd94e96bb3abaaed0 491213 wordpress-shibboleth_1.4.orig.tar.gz
+ 50d4e60532ddc7d2d4aac29125df7885cbe46cdd 2190 wordpress-shibboleth_1.4-2+deb8u1build0.17.04.2.diff.gz
+Checksums-Sha256:
+ c36911ff1920b6340c0cc58d1ea39a1ff11b21ae0ca8417aca5b1d67b8fa7700 1999 wordpress-shibboleth_1.4-2+deb8u1build0.17.04.2.dsc
+ 3905264005217524127a856a0f0b924ebc49c8f63c1d825df5c541af9cfa5b49 491213 wordpress-shibboleth_1.4.orig.tar.gz
+ 36273fcf7fd376f27dd50bde17e724ea7833861346f172a42a73c710eef5b793 2190 wordpress-shibboleth_1.4-2+deb8u1build0.17.04.2.diff.gz
+

@@ -1,0 +1,177 @@
+Package: flashplugin-installer
+Architecture: amd64
+Version: 27.0.0.170ubuntu0.17.04.1
+Multi-Arch: foreign
+Priority: optional
+Section: multiverse/web
+Source: flashplugin-nonfree
+Origin: Ubuntu
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Bart Martens <bartm@knars.be>
+Bugs: https://bugs.launchpad.net/ubuntu/+filebug
+Installed-Size: 58
+Provides: flashplugin-nonfree
+Depends: debconf (>= 0.5) | debconf-2.0, wget, libgtk2.0-0, fontconfig, libxt6, libxext6, libatk1.0-0, libc6, libcairo2, libexpat1, libfontconfig1, libfreetype6, libglib2.0-0, libice6, libpango1.0-0, libsm6, libx11-6, libxau6, libxcursor1, libxdmcp6, libxfixes3, libxi6, libxinerama1, libxrandr2, libxrender1, zlib1g, libnss3, libnspr4, libcurl3 | libcurl3-gnutls, libasound2, update-notifier-common (>= 0.119ubuntu2)
+Recommends: libasound2-plugins (>= 1.0.16)
+Suggests: firefox, x-ttcidfont-conf, ttf-mscorefonts-installer, ttf-bitstream-vera | ttf-dejavu, ttf-xfree86-nonfree, xfs
+Conflicts: flashplayer-mozilla, flashplugin (<< 6), flashplugin-nonfree (<< 11.0.1.152ubuntu1), libflashsupport
+Breaks: flashplugin-downloader (<< 11.1.102.55ubuntu3)
+Replaces: flashplugin (<< 6), flashplugin-downloader (<< 11.1.102.55ubuntu3), flashplugin-nonfree (<< 11.0.1.152ubuntu1)
+Filename: pool/multiverse/f/flashplugin-nonfree/flashplugin-installer_27.0.0.170ubuntu0.17.04.1_amd64.deb
+Size: 6808
+MD5sum: 9932673f9ed0ec40d34960c78b38f800
+SHA1: f3e181496c5166fd459fb531cf6fdb4236158119
+SHA256: f8db7c23fa3a989e55d44618ea226879fa51ec67b3ecc7ca74960a857ec0fba8
+Homepage: http://www.adobe.com/products/flashplayer.html
+Description: Adobe Flash Player plugin installer
+Npp-Applications: ec8030f7-c20a-464f-9b0e-13a3a9e97384, 92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a, aa5ca914-c309-495d-91cf-3141bbb04115
+Npp-Description: Adobe Flash SWF Player (http://www.adobe.com)
+Npp-File: libflashplayer.so
+Npp-Mimetype: application/x-shockwave-flash
+Npp-Name: Adobe Flash Player (installer)
+Description-md5: a03e9ebc20ce82c05567d088e79bf750
+
+Package: libcuda1-367
+Architecture: amd64
+Version: 375.66-0ubuntu0.17.04.1
+Priority: optional
+Section: multiverse/misc
+Source: nvidia-graphics-drivers-375
+Origin: Ubuntu
+Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Bugs: https://bugs.launchpad.net/ubuntu/+filebug
+Installed-Size: 18
+Depends: libcuda1-375
+Filename: pool/multiverse/n/nvidia-graphics-drivers-375/libcuda1-367_375.66-0ubuntu0.17.04.1_amd64.deb
+Size: 6504
+MD5sum: c28cfe84b97fc1436620e31ec1340cf4
+SHA1: b0ce07a506346870894d4fd1a8b2fe037158a0f5
+SHA256: bd1edc94eb999616e1a2675ec1720194629bc4088ac49c92671280f0fe6eb95a
+Description: Transitional package for libcuda1-375
+Description-md5: 084f3742e4f1b51c41e1434a3865e6c3
+
+Package: nvidia-libopencl1-367
+Architecture: amd64
+Version: 375.66-0ubuntu0.17.04.1
+Priority: optional
+Section: multiverse/misc
+Source: nvidia-graphics-drivers-375
+Origin: Ubuntu
+Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Bugs: https://bugs.launchpad.net/ubuntu/+filebug
+Installed-Size: 18
+Depends: nvidia-libopencl1-375
+Filename: pool/multiverse/n/nvidia-graphics-drivers-375/nvidia-libopencl1-367_375.66-0ubuntu0.17.04.1_amd64.deb
+Size: 6510
+MD5sum: dab9fe7e1cb1dba239c654a73ed1e6ba
+SHA1: 9c635da00ab761aa944b9352605a5b343c9a48a2
+SHA256: 4ff2da139c5683da2d85d636c0bcff933c15ef8695c9c0a14386d96a24ccae69
+Description: Transitional package for nvidia-libopencl1-375
+Description-md5: ca29c96a34b6d9208ae933195156e109
+
+Package: nvidia-libopencl1-375
+Architecture: amd64
+Version: 375.66-0ubuntu0.17.04.1
+Priority: optional
+Section: multiverse/misc
+Source: nvidia-graphics-drivers-375
+Origin: Ubuntu
+Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Bugs: https://bugs.launchpad.net/ubuntu/+filebug
+Installed-Size: 79
+Provides: libopencl1
+Depends: libc6 (>= 2.2.5)
+Suggests: nvidia-opencl-icd-375
+Conflicts: libopencl1
+Replaces: libopencl1
+Filename: pool/multiverse/n/nvidia-graphics-drivers-375/nvidia-libopencl1-375_375.66-0ubuntu0.17.04.1_amd64.deb
+Size: 19860
+MD5sum: 2f3ede75516a9fd667ca5e420318c463
+SHA1: 5ff19b9d6093df1ce26c854e64b63c6e7497b572
+SHA256: dbb458af03e238e282b09cdb22a5b39a7390e86ff56a1680b548e48f81771533
+Description: NVIDIA OpenCL Driver and ICD Loader library
+Description-md5: b847113bb2144ba87848ff3f7ae69ec2
+
+Package: nvidia-opencl-icd-367
+Architecture: amd64
+Version: 375.66-0ubuntu0.17.04.1
+Priority: optional
+Section: multiverse/misc
+Source: nvidia-graphics-drivers-375
+Origin: Ubuntu
+Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Bugs: https://bugs.launchpad.net/ubuntu/+filebug
+Installed-Size: 18
+Depends: nvidia-opencl-icd-375
+Filename: pool/multiverse/n/nvidia-graphics-drivers-375/nvidia-opencl-icd-367_375.66-0ubuntu0.17.04.1_amd64.deb
+Size: 6510
+MD5sum: cf327597229b21ce87c66d78dfb21df3
+SHA1: c9aadab469101358a568165c2a2075d1f9948de5
+SHA256: beb0e4711f1b73ce01f7dd337a7ee7c873ddd8a75ad6c9a01ab41cc7c0ed9c7d
+Description: Transitional package for nvidia-opencl-icd-375
+Description-md5: ea8da607bb67ba132012d762ba1a7725
+
+Package: rtcw
+Architecture: amd64
+Version: 1.50a+dfsg1-3+deb9u1build0.17.04.1
+Priority: optional
+Section: multiverse/games
+Source: iortcw
+Origin: Ubuntu
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Bugs: https://bugs.launchpad.net/ubuntu/+filebug
+Installed-Size: 6324
+Depends: rtcw-common (= 1.50a+dfsg1-3+deb9u1build0.17.04.1), libc6 (>= 2.15), libcurl3-gnutls (>= 7.16.2), libfreetype6 (>= 2.2.1), libgcc1 (>= 1:3.0), libgl1-mesa-glx | libgl1, libjpeg8 (>= 8c), libopenal1 (>= 1.14), libopus0 (>= 1.1), libopusfile0 (>= 0.5), libsdl2-2.0-0 (>= 2.0.4), libstdc++6 (>= 5), libvorbisfile3 (>= 1.1.2), zlib1g (>= 1:1.1.4)
+Recommends: x11-utils | zenity | kde-baseapps-bin
+Filename: pool/multiverse/i/iortcw/rtcw_1.50a+dfsg1-3+deb9u1build0.17.04.1_amd64.deb
+Size: 1696770
+MD5sum: 305855736f79f331982dcc99174d89d1
+SHA1: 8c9a66139241e8dfb2f73eb7b47f658fea790116
+SHA256: 094f13cca2ee83fbb006aba39d629d8bcc2e555848ed06e9e7530aeb34287f2e
+Homepage: https://github.com/iortcw/iortcw/
+Description: game engine for Return to Castle Wolfenstein
+Description-md5: b0b1c16df93826196035daa4288b4987
+
+Package: rtcw-common
+Architecture: amd64
+Version: 1.50a+dfsg1-3+deb9u1build0.17.04.1
+Priority: optional
+Section: multiverse/games
+Source: iortcw
+Origin: Ubuntu
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Bugs: https://bugs.launchpad.net/ubuntu/+filebug
+Installed-Size: 2184
+Depends: rtcw-data (>= 1.42b+40) | game-data-packager (>= 40), libc6 (>= 2.14)
+Filename: pool/multiverse/i/iortcw/rtcw-common_1.50a+dfsg1-3+deb9u1build0.17.04.1_amd64.deb
+Size: 704452
+MD5sum: c088d32e94358b3adcfdf3b066293238
+SHA1: 4abd2ccbc30559192a5769b59afcdcbc3a0dafaa
+SHA256: a2cfb7089d775536b5748213edcac3550442a5bd68aaaae28d54c4b1bf247176
+Homepage: https://github.com/iortcw/iortcw/
+Description: common files for Return to Castle Wolfenstein
+Description-md5: 08a6eb6fc05c5aba9bb913d30587c612
+
+Package: rtcw-server
+Architecture: amd64
+Version: 1.50a+dfsg1-3+deb9u1build0.17.04.1
+Priority: optional
+Section: multiverse/games
+Source: iortcw
+Origin: Ubuntu
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Bugs: https://bugs.launchpad.net/ubuntu/+filebug
+Installed-Size: 722
+Depends: adduser, lsb-base (>= 3.0-6~), rtcw-common (= 1.50a+dfsg1-3+deb9u1build0.17.04.1), init-system-helpers (>= 1.18~), libc6 (>= 2.15), zlib1g (>= 1:1.1.4)
+Filename: pool/multiverse/i/iortcw/rtcw-server_1.50a+dfsg1-3+deb9u1build0.17.04.1_amd64.deb
+Size: 291380
+MD5sum: 9ec098a0df30546a38c8926b9effb37c
+SHA1: 48fcc96029e2638b7e76a999389d2a36e79c2c77
+SHA256: a52e46959f3cb181da6facea150bdb72e0412fe1afd87c402eb50219494dce06
+Homepage: https://github.com/iortcw/iortcw/
+Description: standalone server for Return to Castle Wolfenstein
+Description-md5: d3756cb8ff76af7f83fdf3421c74ca3b
+

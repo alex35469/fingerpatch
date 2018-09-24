@@ -1,0 +1,11 @@
+title: Develop a new type of traffic-analysis attack
+
+contact: Ludovic Barman <ludovic.barman@epfl.ch>
+
+Traffic-analysis is a technique used to infer contents and communicating parties from encrypted communications. It mainly uses network-level features - for instance, packet sizes and timings - to reveal what happens on the application layer. Traffic-analysis has been extensively and successfully used to infer information from encrypted Tor communications, as well as Skype and VPN communications.
+
+In this work, we to perform a similar attack on a live system. The project already includes a toolset for data collection; the task is to analyze the information leaked by the encrypted channel, and build a simple tool that performs the attack (e.g., that listen on an encrypted wireless or wired channel, or that imports a list of packet traces). Despite the fact that the collection happens on the network-level, the attack itself does not require a deep knowledge of networks, and the tool we will develop will be fairly high-level.
+
+Without going into details, we know that some (simple) version of the attack is possible (and hasn't been done), hence that a new solution can be demonstrated. We wish to do a proof-of-concept and explore how far the attack can be pushed.
+
+The description here is voluntarily lacking the topic: please contact me if interested. 
