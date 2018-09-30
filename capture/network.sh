@@ -1,19 +1,19 @@
 #!/bin/sh
 
-networkIsSetup=$(sudo docker network ls | grep fingerpatch | wc -l)
-containerStarted=$(sudo docker ps | grep fingerpatch | wc -l)
-forwardingIsSetup=$(sudo iptables -L FORWARD --line-numbers -n | grep 172.100.0.100 | wc -l)
+networkIsSetup=$(sudo docker network ls | grep fingerpatch -c)
+containerStarted=$(sudo docker ps | grep fingerpatch -c)
+forwardingIsSetup=$(sudo iptables -L FORWARD --line-numbers -n | grep 172.100.0.100 -c)
 
 
 if [ "$networkIsSetup" -eq "0" ]; then
    echo "Creating the network fingerpatch...";
    sudo docker network create --subnet=172.100.0.0/16 fingerpatch
 else
-    echo "Network fingerpatch already set (use docker network rm fingerpatch to remove)."
+    echo "Network fingerpatch already set."
 fi
 
 if [ "$containerStarted" -eq "0" ]; then
-   echo "Creating the container fingerpatch";
+   echo "Creating the container fingerpatch.";
    sudo docker run -d --name fingerpatch --net fingerpatch --security-opt seccomp:unconfined --ip 172.100.0.100 ubuntu:trusty-20180302 sleep 9999999
 else
     echo "Container fingerpatch is already running."
