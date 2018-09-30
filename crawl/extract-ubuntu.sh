@@ -11,7 +11,7 @@ fi
 DOCKER_CONTAINER_ID=$(sudo docker ps --filter="name=fingerpatch" -q)
 
 # compile available packets and fetch
-sudo docker exec -it $DOCKER_CONTAINER_ID sh -c "apt-get update; cd /var/lib/apt/lists/; for d in *.gz; do gunzip \$d; done; rm -f *.gz; zip data.zip *; ls"
+sudo docker exec -it $DOCKER_CONTAINER_ID sh -c "apt-get update; apt-get install zip; cd /var/lib/apt/lists/; for d in *.gz; do gunzip \$d; done; rm -f *.gz; zip data.zip *; ls"
 rm -f data.zip
 sudo docker cp $DOCKER_CONTAINER_ID:/var/lib/apt/lists/data.zip .
 
