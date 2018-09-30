@@ -19,7 +19,7 @@ LOGDIR="logs"
 # test if alive
 ALIVE=$(sudo docker exec $DOCKER_CONTAINER_ID sh -c "pwd")
 
-if [ "$ALIVE" == "/" ]; then
+if [ "$ALIVE" = "/" ]; then
     echo "Docker $DOCKER_CONTAINER_ID is alive, OK"
 else
     echo "Docker $DOCKER_CONTAINER_ID cannot be contacted, aborting"
