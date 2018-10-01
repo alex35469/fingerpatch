@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
-UPDATE_TIMEOUT=100000
+UPDATE_TIMEOUT=1000
 LOGDIR="logs"
 
 if [ ! -d "$LOGDIR" ]; then
@@ -65,10 +65,14 @@ echo "Executing sudo docker exec $DOCKER_CONTAINER_ID sh -c \"apt-get clean && a
 sudo docker exec $DOCKER_CONTAINER_ID sh -c "apt-get clean && apt-get install -d -y $PACKET=$VERSION"
 
 
-echo "Closing interceptor"
 
-kill -SIGTERM $!
+# Fetch the PID of capture process
+PID=$(ps ax | grep "python3 ./capture" | head -1  | awk '{print $1;}')
 
-#echo "Waiting for subprocesses..."
-#wait
+echo "Closing interceptorPID -----> $PID"
+
+# Have to find out how to Send a SIGTERM to children process 
+sudo kill -15 $PID
+
+# wait
 echo "Done"
