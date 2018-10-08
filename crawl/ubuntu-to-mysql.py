@@ -34,7 +34,7 @@ def tryFetch(array, key, default):
 
 try:
     with connection.cursor() as cursor:# Create a new record
-        sql = "INSERT INTO `ubuntu_captures` (`done`) VALUES (%s)"
+        sql = "INSERT INTO `ubuntu_ready` (`done`) VALUES (%s)"
         cursor.execute(sql, (False))
 
         connection.commit();
@@ -48,12 +48,11 @@ try:
         for packet in packets:
             sql = "INSERT INTO `ubuntu_packets` (`capture_id`,`Priority`,`Version`,`Maintainer`,`SHA1`,`Description`,`Installed-Size`,`parsedFrom`,`Description-md5`,`Package`,`Architecture`,`Bugs`,`Origin`,`MD5sum`,`Depends`,`Homepage`,`Size`,`Source`,`SHA256`,`Section`,`Supported`,`Filename`,`packageMode`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             data = (captureID, tryFetch(packet,'Priority', ''), tryFetch(packet,'Version', ''), tryFetch(packet,'Maintainer', ''), tryFetch(packet,'SHA1', ''), tryFetch(packet,'Description', ''), tryFetch(packet,'Installed-Size', -1), tryFetch(packet,'parsedFrom', ''), tryFetch(packet,'Description-md5', ''), tryFetch(packet,'Package', ''), tryFetch(packet,'Architecture', ''), tryFetch(packet,'Bugs', ''), tryFetch(packet,'Origin', ''), tryFetch(packet,'MD5sum', ''), tryFetch(packet,'Depends', ''), tryFetch(packet,'Homepage', ''), tryFetch(packet,'Size',-1), tryFetch(packet,'Source', ''), tryFetch(packet,'SHA256', ''), tryFetch(packet,'Section', ''), tryFetch(packet,'Supported', ''), tryFetch(packet,'Filename', ''), tryFetch(packet,'packageMode', ''))
-            print(data)
             cursor.execute(sql, data)
         connection.commit();
 
 
-        sql = "UPDATE `ubuntu_captures` SET `done`=%s WHERE `id`=%s"
+        sql = "UPDATE `ubuntu_ready` SET `done`=%s WHERE `id`=%s"
         cursor.execute(sql, (True, captureID))
         connection.commit();
 

@@ -1,8 +1,12 @@
-#!/bin/sh
+ #!/bin/sh
 
+# Supposing we are downloading at 100KB/s
+DOWNLOAD_RATE=100000
+SAFETY_MARGIN=6
 
-UPDATE_TIMEOUT=1000
 LOGDIR="logs"
+NAME="all_captures"
+
 
 if [ ! -d "$LOGDIR" ]; then
   mkdir $LOGDIR
@@ -40,39 +44,57 @@ else
     exit 1
 fi
 
-# Set the package to update and the VERSION
-PACKET=dpkg
-VERSION=1.17.5ubuntu5.8
+
 
 # extract infos from docker
-TIMESTAMP=$(date +%s)
-ARCHITECTURE=$(sudo docker exec $DOCKER_CONTAINER_ID sh -c "cat /etc/os-release | tr \"\\n\" \";\" ")
-IDENTIFIER="${ARCHITECTURE}PACKET=$PACKET;PACKET_VERSION=$VERSION;TIMESTAMP=$TIMESTAMP"
+#TIMESTAMP=$(date +%s)
+#ARCHITECTURE=$(sudo docker exec $DOCKER_CONTAINER_ID sh -c "cat /etc/os-release | tr \"\\n\" \";\" ")
+#IDENTIFIER="${ARCHITECTURE}PACKET=$PACKET;PACKET_VERSION=$VERSION;TIMESTAMP=$TIMESTAMP"
 
-OUTPUT=$(mktemp $LOGDIR/${TIMESTAMP}_XXXXX)
+OUTPUT="$LOGDIR/$NAME"
+if [ ! -d "$OUTPUT" ]; then
+  touch $OUTPUT
+fi
 echo "Output is in $OUTPUT"
 echo -n $IDENTIFIER > "$OUTPUT"
 echo -en "\n\n" >> "$OUTPUT"
 
+# Set the package to update and the VERSION
+#PACKET=weechat-doc
+#VERSION=0.4.2-3ubuntu0.1
+
+# Loop on the packet name, version, architecture and size
+while IFS='' read -r line || [[ -n "$line" ]]; do
+  PACKAGE="$(echo $line | cut -d',' -f1)"
+  VERSION="$(echo $line | cut -d',' -f2)"
+  ARCHITECTURE="$(echo $line | cut -d',' -f3)"
+  SIZE="$(echo $line | cut -d',' -f4)"
+
+  UPDATE_TIMEOUT=$(python3 -c "from math import ceil; print(ceil($SIZE/$DOWNLOAD_RATE)+$SAFETY_MARGIN)")
+
+  echo "################## Capture $PACKAGE=$VERSION expected: $SIZE bits ###########################"
+  # start the interceptor
+  echo "Starting the capture, timeout in $UPDATE_TIMEOUT seconds..."
+
+  sudo python3 ./capture.py $UPDATE_TIMEOUT & #>> $OUTPUT &
+  PID2=$!
+  # echo "Starting the update, packet $PACKET version $VERSION"
+  # Can see list of upgradable package with apt list --upgradable
+  echo "Executing sudo docker exec $DOCKER_CONTAINER_ID sh -c \"apt-get clean && apt-get install -d -y $PACKAGE=$VERSION\""
+  sudo docker exec $DOCKER_CONTAINER_ID sh -c "apt-get clean && apt-get install -d -y $PACKAGE=$VERSION"
 
 
-# start the interceptor
-echo "Starting the capture, timeout in $UPDATE_TIMEOUT seconds..."
-sudo python3 ./capture.py $UPDATE_TIMEOUT &
 
-# echo "Starting the update, packet $PACKET version $VERSION"
-echo "Executing sudo docker exec $DOCKER_CONTAINER_ID sh -c \"apt-get clean && apt-get install -d -y $PACKET=$VERSION\""
-sudo docker exec $DOCKER_CONTAINER_ID sh -c "apt-get clean && apt-get install -d -y $PACKET=$VERSION"
+  # Fetch the PID of capture process
+  PID=$(ps ax | grep "python3 ./capture" | head -1  | awk '{print $1;}')
+
+  echo "--Waiting for pid=$PID2 (Time out was $UPDATE_TIMEOUT (sudo kill $PID2 to save time)--"
+
+  # Have to find out how to Send a SIGTERM to children process 
+  #sudo kill -10 $PID
 
 
+  wait $PID2
 
-# Fetch the PID of capture process
-PID=$(ps ax | grep "python3 ./capture" | head -1  | awk '{print $1;}')
-
-echo "Closing interceptorPID -----> $PID"
-
-# Have to find out how to Send a SIGTERM to children process 
-sudo kill -15 $PID
-
-# wait
-echo "Done"
+  echo "Done"
+done < "$1"

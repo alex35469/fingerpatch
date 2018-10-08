@@ -6,6 +6,15 @@ import sys
 import signal
 import time
 from threading import Thread
+import pymysql.cursors
+# Connect to the database
+connection = pymysql.connect(host='localhost',
+                             user='fingerpatch',
+                             password='fingerpatch',
+                             db='fingerpatch',
+                             charset='utf8mb4',
+                             cursorclass=pymysql.cursors.DictCursor)
+
 
 #
 # CONSTANTS
@@ -16,7 +25,7 @@ maxPacketsToStore = 10000
 
 individualPacketPrint = False
 recomposeTCPStreamWhenSomePacketsWereNotCaptured = True
-
+total_flow = 5
 #
 # GLOBALS
 #
@@ -24,6 +33,15 @@ recomposeTCPStreamWhenSomePacketsWereNotCaptured = True
 nextFreeId = 0
 allPackets = {}
 dnsLookupTable = {'172.100.0.100': 'target'}
+
+counter = 0
+send_Payload=[]
+received_Payload=[]
+historic=[]
+server_name=[]
+server_ip=[]
+send_received_payload = []
+
 
 #
 # FUNCTIONS
@@ -235,29 +253,47 @@ def getParamOfSequence(packet, param):
   return res
 
 def printSequences(packet):
-  global allPackets
+  global allPackets, counter, historic, send_Payload, received_Payload
+  global server_ip, server_name, send_received_payload
 
   if 'used' in packet and packet['used']:
     return
   markSequence(packet)
 
   print("####################################")
-  # print DNS requests on their own
+
   if 'dns' in packet:
+    print("DNS Request caught")
     print(packet['src'], "->", packet['dst'])
     header = "DNS "+packet['dns-v']+" "+packet['dns-type']
     print(header, packet['dns'])
   else:
     print(packet['src'], "->", packet['dst'])
+    counter = counter + 1
+    historic += [str(packet['src'][1])+ "->"+ str(packet['dst'][1])]
+
+
     http_seq = getParamOfSequence(packet, 'http')
     len_seq = getParamOfSequence(packet, 'len')
     payload_seq = getParamOfSequence(packet, 'tcp-payload')
-
-    print("HTTP:", http_seq)
-    print("Len:", len_seq)
-    print("Total Len:", sum(len_seq))
-    print("TCP Payloads:", payload_seq)
     print("Total Payloads:", sum(payload_seq))
+
+    if '172.100.0.100' in packet['src']:
+        send_Payload += [sum(payload_seq)]
+        server_ip += [packet['dst'][0]]
+        server_name += [packet['dst'][1]]
+
+    else:
+        received_Payload += [sum(payload_seq)]
+        server_ip += [packet['dst'][0]]
+        server_name += [packet['dst'][1]]
+
+    send_received_payload+=[sum(payload_seq)]
+    #print("HTTP:", http_seq)
+    #print("Len:", len_seq)
+    print("Total Len:", sum(len_seq))
+    #print("TCP Payloads:", payload_seq)
+
 
 def packetReceived(pkt):
   iprint("------------------------------------------------------------------------------------------")
@@ -267,11 +303,39 @@ def packetReceived(pkt):
 
 def cleanup(signal, frame):
   global nfqueue
-  print('Listener killed.')
   for id, p in allPackets.items():
     printSequences(p)
-  nfqueue.unbind()
+
+  print("filling the DB")
+
+  print("counter = ", counter)
+  print("historic = ", historic)
+  print("server_ip = ", server_ip )
+  print("server_name = ", server_name)
+  print("received_Payload = ", received_Payload)
+  print("send_Payload = ", send_Payload)
+
+  try:
+      with connection.cursor() as cursor:
+          sql = "INSERT INTO `ubuntu_captures` (`nb_flows`, `Flow1`, `Flow2`, `Flow3`, `Flow4`, `Flow5`, `nb_Payload_send1`, `nb_Payload_send2`, `nb_Payload_send3`, `nb_Payload_send4`, `nb_Payload_send5`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
+
+          for i in range(total_flow,total_flow - counter + 1, -1):
+            sql=sql.replace(", `Flow"+str(i)+"`", "").replace(", `nb_Payload_send"+str(i)+"`", "")
+
+          sql = sql.replace(", %s", "", 2*(total_flow - counter))
+
+          data = (counter, *historic, *send_received_payload )
+          print(sql)
+          print(str(len(data)) + " ", data)
+
+          cursor.execute(sql, data)
+          connection.commit();
+
+  finally:
+      connection.close()
+
   print("Ressources cleaned.")
+
   os._exit(0)
 
 def bindAndListen():
@@ -291,6 +355,7 @@ def bindAndListen():
 
 # if killed, clean ressources
 signal.signal(signal.SIGTERM, cleanup)
+#signal.signal(signal.SIGUSR1, cleanup)
 
 # do we timeout ?
 timeoutVal = -1
@@ -310,5 +375,7 @@ try:
 except KeyboardInterrupt:
   cleanup(0,0)
 
+
+cleanup(0,0)
+nfqueue.unbind()
 print("Program done.")
-os._exit(0)
