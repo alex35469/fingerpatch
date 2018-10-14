@@ -26,6 +26,7 @@ maxPacketsToStore = 10000
 individualPacketPrint = False
 recomposeTCPStreamWhenSomePacketsWereNotCaptured = True
 total_flow = 5
+fill_db=True
 #
 # GLOBALS
 #
@@ -41,6 +42,7 @@ historic=[]
 server_name=[]
 server_ip=[]
 send_received_payload = []
+http_hist = []
 
 
 #
@@ -216,6 +218,8 @@ def recursiveprint(packet, level):
     print(padding, packet['tcp-payload'])
   if 'http' in packet:
     print(padding, packet['http'])
+    http_hist += packet['http']
+    print("-------------------------------------", packet['http'])
 
   for packetID in packet['nextpackets']:
     recursiveprint(allPackets[packetID], level+1)
@@ -254,7 +258,7 @@ def getParamOfSequence(packet, param):
 
 def printSequences(packet):
   global allPackets, counter, historic, send_Payload, received_Payload
-  global server_ip, server_name, send_received_payload
+  global server_ip, server_name, send_received_payload, http_hist
 
   if 'used' in packet and packet['used']:
     return
@@ -290,7 +294,7 @@ def printSequences(packet):
 
     send_received_payload+=[sum(payload_seq)]
     #print("HTTP:", http_seq)
-    #print("Len:", len_seq)
+    http_hist = http_seq
     print("Total Len:", sum(len_seq))
     #print("TCP Payloads:", payload_seq)
 
@@ -309,30 +313,33 @@ def cleanup(signal, frame):
   print("filling the DB")
 
   print("counter = ", counter)
+  print("http requests = ", http_hist)
   print("historic = ", historic)
   print("server_ip = ", server_ip )
   print("server_name = ", server_name)
   print("received_Payload = ", received_Payload)
   print("send_Payload = ", send_Payload)
 
-  try:
-      with connection.cursor() as cursor:
-          sql = "INSERT INTO `ubuntu_captures` (`nb_flows`, `Flow1`, `Flow2`, `Flow3`, `Flow4`, `Flow5`, `nb_Payload_send1`, `nb_Payload_send2`, `nb_Payload_send3`, `nb_Payload_send4`, `nb_Payload_send5`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
+  if fill_db:
+      try:
+          with connection.cursor() as cursor:
+              sql = "INSERT INTO `ubuntu_captures` (`nb_flows`, `truth_id`, `HTTP_Seq`, `Flow1`, `Flow2`, `Flow3`, `Flow4`, `Flow5`, `nb_Payload_send1`, `nb_Payload_send2`, `nb_Payload_send3`, `nb_Payload_send4`, `nb_Payload_send5`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
 
-          for i in range(total_flow,total_flow - counter + 1, -1):
-            sql=sql.replace(", `Flow"+str(i)+"`", "").replace(", `nb_Payload_send"+str(i)+"`", "")
+              for i in range(total_flow,total_flow - counter + 1, -1):
+                sql=sql.replace(", `Flow"+str(i)+"`", "").replace(", `nb_Payload_send"+str(i)+"`", "")
 
-          sql = sql.replace(", %s", "", 2*(total_flow - counter))
+              sql = sql.replace(", %s", "", 2*(total_flow - counter))
 
-          data = (counter, *historic, *send_received_payload )
-          print(sql)
-          print(str(len(data)) + " ", data)
+              data = (counter, truth_id, str(http_hist), *historic, *send_received_payload )
 
-          cursor.execute(sql, data)
-          connection.commit();
+              print(sql)
+              print(str(len(data)) + " ", data)
 
-  finally:
-      connection.close()
+              cursor.execute(sql, data)
+              connection.commit();
+
+      finally:
+          connection.close()
 
   print("Ressources cleaned.")
 
@@ -362,6 +369,13 @@ timeoutVal = -1
 if len(sys.argv) == 2: # 1 is "capture.py"
   timeoutVal = float(sys.argv[1])
   print("Going to timeout in", timeoutVal, "seconds")
+
+trackTruth = ""
+truth_id =-1
+if len(sys.argv) == 3:
+    trackTruth =" `truth_id`,"
+    truth_id = int(sys.argv[2])
+
 
 # Create the thread, wait on it, cleanup on Interrupt
 t = Thread(target=bindAndListen)

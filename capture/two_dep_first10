@@ -1,0 +1,4 @@
+ulogd-pgsql,2.0.3-1ubuntu2,amd64,852
+ulogd-mysql,2.0.3-1ubuntu2,amd64,852
+ulogd-sqlite3,2.0.3-1ubuntu2,amd64,856
+default-jdk,2:1.7-51,amd64,934

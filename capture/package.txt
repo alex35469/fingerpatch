@@ -1,0 +1,13 @@
+37896,libloki-doc,0.1.7-3,166656
+37904,liblouisutdml-data,2.4.0-1,40656
+37907,liblouisutdml-java-doc,2.4.0-1,33200
+76469,fonts-tlwg-waree,1:0.5.1-3,156886
+76470,fonts-ubuntu-font-family-console,0.80-0ubuntu6,15614
+83973,x11proto-dmx-dev,1:2.3.1-2,5848
+83974,x11proto-dri2-dev,2.8-2,12552
+83975,x11proto-dri3-dev,1.0-1,5996
+83978,x11proto-gl-dev,1.4.17-1,17892
+89064,fcitx-config-common,0.4.7-1,6358
+89067,fcitx-data,1:4.2.8.3-3,128904
+89069,fcitx-frontend-all,1:4.2.8.3-3,5192
+89101,fcitx-table-all,1:4.2.8.3-3,5238

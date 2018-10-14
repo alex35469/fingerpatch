@@ -65,18 +65,19 @@ echo -en "\n\n" >> "$OUTPUT"
 
 # Loop on the packet name, version, architecture and size
 while IFS='' read -r line || [[ -n "$line" ]]; do
-  PACKAGE="$(echo $line | cut -d',' -f1)"
-  VERSION="$(echo $line | cut -d',' -f2)"
-  ARCHITECTURE="$(echo $line | cut -d',' -f3)"
+  ID="$(echo $line | cut -d',' -f1)"
+  PACKAGE="$(echo $line | cut -d',' -f2)"
+  VERSION="$(echo $line | cut -d',' -f3)"
   SIZE="$(echo $line | cut -d',' -f4)"
+
 
   UPDATE_TIMEOUT=$(python3 -c "from math import ceil; print(ceil($SIZE/$DOWNLOAD_RATE)+$SAFETY_MARGIN)")
 
-  echo "################## Capture $PACKAGE=$VERSION expected: $SIZE bits ###########################"
+  echo "################## Capture $PACKAGE=$VERSION expected: $SIZE bits, ID $ID ###########################"
   # start the interceptor
   echo "Starting the capture, timeout in $UPDATE_TIMEOUT seconds..."
 
-  sudo python3 ./capture.py $UPDATE_TIMEOUT & #>> $OUTPUT &
+  sudo python3 ./capture.py $UPDATE_TIMEOUT $ID & #>> $OUTPUT &
   PID2=$!
   # echo "Starting the update, packet $PACKET version $VERSION"
   # Can see list of upgradable package with apt list --upgradable
