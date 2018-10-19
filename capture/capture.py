@@ -26,7 +26,7 @@ maxPacketsToStore = 10000
 individualPacketPrint = False
 recomposeTCPStreamWhenSomePacketsWereNotCaptured = True
 total_flow = 5
-fill_db=True
+fill_db=False
 #
 # GLOBALS
 #
@@ -310,7 +310,7 @@ def cleanup(signal, frame):
   for id, p in allPackets.items():
     printSequences(p)
 
-  print("filling the DB")
+
 
   print("counter = ", counter)
   print("http requests = ", http_hist)
@@ -321,6 +321,8 @@ def cleanup(signal, frame):
   print("send_Payload = ", send_Payload)
 
   if fill_db:
+      print("filling the DB")
+      
       try:
           with connection.cursor() as cursor:
               sql = "INSERT INTO `ubuntu_captures` (`nb_flows`, `truth_id`, `HTTP_Seq`, `Flow1`, `Flow2`, `Flow3`, `Flow4`, `Flow5`, `nb_Payload_send1`, `nb_Payload_send2`, `nb_Payload_send3`, `nb_Payload_send4`, `nb_Payload_send5`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"

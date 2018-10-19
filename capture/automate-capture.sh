@@ -78,7 +78,7 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
   echo "Starting the capture, timeout in $UPDATE_TIMEOUT seconds..."
 
   sudo python3 ./capture.py $UPDATE_TIMEOUT $ID & #>> $OUTPUT &
-  PID2=$!
+  PID=$!
   # echo "Starting the update, packet $PACKET version $VERSION"
   # Can see list of upgradable package with apt list --upgradable
   echo "Executing sudo docker exec $DOCKER_CONTAINER_ID sh -c \"apt-get clean && apt-get install -d -y $PACKAGE=$VERSION\""
@@ -89,13 +89,13 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
   # Fetch the PID of capture process
   PID=$(ps ax | grep "python3 ./capture" | head -1  | awk '{print $1;}')
 
-  echo "--Waiting for pid=$PID2 (Time out was $UPDATE_TIMEOUT (sudo kill $PID2 to save time)--"
+  echo "--Waiting for pid=$PID (Time out was $UPDATE_TIMEOUT (sudo kill $PID to save time)--"
 
   # Have to find out how to Send a SIGTERM to children process 
   #sudo kill -10 $PID
 
 
-  wait $PID2
+  wait $PID
 
   echo "Done"
 done < "$1"
