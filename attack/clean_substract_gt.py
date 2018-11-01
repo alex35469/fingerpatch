@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 
 #
 # Read raw db from that the crawler left to us
@@ -196,7 +197,7 @@ ground_truth = ground_truth.drop(axis= 1, columns=['capture_id','SHA1', 'Priorit
 ground_truth = ground_truth.fillna("")
 
 ########### FOR TESTING #########
-ground_truth = ground_truth[0:5000]
+#ground_truth = ground_truth[600:700]
 #################################
 
 
@@ -248,12 +249,14 @@ ground_truth = ground_truth.assign( Frequency= s)
 print("Frequence description: \n",ground_truth["Frequency"].describe())
 
 # Compute Freq in %
-ground_truth["Freq in %"] = ground_truth["Frequency"].map(lambda x : x/len(ground_truth) )
+ground_truth["Freq in p"] = ground_truth["Frequency"].map(lambda x : x/len(ground_truth) )
 
 
 
 ### SAVE RESULTS
 try :
+
+    print("Saving in db : `ubuntu_cleaned_packets`")
     connection = pymysql.connect(host='localhost',
                              user='fingerpatch',
                              password='fingerpatch',
@@ -261,15 +264,33 @@ try :
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 
-    ground_truth = pd.read_sql("SELECT * FROM `ubuntu_packets` ",connection)
+
+    #ground_truth = pd.read_sql("SELECT * FROM `ubuntu_packets` ",connection)
+    sql = "INSERT INTO `ubuntu_cleaned_packets` (`id`, `Package`, `Version`, `Size`, `Filename`, `Summing dependances`, `Elements involved`, `Childrens`, `Frequency`,`Freq in p` ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);"
+    ground_truth["Childrens"] = ground_truth["Childrens"].map(str)
+    tuples =ground_truth[["Package", "Version", "Size", "Filename", "Summing dependances" ,"Elements involved", "Childrens", "Frequency", "Freq in p"]].itertuples()
+
+
+
+    for data in tuples:
+        try :
+            with connection.cursor() as cursor :
+                cursor.execute(sql,data)
+                connection.commit()
+
+
+        except Exception as e:
+            print("Package id =  {} couldn't be commited to the db due to: \n  {}".fomat(data[0], e))
+
     connection.close()
-    print("Saving in db : `cleaned_and_expanded_gt`")
+
+
+
 
 except :
-
     "Couldn't commit to the db"
 
-print("Saving cleaned_and_expanded_gt.csv ")
-ground_truth[["Package", "Version", "Size","Elements involved", "Childrens", "Frequency" ,"Freq in %"]].to_csv("cleaned_and_expanded_gt_Final.csv")
+print("Saving in csv: cleaned_and_expanded_gt.csv ")
+ground_truth[["Package", "Version" ,"Size", "Filename", "Summing dependances", "Elements involved", "Childrens", "Frequency" ,"Freq in p"]].to_csv("cleaned_and_expanded_gt.csv")
 
 print("Done")

@@ -1,4 +1,4 @@
-
+#!/usr/bin/python3
 
 import pandas as pd
 import sys
@@ -53,15 +53,15 @@ try :
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 
-    ground_truth = pd.read_sql("SELECT * FROM `cleaned_packets` ",connection)
+    ground_truth = pd.read_sql("SELECT * FROM `ubuntu_cleaned_packets` ",connection)
     attack_table = pd.read_sql("SELECT * FROM `ubuntu_captures` ",connection)
 
     connection.close()
     print("Loading from db")
 
-except :
+except Exception as e:
 
-    print("No db found, loading from CSV Files")
+    print("{}\n loading from CSV Files".format(e))
 
     try :
         ground_truth = pd.read_csv("cleaned_and_expanded_gtAll.csv")
