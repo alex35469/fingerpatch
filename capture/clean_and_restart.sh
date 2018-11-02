@@ -12,7 +12,7 @@ if [ "$containerStarted" -eq "1" ]; then
 fi
 
 if [ "$forwardingIsSetup" -eq "2" ]; then
-   echo "Setting up the forwarding rules in IPtables...";
+   echo "Delete old forwarding rules in IPtables...";
    sudo iptables -D FORWARD -s 172.100.0.100 -j NFQUEUE --queue-num 0
    sudo iptables -D FORWARD -d 172.100.0.100 -j NFQUEUE --queue-num 0
 fi
@@ -26,7 +26,7 @@ fi
 
 
 echo "setting new docker fingerpatch"
-
-
-###### SEE FOR --net
 sudo docker run -d --name fingerpatch --net fingerpatch --security-opt seccomp:unconfined --ip 172.100.0.100 ubuntu:trusty-20180302 sleep 9999999
+
+echo "run apt-get update on the docker (Ready to fetch the packages)"
+sudo docker exec fingerpatch sh -c "apt-get update"

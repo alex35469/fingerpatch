@@ -12,14 +12,14 @@ if [ ! -d "$LOGDIR" ]; then
   mkdir $LOGDIR
 fi
 
-# Clean the old fingerpatch countainer and iptables rules
-# Create then the docker fingerpatch
-sh clean_and_restart.sh
 
 DOCKER_CONTAINER_ID=$(sudo docker ps --filter="name=fingerpatch" -q)
 
-echo "run apt-get update on the docker (Ready to fetch the packages)"
-sudo docker exec $DOCKER_CONTAINER_ID sh -c "apt-get update"
+containerStarted=$(sudo docker ps -a| grep fingerpatch -c)
+if [ "$containerStarted" -ne "1" ]; then
+  echo "Please make sur you prepared the docker to the capture (sh clean_andprepare.sh)"
+fi
+
 
 forwardingIsSetup=$(sudo iptables -L FORWARD --line-numbers -n | grep 172.100.0.100 -c)
 
@@ -27,7 +27,7 @@ forwardingIsSetup=$(sudo iptables -L FORWARD --line-numbers -n | grep 172.100.0.
 if [ "$forwardingIsSetup" -eq "0" ]; then
    echo "Setting up the forwarding rules in IPtables...";
    sudo iptables -I FORWARD -s 172.100.0.100 -j NFQUEUE --queue-num 0
-    sudo iptables -I FORWARD -d 172.100.0.100 -j NFQUEUE --queue-num 0
+   sudo iptables -I FORWARD -d 172.100.0.100 -j NFQUEUE --queue-num 0
 else
     echo "Forwarding rules already set up in iptables"
 fi
@@ -64,7 +64,7 @@ echo -en "\n\n" >> "$OUTPUT"
 #VERSION=0.4.2-3ubuntu0.1
 
 # Loop on the packet name, version, architecture and size
-while IFS='' read -r line || [[ -n "$line" ]]; do
+while IFS='' read -r line ; do
   ID="$(echo $line | cut -d',' -f1)"
   PACKAGE="$(echo $line | cut -d',' -f2)"
   VERSION="$(echo $line | cut -d',' -f3)"
@@ -87,7 +87,7 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
 
 
   # Fetch the PID of capture process
-  PID=$(ps ax | grep "python3 ./capture" | head -1  | awk '{print $1;}')
+  #PID=$(ps ax | grep "python3 ./capture" | head -1  | awk '{print $1;}')
 
   echo "--Waiting for pid=$PID (Time out was $UPDATE_TIMEOUT (sudo kill $PID to save time)--"
 

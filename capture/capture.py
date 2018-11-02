@@ -26,7 +26,7 @@ maxPacketsToStore = 10000
 individualPacketPrint = False
 recomposeTCPStreamWhenSomePacketsWereNotCaptured = True
 total_flow = 5
-fill_db=False
+fill_db=True
 #
 # GLOBALS
 #
@@ -36,7 +36,7 @@ allPackets = {}
 dnsLookupTable = {'172.100.0.100': 'target'}
 
 counter = 0
-send_Payload=[]
+sent_Payload=[]
 received_Payload=[]
 historic=[]
 server_name=[]
@@ -218,7 +218,7 @@ def recursiveprint(packet, level):
     print(padding, packet['tcp-payload'])
   if 'http' in packet:
     print(padding, packet['http'])
-    http_hist += packet['http']
+    http_hist += packet['http'][0] # Take [0:1] if we want to see the user agent
     print("-------------------------------------", packet['http'])
 
   for packetID in packet['nextpackets']:
@@ -257,7 +257,7 @@ def getParamOfSequence(packet, param):
   return res
 
 def printSequences(packet):
-  global allPackets, counter, historic, send_Payload, received_Payload
+  global allPackets, counter, historic, sent_Payload, received_Payload
   global server_ip, server_name, send_received_payload, http_hist
 
   if 'used' in packet and packet['used']:
@@ -283,7 +283,7 @@ def printSequences(packet):
     print("Total Payloads:", sum(payload_seq))
 
     if '172.100.0.100' in packet['src']:
-        send_Payload += [sum(payload_seq)]
+        sent_Payload += [sum(payload_seq)]
         server_ip += [packet['dst'][0]]
         server_name += [packet['dst'][1]]
 
@@ -306,39 +306,40 @@ def packetReceived(pkt):
   pkt.accept();
 
 def cleanup(signal, frame):
-  global nfqueue
+  global nfqueue, http_hist
   for id, p in allPackets.items():
     printSequences(p)
 
 
 
+      # Flatten and get only the interessting field
+  http_hist = [h[0] for h in http_hist]
   print("counter = ", counter)
   print("http requests = ", http_hist)
   print("historic = ", historic)
   print("server_ip = ", server_ip )
   print("server_name = ", server_name)
   print("received_Payload = ", received_Payload)
-  print("send_Payload = ", send_Payload)
+  print("send_Payload = ", sent_Payload)
 
   if fill_db:
       print("filling the DB")
-      
+
       try:
           with connection.cursor() as cursor:
-              sql = "INSERT INTO `ubuntu_captures` (`nb_flows`, `truth_id`, `HTTP_Seq`, `Flow1`, `Flow2`, `Flow3`, `Flow4`, `Flow5`, `nb_Payload_send1`, `nb_Payload_send2`, `nb_Payload_send3`, `nb_Payload_send4`, `nb_Payload_send5`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
+              sql = "INSERT INTO `ubuntu_captures` (`nb_flows`, `truth_id`, `HTTP_Seq`, `Flows`,`Payload_sent`, `Payload_received`) VALUES (%s, %s, %s, %s, %s, %s);"
 
-              for i in range(total_flow,total_flow - counter + 1, -1):
-                sql=sql.replace(", `Flow"+str(i)+"`", "").replace(", `nb_Payload_send"+str(i)+"`", "")
 
-              sql = sql.replace(", %s", "", 2*(total_flow - counter))
-
-              data = (counter, truth_id, str(http_hist), *historic, *send_received_payload )
+              data = (counter, truth_id, str(http_hist), str(historic), str(sent_Payload), str(received_Payload) )
 
               print(sql)
               print(str(len(data)) + " ", data)
 
               cursor.execute(sql, data)
               connection.commit();
+
+      except Exception as e:
+          print("   Error while commiting to the db : ", e)
 
       finally:
           connection.close()
@@ -376,6 +377,7 @@ trackTruth = ""
 truth_id =-1
 if len(sys.argv) == 3:
     trackTruth =" `truth_id`,"
+    timeoutVal = float(sys.argv[1])
     truth_id = int(sys.argv[2])
 
 
