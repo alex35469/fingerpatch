@@ -1,3 +1,3 @@
-43728,libzeep3.0,3.0.2-1,5620496
-38759,libmousex-types-path-class-perl,0.07-1,14217674
-22998,clutter-1.0-tests,1.16.4-0ubuntu2,33140236
+29129,kdepim-doc,4:4.13.0-0ubuntu1,5009690
+39206,libnetty3.1-java,3.1.0.CR1-1,517624
+17242,libwnck-common,1:2.30.7-0ubuntu4,16378 	
