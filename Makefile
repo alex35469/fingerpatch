@@ -1,19 +1,19 @@
 RANDOM=3
 
 
-.PHONY: extract-all
-extract-all:
-	echo "Make sure you called apt-get update and apt-get install zip on the container before"
-	(cd ./capture; ./automate-capture.sh)
+.PHONY: extract-packages
+extract-packages:
+	echo "Make sure you run make docker-setup before"
+	(cd ./crawl/;sh extract-ubuntu.sh)
 
 .PHONY: parse-into-mysql
 parse-into-mysql:
 	echo "Usage: python3 crawl/ubuntu-to-mysql.py crawl/apt_XXX/all_packages.txt"
-	
+
 
 .PHONY: clean_crawl
 clean_crawl:
-	sh cleaned_and_substract_gt
+	(cd ./attack/; python3 clean_substract_gt.py)
 
 .PHONY: docker-setup
 docker-setup:
