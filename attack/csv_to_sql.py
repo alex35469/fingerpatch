@@ -8,9 +8,8 @@ import tqdm
 with open("cleaned_and_expanded_gt.csv") as gt:
     gt_reader = csv.reader(gt)
     next(gt_reader, print)
-
-    tot = len(gt_reader)
-    for entry in tqdm(gt_reader, total = tot):
+    
+    for entry in tqdm.tqdm(gt_reader):
 
     #ground_truth = pd.read_sql("SELECT * FROM `ubuntu_packets` ",connection)
         sql = "INSERT INTO `ubuntu_cleaned_packets` (`id`, `Package`, `Version`, `Size`, `Filename`, `Summing dependances`, `Elements involved`, `Childrens`, `Frequency`,`Freq in p` ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
