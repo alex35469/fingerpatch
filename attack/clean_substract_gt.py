@@ -58,8 +58,8 @@ def recursiveOnly(x, df, alreadySeen, mode="Depends"):
     deps = x["Depends_Parsed"]
 
     if mode == "Recommends":
-
         deps = deps.union(x["Recommends_Parsed"])
+
     if mode == "Suggests":
         deps = deps.union(x["Recommends_Parsed"])
         deps = deps.union(x["Suggests_Parsed"])
@@ -98,9 +98,10 @@ def recursiveOnly(x, df, alreadySeen, mode="Depends"):
 def compute_childrens(mode):
     ground_truth[mode+"_Summing"] = -1
     ground_truth[mode+"_Childrens"] = ""
-    dground_truth = dd.from_pandas(ground_truth, npartitions=CORES)
-    with ProgressBar():
-        ground_truth[mode+"_Childrens"] = dground_truth.map_partitions(lambda df: df.apply((lambda x: recursiveOnly(x, ground_truth, set(), mode)), axis=1), meta=('childrens', object)).compute(get=get)
+    tot = len(ground_truth)
+
+    for _, row in tqdm(ground_truth.iterrows(), total=tot):
+        ground_truth.at[row.name, mode+"_Childrens"] = recursiveOnly(row, ground_truth, set(), mode)
 
 
 def recursiveSearchOnDep(x, df, alreadySeen, mode="Depends"):
@@ -246,6 +247,26 @@ def compute_freq(ds):
     s = pd.Series(d, name=m +'_Dependence_Frequency')
     return s
 
+def generate_count_on_depend(ground_truth):
+
+    ground_truth = ground_truth.fillna("")
+
+    to_sort = []
+
+    if "Depends" in ground_truth.columns:
+        ground_truth["#Depends"] = ground_truth["Depends"].map(lambda x: 0 if x == "" else len(x.split(",")))
+        to_sort += ["#Depends"]
+
+    if "Recommends" in ground_truth.columns:
+        ground_truth["#Recommends"] = ground_truth["Recommends"].map(lambda x: 0 if x == "" else len(x.split(",")))
+        to_sort += ["#Recommends"]
+    if "Suggests" in ground_truth.columns:
+        ground_truth["#Suggests"] = ground_truth["Suggests"].map(lambda x: 0 if x == "" else len(x.split(",")))
+        to_sort += ["#Suggests"]
+
+
+    return ground_truth.sort_values(by = to_sort)
+
 
 ####################### INIT ######################
 
@@ -284,11 +305,12 @@ ground_truth = ground_truth.drop_duplicates(['Package', 'Version', 'Size', 'Depe
 # Selecting only interessting columns
 ground_truth = ground_truth.drop(axis= 1, columns=['Installed-Size', 'Maintainer', 'Description', 'parsedFrom', 'Homepage', 'Source', 'Section', 'Supported', 'Bugs', 'Origin' ,'capture_id','SHA1', 'Priority', 'Architecture', 'Description-md5', 'MD5sum', 'SHA256', 'packageMode' ])
 
-ground_truth = ground_truth.fillna("")
+# Useful to sort the db and go a bit faster
+ground_truth = generate_count_on_depend(ground_truth)
 
 
 ########### FOR TESTING #########
-ground_truth = ground_truth.sample(15000)
+#ground_truth = ground_truth.sample(15000)
 #################################
 
 
@@ -308,7 +330,7 @@ for m in modes:
     # For each entry, we extract all the dependences and build the tree if required
     print("Parsing " +m)
     with ProgressBar():
-        ground_truth[m+"_Parsed"] = dground_truth.map_partitions(lambda df: df[m].map((lambda row: parseAndFindDep(row, ground_truth)))).compute(get=get)
+        ground_truth[m+"_Parsed"] = dground_truth.map_partitions(lambda df: df[m].map((lambda row: parseAndFindDep(row, ground_truth)))).compute(scheduler = "multiprocessing")
 
     print("extracting childrens for "+m)
 
@@ -326,7 +348,7 @@ for m in modes:
 
     # For each entry we compute the high level of dependence
     with ProgressBar():
-        ground_truth[m+"_Summing"] = dground_truth.map_partitions(lambda df: df[m+"_Childrens"].map((lambda x: computeSumOnDep(x, dictSize))), meta=('summingDep', int)).compute(get=get)
+        ground_truth[m+"_Summing"] = dground_truth.map_partitions(lambda df: df[m+"_Childrens"].map((lambda x: computeSumOnDep(x, dictSize))), meta=('summingDep', int)).compute(scheduler = 'threads')
 
     print("Frequency of "+m)
     s = compute_freq(ground_truth[m+"_Childrens"])
@@ -354,6 +376,9 @@ for m in modes:
 
 
 print("Saving in csv: cleaned_and_expanded_gt.csv ")
+
+ground_truth = ground_truth.drop(axis= 1, columns=['#Depends', '#Recommends', '#Suggests'])
+
 ground_truth.to_csv("cleaned_and_expanded_gt.csv")
 
 print("Done")
