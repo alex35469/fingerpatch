@@ -3,16 +3,29 @@
 import csv
 import pymysql
 import sys
-import tqdm
+from tqdm import tqdm
+
+
+
+def format_header(header):
+    s = ''
+    for h in header:
+        s +="`"+h+"`,"
+    return s[:-1]
+
 
 with open("cleaned_and_expanded_gt.csv") as gt:
     gt_reader = csv.reader(gt)
-    next(gt_reader, print)
-    
-    for entry in tqdm.tqdm(gt_reader):
+
+
+    header = next(gt_reader)
+    entries = format_header(header)
+    valu = (len(header)*"%s,")[:-1]
+
+    for entry in tqdm(gt_reader):
 
     #ground_truth = pd.read_sql("SELECT * FROM `ubuntu_packets` ",connection)
-        sql = "INSERT INTO `ubuntu_cleaned_packets` (`id`, `Package`, `Version`, `Size`, `Filename`, `Summing dependances`, `Elements involved`, `Childrens`, `Frequency`,`Freq in p` ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
+        sql = "INSERT INTO `ubuntu_cleaned_packets` (" +entries+ ") VALUES (" +valu+ ");"
 
 
 

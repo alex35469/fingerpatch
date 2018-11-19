@@ -10,36 +10,37 @@
 import sys
 import pandas as pd
 import pymysql
-import tqdm
+from tqdm import tqdm # For progression bar
+tqdm.pandas()
+
+# For parrallel
+import dask.dataframe as dd
+from dask.multiprocessing import get
+from multiprocessing import cpu_count
+from dask.diagnostics import ProgressBar
+
+
 
 BUILD_WHOLE_TREE = False
-
+CORES = cpu_count() #Number of CPU cores available
+modes = ["Depends", "Recommends", "Suggests"] # Use to precise at which degree we want to seek of dependences
+ss = [] #Used for storing data series of frequencies
 
 
 ########################## FUNCTIONS ####################
-
-
-def computeSumOnDep(x, df):
+def computeSumOnDep(x, dicSize):
     """
-    x :
-    Compute the high level sum of all the dependences that x needs
+    x : Compute the high level sum of all the dependences that x needs
     """
-
-    childrens = x["Childrens"]
     summingDep = 0
 
-    # We include ourself in the children to count everything
-    childrens.add(x.name)
-
-    for c in childrens:
-        summingDep += df.loc[c]["Size"]
-
-    df.at[x.name,"Summing dependances"] = summingDep
+    for c in x:
+        summingDep += dicSize[c]
 
     return summingDep
 
 
-def recursiveSearchOnDep(x, df, alreadySeen):
+def recursiveOnly(x, df, alreadySeen, mode="Depends"):
 
     """
     x : The current data Serie, Assuming that x contains Package, Version, Depends, Size and
@@ -54,12 +55,88 @@ def recursiveSearchOnDep(x, df, alreadySeen):
     if x.name in alreadySeen:
         return childrens
 
-    deps = parseAndFindDep(x["Depends"], df)
+    deps = x["Depends_Parsed"]
+
+    if mode == "Recommends":
+
+        deps = deps.union(x["Recommends_Parsed"])
+    if mode == "Suggests":
+        deps = deps.union(x["Recommends_Parsed"])
+        deps = deps.union(x["Suggests_Parsed"])
+
+
     childrens.add(x.name)
 
     if len(deps) == 0: # Touches the leaves
 
-        df.at[x.name, "Childrens"] = childrens
+        return childrens
+
+    # Adding itself in the list of childrens
+
+    alreadySeen.add(x.name)
+
+    for dep in deps:
+
+
+        newX = ground_truth.loc[dep]
+
+        childrensChildren = newX[mode+"_Childrens"]
+
+        if len(childrensChildren) == 0:
+
+            childrensChildren = recursiveOnly(newX, df, alreadySeen)
+
+
+
+        childrens = childrens.union(childrensChildren)
+        childrens.add(dep)
+        alreadySeen.add(dep)
+
+    return childrens
+
+
+def compute_childrens(mode):
+    ground_truth[mode+"_Summing"] = -1
+    ground_truth[mode+"_Childrens"] = ""
+    dground_truth = dd.from_pandas(ground_truth, npartitions=CORES)
+    with ProgressBar():
+        ground_truth[mode+"_Childrens"] = dground_truth.map_partitions(lambda df: df.apply((lambda x: recursiveOnly(x, ground_truth, set(), mode)), axis=1), meta=('childrens', object)).compute(get=get)
+
+
+def recursiveSearchOnDep(x, df, alreadySeen, mode="Depends"):
+
+    """
+    x : The current data Serie, Assuming that x contains Package, Version, Depends, Size and
+        Summing dependances, Dependance traces for the dynamic approach
+
+    summing : The sum of the size in Bytes
+            df is the db we are performing the recursive search
+    alreadySeen : Dict with the already seen packages + version
+    mode :  `Depends` : include only Dependences
+            `Recommends` : include Dependences, Recommandation
+            `Suggests` : include Dependences, Recommandation and Suggests
+    """
+
+    childrens = set()
+
+    if x.name in alreadySeen:
+        return childrens
+
+
+
+    deps = x["Depends_Parsed"]
+
+    if mode == "Recommends":
+        deps = deps.union(x["Recommends_Parsed"])
+
+    if mode == "Suggests":
+        deps = deps.union(x["Recommends_Parsed"])
+        deps = deps.union(x["Suggests_Parsed"])
+
+
+    childrens.add(x.name)
+
+    if len(deps) == 0: # Touches the leaves
 
         return childrens
 
@@ -73,7 +150,7 @@ def recursiveSearchOnDep(x, df, alreadySeen):
         newX = df.loc[dep]
 
 
-        childrensChildren = newX["Childrens"]
+        childrensChildren = newX[mode + "_Childrens"]
 
         if len(childrensChildren) == 0:
 
@@ -89,7 +166,7 @@ def recursiveSearchOnDep(x, df, alreadySeen):
 
 
 
-    df.at[x.name, "Childrens"] = childrens
+    df.at[x.name, mode + "_Childrens"] = childrens
 
 
     return childrens
@@ -153,7 +230,21 @@ def parseAndFindDep(depString, df):
                 # We found it no need to take the packages after "|"
                 break
 
-    return ids
+    return set(ids)
+
+def compute_freq(ds):
+    d = dict()
+    all_childs = [x for y in ds.tolist() for x in y ]
+    tot = len(all_childs)
+    for child in tqdm(all_childs, total=tot) :
+
+        if child not in d:
+            d[child] = 1
+        else:
+            d[child] +=1
+
+    s = pd.Series(d, name=m +'_Dependence_Frequency')
+    return s
 
 
 ####################### INIT ######################
@@ -190,107 +281,79 @@ ground_truth = ground_truth.set_index("id")
 # Selecting only interessting fields i.e. the attacker has no mean to distinguish two packages that have the same size but different packageMode
 ground_truth = ground_truth.drop_duplicates(['Package', 'Version', 'Size', 'Depends', 'Architecture'])
 
-
 # Selecting only interessting columns
-ground_truth = ground_truth.drop(axis= 1, columns=['capture_id','SHA1', 'Priority', 'Description-md5', 'MD5sum', 'SHA256', 'packageMode' ])
+ground_truth = ground_truth.drop(axis= 1, columns=['Installed-Size', 'Maintainer', 'Description', 'parsedFrom', 'Homepage', 'Source', 'Section', 'Supported', 'Bugs', 'Origin' ,'capture_id','SHA1', 'Priority', 'Architecture', 'Description-md5', 'MD5sum', 'SHA256', 'packageMode' ])
 
 ground_truth = ground_truth.fillna("")
 
+
 ########### FOR TESTING #########
-#ground_truth = ground_truth[600:700]
+ground_truth = ground_truth.sample(15000)
 #################################
+
+
+# Setting the dask DF
+dground_truth = dd.from_pandas(ground_truth, npartitions=CORES)
+
+#Used for Summing
+dictSize = ground_truth["Size"].to_dict()
+
 
 
 ####################### MAIN ######################
 
-ground_truth["#Depends"] = ground_truth["Depends"].map(lambda x: 0 if x == "" else len(x.split(",")))
 
-# EXTRACT RELATION
-ground_truth["Summing dependances"] = -1
-ground_truth["Dependance traces"] = "{}"
-ground_truth["Childrens"] = ""
+for m in modes:
 
-ground_truth = ground_truth.sort_values(["#Depends"])
+    # For each entry, we extract all the dependences and build the tree if required
+    print("Parsing " +m)
+    with ProgressBar():
+        ground_truth[m+"_Parsed"] = dground_truth.map_partitions(lambda df: df[m].map((lambda row: parseAndFindDep(row, ground_truth)))).compute(get=get)
 
-tot = len(ground_truth)
+    print("extracting childrens for "+m)
 
-# For each entry, we extract all the dependences and build the tree if required
-print("extracting dependences")
-for _, row in tqdm.tqdm(ground_truth.iterrows(), total=tot):
-    _ = recursiveSearchOnDep(row, ground_truth, set())
+    # EXTRACT RELATION
+    compute_childrens(m)
 
-ground_truth["Elements involved"] = ground_truth['Childrens'].map(lambda x: len(x))
-print("Elements involved per packages description: \n",ground_truth["Elements involved"].describe())
-
-# For each entry we compute the high level of dependence
-print("Summing dependances")
-for _, row in tqdm.tqdm(ground_truth.iterrows(), total=tot ):
-    summingDep = computeSumOnDep(row, ground_truth)
-    ground_truth.at[row.name, "Summing dependances"] = summingDep
-
-print("Summing dependances description: \n",ground_truth["Summing dependances"].describe())
+    ground_truth[m+"_Elements_involved"] = ground_truth[m+'_Childrens'].map(len)
+    print("Elements involved per packages description: \n",ground_truth[m+"_Elements_involved"].describe())
 
 
+    print("Summing : "+m)
 
-# Add a columns Frequency to the db
-print("Compute Frequence")
-d = dict()
-for _, row in tqdm.tqdm(ground_truth.iterrows(), total=tot ):
+    # Update the dask DF
+    dground_truth = dd.from_pandas(ground_truth, npartitions=CORES)
 
+    # For each entry we compute the high level of dependence
+    with ProgressBar():
+        ground_truth[m+"_Summing"] = dground_truth.map_partitions(lambda df: df[m+"_Childrens"].map((lambda x: computeSumOnDep(x, dictSize))), meta=('summingDep', int)).compute(get=get)
 
-    d[row.name] = ground_truth["Childrens"].map(lambda childrens: row.name in childrens).sum()
+    print("Frequency of "+m)
+    s = compute_freq(ground_truth[m+"_Childrens"])
+    ss.append(s)
 
 
 
 
-s = pd.Series(d, name='Dependence Frequency')
-ground_truth = ground_truth.assign( Frequency= s)
 
-print("Frequence description: \n",ground_truth["Frequency"].describe())
+# Add the Frequency series to the db
+if "Depends" in modes:
+    ground_truth = ground_truth.assign( Depends_Frequency= ss[0])
+
+if "Recommends" in modes:
+    ground_truth = ground_truth.assign( Recommends_Frequency= ss[1])
+
+if "Suggests" in modes:
+    ground_truth = ground_truth.assign( Suggests_Frequency= ss[2])
+
 
 # Compute Freq in %
-ground_truth["Freq in p"] = ground_truth["Frequency"].map(lambda x : x/len(ground_truth) )
+for m in modes:
+    ground_truth[m+"_Freq_in_p"] = ground_truth[m+"_Frequency"].map(lambda x : x/len(ground_truth) )
 
 
-
-### SAVE RESULTS
-try :
-
-    print("Saving in db : `ubuntu_cleaned_packets`")
-    connection = pymysql.connect(host='localhost',
-                             user='fingerpatch',
-                             password='fingerpatch',
-                             db='fingerpatch',
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
-
-
-    #ground_truth = pd.read_sql("SELECT * FROM `ubuntu_packets` ",connection)
-    sql = "INSERT INTO `ubuntu_cleaned_packets` (`id`, `Package`, `Version`, `Size`, `Filename`, `Summing dependances`, `Elements involved`, `Childrens`, `Frequency`,`Freq in p` ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);"
-    ground_truth["Childrens"] = ground_truth["Childrens"].map(str)
-    tuples =ground_truth[["Package", "Version", "Size", "Filename", "Summing dependances" ,"Elements involved", "Childrens", "Frequency", "Freq in p"]].itertuples()
-
-
-
-    for data in tuples:
-        try :
-            with connection.cursor() as cursor :
-                cursor.execute(sql,data)
-                connection.commit()
-
-
-        except Exception as e:
-            print("Package id =  {} couldn't be commited to the db due to: \n  {}".fomat(data[0], e))
-
-    connection.close()
-
-
-
-
-except :
-    "Couldn't commit to the db"
 
 print("Saving in csv: cleaned_and_expanded_gt.csv ")
-ground_truth[["Package", "Version" ,"Size", "Filename", "Summing dependances", "Elements involved", "Childrens", "Frequency" ,"Freq in p"]].to_csv("cleaned_and_expanded_gt.csv")
+ground_truth.to_csv("cleaned_and_expanded_gt.csv")
 
 print("Done")
