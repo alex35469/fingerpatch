@@ -4,7 +4,7 @@ import csv
 import pymysql
 import sys
 from tqdm import tqdm
-
+import pandas as pd
 
 
 def format_header(header):
@@ -14,13 +14,16 @@ def format_header(header):
     return s[:-1]
 
 
-with open("cleaned_and_expanded_gt.csv") as gt:
+with open("cleaned_and_expanded_gt2.csv") as gt:
     gt_reader = csv.reader(gt)
 
 
     header = next(gt_reader)
     entries = format_header(header)
-    valu = (len(header)*"%s,")[:-1]
+    valu = ((len(entries.split(",")))*"%s,")[:-1]
+    print(valu)
+    print(entries)
+#    sys.exit(1)
 
     for entry in tqdm(gt_reader):
 
