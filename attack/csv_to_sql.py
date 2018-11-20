@@ -14,7 +14,7 @@ def format_header(header):
     return s[:-1]
 
 
-with open("cleaned_and_expanded_gt2.csv") as gt:
+with open("cleaned_and_expanded_gt.csv") as gt:
     gt_reader = csv.reader(gt)
 
 

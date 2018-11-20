@@ -377,7 +377,12 @@ for m in modes:
 
 print("Saving in csv: cleaned_and_expanded_gt.csv ")
 
-ground_truth = ground_truth.drop(axis= 1, columns=['#Depends', '#Recommends', '#Suggests'])
+to_drop = []
+for m in mode:
+    to_drop += ["#"+m]
+    to_drop += [m+"_Parsed"]
+
+ground_truth = ground_truth.drop(axis= 1, columns=to_drop)
 
 ground_truth.to_csv("cleaned_and_expanded_gt.csv")
 

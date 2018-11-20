@@ -6,9 +6,13 @@ extract-packages:
 	echo "Make sure you run make docker-setup before"
 	(cd ./crawl/;sh extract-ubuntu.sh)
 
-.PHONY: parse-into-mysql
-parse-into-mysql:
-	echo "Usage: python3 crawl/ubuntu-to-mysql.py crawl/apt_XXX/all_packages.txt"
+.PHONY: crawled_package-to-mysql
+crawled_package-to-mysql:
+	echo "Usage: python3 crawl/ubuntu-to-mysql.py cleaned_and_expanded_gt.csv"
+
+.PHONY: cleaned_package-to-mysql
+	cleaned_package-to-mysql:
+	(cd ./attack/; python3 csv_to_sql.py )
 
 
 .PHONY: clean_crawl
