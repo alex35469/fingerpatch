@@ -10,6 +10,7 @@
 import sys
 import pandas as pd
 import pymysql
+import gc
 from tqdm import tqdm # For progression bar
 tqdm.pandas()
 
@@ -305,12 +306,14 @@ ground_truth = ground_truth.drop_duplicates(['Package', 'Version', 'Size', 'Depe
 # Selecting only interessting columns
 ground_truth = ground_truth.drop(axis= 1, columns=['Installed-Size', 'Maintainer', 'Description', 'parsedFrom', 'Homepage', 'Source', 'Section', 'Supported', 'Bugs', 'Origin' ,'capture_id','SHA1', 'Priority', 'Architecture', 'Description-md5', 'MD5sum', 'SHA256', 'packageMode' ])
 
+gc.collect()
+
 # Useful to sort the db and go a bit faster
 ground_truth = generate_count_on_depend(ground_truth)
 
 
 ########### FOR TESTING #########
-#ground_truth = ground_truth.sample(15000)
+#ground_truth = ground_truth.sample(1500)
 #################################
 
 
@@ -354,6 +357,10 @@ for m in modes:
     s = compute_freq(ground_truth[m+"_Childrens"])
     ss.append(s)
 
+    ground_truth = ground_truth.drop(axis= 1, columns=[m])
+    gc.collect()
+
+
 
 
 
@@ -378,7 +385,7 @@ for m in modes:
 print("Saving in csv: cleaned_and_expanded_gt.csv ")
 
 to_drop = []
-for m in mode:
+for m in modes:
     to_drop += ["#"+m]
     to_drop += [m+"_Parsed"]
 
