@@ -1,4 +1,5 @@
 RANDOM=3
+NB_DEPENDS=-1
 
 
 .PHONY: extract-packages
@@ -11,7 +12,7 @@ crawled_package-to-mysql:
 	echo "Usage: python3 crawl/ubuntu-to-mysql.py cleaned_and_expanded_gt.csv"
 
 .PHONY: cleaned_package-to-mysql
-	cleaned_package-to-mysql:
+cleaned_package-to-mysql:
 	(cd ./attack/; python3 csv_to_sql.py )
 
 
@@ -26,7 +27,7 @@ docker-setup:
 .PHONY: random-capture
 random-capture:
 	echo "Make sure you called 'make docker-setup' beforehand"
-	(cd ./capture; python3 ./pickSome.py $(RANDOM); sh ./automate-capture.sh package.txt)
+	(cd ./capture; python3 ./pickSome.py $(RANDOM) $(NB_DEPENDS); sh ./automate-capture.sh package.txt)
 
 
 .PHONY: debug-docker

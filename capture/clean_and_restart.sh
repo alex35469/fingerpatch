@@ -26,6 +26,7 @@ fi
 
 
 echo "setting new docker fingerpatch"
+#sudo docker run -d --name fingerpatch --net fingerpatch --ip 172.100.0.100 ubuntu:trusty-20150427 sleep 9999999
 sudo docker run -d --name fingerpatch --net fingerpatch --security-opt seccomp:unconfined --ip 172.100.0.100 ubuntu:trusty-20180302 sleep 9999999
 
 echo "run apt-get update on the docker (Ready to fetch the packages)"

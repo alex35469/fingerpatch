@@ -322,7 +322,25 @@ def cleanup(signal, frame):
   print("received_Payload = ", received_Payload)
   print("send_Payload = ", sent_Payload)
 
-  if fill_db:
+  ## Cleaning http_hist before putting it in the db
+  http_seq = []
+
+  for r in http_hist:
+        if len(r.split(" ")) != 3:
+            print("We have a problem Huston ", r )
+            continue
+
+
+        s = r.split(" ")[1][8:]
+        if len(s) < 20: # With only 20 character we reckon that the request doesn't contain enough information for a perfect match
+            continue
+
+        s = s.replace("%2b", "+")
+        s = s.replace("%7e", "~")
+        http_seq.append(s)
+
+
+  if fill_db and counter != 0:
       print("filling the DB")
 
       try:
@@ -330,7 +348,7 @@ def cleanup(signal, frame):
               sql = "INSERT INTO `ubuntu_captures` (`nb_flows`, `truth_id`, `HTTP_Seq`, `Flows`,`Payload_sent`, `Payload_received`) VALUES (%s, %s, %s, %s, %s, %s);"
 
 
-              data = (counter, truth_id, str(http_hist), str(historic), str(sent_Payload), str(received_Payload) )
+              data = (counter, truth_id, str(http_seq), str(historic), str(sent_Payload), str(received_Payload) )
 
               print(sql)
               print(str(len(data)) + " ", data)
