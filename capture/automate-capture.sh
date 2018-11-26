@@ -18,7 +18,25 @@ DOCKER_CONTAINER_ID=$(sudo docker ps --filter="name=fingerpatch" -q)
 containerStarted=$(sudo docker ps -a| grep fingerpatch -c)
 if [ "$containerStarted" -ne "1" ]; then
   echo "Please make sur you prepared the docker to the capture (sh clean_andprepare.sh)"
+  exit 1
 fi
+
+# We are doing a kernel update so we first download the kernel Package
+if "$2" ==  true ; then
+
+  SOURCE=$(sed '1q;d' $1)
+  SID="$(echo $SOURCE | cut -d',' -f1)"
+  SPACKAGE="$(echo $SOURCE | cut -d',' -f2)"
+  SVERSION="$(echo $SOURCE | cut -d',' -f3)"
+
+  echo "Downloading the source kernel:"
+  echo "  id = $SID, Package = $SPACKAGE , Version = $SVERSION "
+
+  sudo docker exec $DOCKER_CONTAINER_ID sh -c "apt-get clean && apt-get install -d -y $SPACKAGE=$SVERSION"
+fi
+
+
+
 
 
 forwardingIsSetup=$(sudo iptables -L FORWARD --line-numbers -n | grep 172.100.0.100 -c)
@@ -42,6 +60,45 @@ if [ "$ALIVE" = "/" ]; then
 else
     echo "Docker $DOCKER_CONTAINER_ID cannot be contacted, aborting"
     exit 1
+fi
+
+
+if "$2" ==  true ; then
+  #Making the kernel upgradable
+
+  DEST=$(sed '2q;d' $1)
+  DID="$(echo $DEST | cut -d',' -f1)"
+  DPACKAGE="$(echo $DEST | cut -d',' -f2)"
+  DVERSION="$(echo $DEST | cut -d',' -f3)"
+  DSIZE="$(echo $DEST | cut -d',' -f4)"
+
+
+  UPDATE_TIMEOUT=$(python3 -c "from math import ceil; print(ceil($DSIZE/$DOWNLOAD_RATE)+$SAFETY_MARGIN)")
+
+  echo "##Source kernel capture $DPACKAGE=$DVERSION expected: $DSIZE bits, ID $DID##"
+  # start the interceptor
+  echo "Starting the capture, timeout in $UPDATE_TIMEOUT seconds..."
+
+  sudo python3 ./capture.py $UPDATE_TIMEOUT $DID $SID&
+  PID=$!
+
+
+  sudo docker exec $DOCKER_CONTAINER_ID sh -c "apt-get install -d -y $DPACKAGE=$DVERSION"
+  echo "--Waiting for pid=$PID (Time out was $UPDATE_TIMEOUT (sudo kill $PID to save time)--"
+
+  wait $PID
+
+
+  forwardingIsSetup=$(sudo iptables -L FORWARD --line-numbers -n | grep 172.100.0.100 -c)
+
+  if [ "$forwardingIsSetup" -eq "2" ]; then
+     echo "Delete old forwarding rules in IPtables...";
+     sudo iptables -D FORWARD -s 172.100.0.100 -j NFQUEUE --queue-num 0
+     sudo iptables -D FORWARD -d 172.100.0.100 -j NFQUEUE --queue-num 0
+   fi
+
+  echo "Done"
+  exit
 fi
 
 
@@ -73,7 +130,7 @@ while IFS='' read -r line ; do
 
   UPDATE_TIMEOUT=$(python3 -c "from math import ceil; print(ceil($SIZE/$DOWNLOAD_RATE)+$SAFETY_MARGIN)")
 
-  echo "################## Capture $PACKAGE=$VERSION expected: $SIZE bits, ID $ID ###########################"
+  echo "## Capture $PACKAGE=$VERSION expected: $SIZE bits, ID $ID ##"
   # start the interceptor
   echo "Starting the capture, timeout in $UPDATE_TIMEOUT seconds..."
 
@@ -89,7 +146,7 @@ while IFS='' read -r line ; do
   # Fetch the PID of capture process
   #PID=$(ps ax | grep "python3 ./capture" | head -1  | awk '{print $1;}')
 
-  echo "--Waiting for pid=$PID (Time out was $UPDATE_TIMEOUT (sudo kill $PID to save time)--"
+  echo "--Waiting for pid=$PID (Time out was $UPDATE_TIMEOUT (sudo kill $PID to save time, or make docker-debug)--"
 
   # Have to find out how to Send a SIGTERM to children process 
   #sudo kill -10 $PID
@@ -99,3 +156,11 @@ while IFS='' read -r line ; do
 
   echo "Done"
 done < "$1"
+
+forwardingIsSetup=$(sudo iptables -L FORWARD --line-numbers -n | grep 172.100.0.100 -c)
+
+if [ "$forwardingIsSetup" -eq "2" ]; then
+   echo "Delete old forwarding rules in IPtables...";
+   sudo iptables -D FORWARD -s 172.100.0.100 -j NFQUEUE --queue-num 0
+   sudo iptables -D FORWARD -d 172.100.0.100 -j NFQUEUE --queue-num 0
+ fi

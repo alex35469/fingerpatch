@@ -345,13 +345,15 @@ def cleanup(signal, frame):
 
       try:
           with connection.cursor() as cursor:
-              sql = "INSERT INTO `ubuntu_captures` (`nb_flows`, `truth_id`, `HTTP_Seq`, `Flows`,`Payload_sent`, `Payload_received`) VALUES (%s, %s, %s, %s, %s, %s);"
+              sql = "INSERT INTO `ubuntu_captures` (`nb_flows`, `truth_id`, `already_captured`, `HTTP_Seq`, `Flows`,`Payload_sent`, `Payload_received`) VALUES (%s, %s, %s, %s, %s, %s, %s);"
 
 
-              data = (counter, truth_id, str(http_seq), str(historic), str(sent_Payload), str(received_Payload) )
+              data = (counter, truth_id, alreadyCaptured, str(http_seq), str(historic), str(sent_Payload), str(received_Payload) )
 
               print(sql)
               print(str(len(data)) + " ", data)
+
+
 
               cursor.execute(sql, data)
               connection.commit();
@@ -393,10 +395,15 @@ if len(sys.argv) == 2: # 1 is "capture.py"
 
 trackTruth = ""
 truth_id =-1
-if len(sys.argv) == 3:
+if len(sys.argv) >= 3:
     trackTruth =" `truth_id`,"
     timeoutVal = float(sys.argv[1])
     truth_id = int(sys.argv[2])
+
+alreadyCaptured = ""
+
+if len(sys.argv) == 4:
+    alreadyCaptured = sys.argv[3]
 
 
 # Create the thread, wait on it, cleanup on Interrupt

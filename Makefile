@@ -24,15 +24,20 @@ clean_crawl:
 docker-setup:
 	sh ./capture/clean_and_restart.sh
 
+.PHONY: docker-debug
+docker-debug:
+	PID=$(ps ax | grep "python3 ./capture" | head -1  | awk '{print $1;}')
+	sudo kill $PID
+
 .PHONY: random-capture
 random-capture:
 	echo "Make sure you called 'make docker-setup' beforehand"
 	(cd ./capture; python3 ./pickSome.py $(RANDOM) $(NB_DEPENDS); sh ./automate-capture.sh package.txt)
 
-
-.PHONY: debug-docker
-debug-docker:
-	docker ps
+.PHONY: kernel-update-capture
+kernel-capture:
+	echo "Make a capture from kernel x to kernel y where x is the first line of kernel.txt and y is the second line"
+	(cd ./capture; sh ./automate-capture.sh kernel-update.txt true)
 
 .PHONY: deterministic-capture
 deterministic-capture:

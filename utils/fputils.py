@@ -4,7 +4,7 @@ import pymysql
 
 
 # Helper function to load a table
-def load_fingerpatch(table, dbname = "fingerpatch", parse_children = True):
+def load_fingerpatch(table, dbname = "fingerpatch", parse_children = "All"):
     """Load table in the dbname and format it"""
     modes = ["Depends", "Recommends", "Suggests"]
 
@@ -28,7 +28,7 @@ def load_fingerpatch(table, dbname = "fingerpatch", parse_children = True):
 
         for m in modes:
             attr = m + "_Childrens"
-            if attr in df.columns and parse_children:
+            if attr in df.columns and (m == parse_children or  parse_children == "All"):
                 df[attr] = df[attr].map(eval)
 
     if table == "ubuntu_captures":

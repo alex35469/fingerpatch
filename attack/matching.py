@@ -5,6 +5,8 @@ import sys
 import pymysql
 sys.path.append("../utils/")
 from fputils import load_fingerpatch
+from tqdm import tqdm # For progression bar
+tqdm.pandas()
 
 ###################### Globals ######################
 
@@ -15,6 +17,15 @@ M = "Recommends"
 
 
 ###################### Functions ######################
+
+def remove_dependencies_in_kernel_dest(source_kernel, dest_kernel, df, m):
+    """
+    source_kernel and dest_kernel are Index of the df dataframe
+    return  lists of dependences that needs to be installed when a victim has source kernel installed
+            and updates it to dest_kernel
+    """
+    return df.loc[dest_kernel][m+"_Childrens"].difference(df.loc[source_kernel][m+"_Childrens"])
+
 
 # Matching functions
 # When matching with HTTP
@@ -39,20 +50,27 @@ def matchHTTP(x, df):
     return match
 
 # When matching with Size
-def distance_from_expected_average_size(x, size_to_match, m):
+def distance_from_expected_average_size_with_summing(x, size_to_match, m):
     return abs(size_to_match - x[m+"_Summing"] - (EXTRA_SIZE_AVERAGE * x[m +"_Elements_involved"]))
 
+
+def distance_from_expected_average_size(x, alreadyCaptured, size_to_match, gt, m):
+    dependencesToTakeIntoAccount = remove_dependencies_in_kernel_dest(alreadyCaptured, x.name, gt, m )
+    summing = 0
+    for d in dependencesToTakeIntoAccount:
+        summing += gt.loc[d]["Size"]
+    return abs(size_to_match - summing - (EXTRA_SIZE_AVERAGE * len(dependencesToTakeIntoAccount)))
 ###################### INIT ######################
 
 
 
 print("Loading gt")
-gt = load_fingerpatch("ubuntu_cleaned_packets", parse_children=False)
+gt = load_fingerpatch("ubuntu_cleaned_packets", parse_children="Recommends")
 
 print("Loading attack_table")
 attack_table = load_fingerpatch("ubuntu_captures")
 
-#attack_table = attack_table[attack_table["Processed"] == 0] # Only look at newly captured packages
+attack_table = attack_table[attack_table["Processed"] == 0] # Only look at newly captured packages
 
 ####################### MAIN ######################
 
@@ -68,7 +86,9 @@ for capture_id, row in attack_table.iterrows():
         print("Captured tempered, skipping")
         continue
 
-    gt["dist_from_expected_size"] = gt.apply(lambda x: distance_from_expected_average_size(x, sum(row['Payload_received']), M ), axis = 1)
+
+    captured_size = sum(row['Payload_received'])
+    gt["dist_from_expected_size"] = gt.progress_apply(lambda x: distance_from_expected_average_size(x, int(row['already_captured']), captured_size, gt, M ), axis = 1)
     result = gt.sort_values(by="dist_from_expected_size").head(TOP_K_CONSIDERATION)
 
     http_succeed = False
