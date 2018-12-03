@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+
 
 echo "Please run \"make capture\" in the main folder so the container has internet access"
 
@@ -10,8 +12,15 @@ fi
 
 DOCKER_CONTAINER_ID=$(sudo docker ps --filter="name=fingerpatch" -q)
 
+# Extending source.lists
+echo $#
+if [ "$#" -eq "1" ]; then
+  sudo docker cp $1 $DOCKER_CONTAINER_ID:/etc/apt/sources.list
+  #sudo docker exec -it $DOCKER_CONTAINER_ID sh -c "'echo  $EXTEND'  > /etc/apt/sources.list"
+fi
+
 # compile available packets and fetch
-sudo docker exec -it $DOCKER_CONTAINER_ID sh -c "apt-get update; apt-get install zip; cd /var/lib/apt/lists/; for d in *.gz; do gunzip \$d; done; rm -f *.gz; zip data.zip *; ls"
+sudo docker exec -it $DOCKER_CONTAINER_ID sh -c "apt-get update; apt-get install -y zip; cd /var/lib/apt/lists/; for d in *.gz; do gunzip \$d; done; rm -f *.gz; zip data.zip *; ls"
 rm -f data.zip
 sudo docker cp $DOCKER_CONTAINER_ID:/var/lib/apt/lists/data.zip .
 
