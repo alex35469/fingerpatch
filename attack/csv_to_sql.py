@@ -13,6 +13,14 @@ def format_header(header):
         s +="`"+h+"`,"
     return s[:-1]
 
+# Connextion to the database
+connection = pymysql.connect(host='localhost',
+                             user='fingerpatch',
+                             password='fingerpatch',
+                             db='fingerpatch',
+                             charset='utf8mb4',
+                             cursorclass=pymysql.cursors.DictCursor)
+
 
 with open("cleaned_and_expanded_gt.csv") as gt:
     gt_reader = csv.reader(gt)
@@ -20,34 +28,25 @@ with open("cleaned_and_expanded_gt.csv") as gt:
 
     header = next(gt_reader)
     entries = format_header(header)
-    valu = ((len(entries.split(",")))*"%s,")[:-1]
-    print(valu)
+    values = ((len(entries.split(",")))*"%s,")[:-1]
+    print(values)
     print(entries)
 #    sys.exit(1)
 
-    for entry in tqdm(gt_reader):
+    try:
+        with connection.cursor() as cursor :
 
-    #ground_truth = pd.read_sql("SELECT * FROM `ubuntu_packets` ",connection)
-        sql = "INSERT INTO `ubuntu_cleaned_packets` (" +entries+ ") VALUES (" +valu+ ");"
+            for entry in tqdm(gt_reader):
 
-
-
-
-        connection = pymysql.connect(host='localhost',
-                             user='fingerpatch',
-                             password='fingerpatch',
-                             db='fingerpatch',
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
-
-        try :
-            with connection.cursor() as cursor :
+            #ground_truth = pd.read_sql("SELECT * FROM `ubuntu_packets` ",connection)
+                sql = "INSERT INTO `ubuntu_cleaned_packets` (" +entries+ ") VALUES (" +values+ ");"
                 cursor.execute(sql,entry)
-                connection.commit()
+
+            connection.commit()
 
 
-        except Exception as e:
-            print("Package id = {} couldn't be commited to the db due to: \n  {}".format(entry[0], e))
+    except Exception as e:
+        print("\nPackage id = {} couldn't be commited to the db due to: \n  {}".format(entry[0], e))
 
-
-    connection.close()
+    finally:
+        connection.close()

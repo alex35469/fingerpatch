@@ -14,6 +14,11 @@ EXTRA_SIZE_AVERAGE = 283   # Made from stats about captured packets
 EXTRA_SIZE_VARIATION = 5
 TOP_K_CONSIDERATION = 15
 M = "Recommends"
+useOldCapture = False      # By default the matching is done without taking into account old captures
+if len(sys.argv) == 2 {
+    useOldCapture = True
+}
+
 
 
 ###################### Functions ######################
@@ -88,7 +93,10 @@ for capture_id, row in attack_table.iterrows():
 
 
     captured_size = sum(row['Payload_received'])
-    gt["dist_from_expected_size"] = gt.progress_apply(lambda x: distance_from_expected_average_size(x, int(row['already_captured']), captured_size, gt, M ), axis = 1)
+    if useOldCapture :
+        gt["dist_from_expected_size"] = gt.progress_apply(lambda x: distance_from_expected_average_size(x, int(row['already_captured']), captured_size, gt, M ), axis = 1)
+    else :
+        gt["dist_from_expected_size"] = gt.progress_apply(lambda x: distance_from_expected_average_size_with_summing(x, captured_size, M ), axis = 1)
     result = gt.sort_values(by="dist_from_expected_size").head(TOP_K_CONSIDERATION)
 
     http_succeed = False
