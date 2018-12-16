@@ -9,7 +9,7 @@ from tqdm import tqdm
 connection = pymysql.connect(host='localhost',
                              user='fingerpatch',
                              password='fingerpatch',
-                             db='fingerpatch_extended',
+                             db='fingerpatch',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 
