@@ -282,6 +282,7 @@ try :
                              cursorclass=pymysql.cursors.DictCursor)
 
     ground_truth = pd.read_sql("SELECT * FROM `ubuntu_packets` ",connection)
+    
     connection.close()
     print("Loading from db")
 

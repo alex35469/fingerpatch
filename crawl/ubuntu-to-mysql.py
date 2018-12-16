@@ -17,14 +17,20 @@ connection = pymysql.connect(host='localhost',
 packetStore = []
 
 if len(sys.argv) != 2:
-    print("Please supply a filepath for all_package.txt")
+    print("Please supply the crawled directory: apt_XXXX")
     sys.exit(1)
 
-fileName=sys.argv[1]
-rawText = Path(fileName).read_text()
+crawlDir=sys.argv[1]
+rawText = Path(crawlDir+"/all_packages.txt").read_text()
 rawText = '['+rawText.strip()+']'
 rawText = rawText.replace(',]', ']')
 packets = json.loads(rawText)
+
+default_packages = Path(crawlDir+"/default_packages.txt").read_text()
+
+default_packages = [lines[:lines.find("/")] for lines in default_packages.split("\n")][1:-1]
+
+
 
 def isascii(s):
     return len(s) == len(s.encode())
@@ -49,9 +55,12 @@ try:
 
         # Create a new record
         for packet in tqdm(packets, total = len(packets)):
+            default = 0
+            if tryFetch(packet,'Package', '') in default_packages:
+                default = 1
 
-            sql = "INSERT INTO `ubuntu_packets` (`capture_id`,`Priority`,`Version`,`Maintainer`,`SHA1`,`Description`,`Installed-Size`,`parsedFrom`,`Description-md5`,`Package`,`Architecture`,`Bugs`,`Origin`,`MD5sum`,`Depends`,`Recommends`, `Suggests`,`Homepage`,`Size`,`Source`,`SHA256`,`Section`,`Supported`,`Filename`,`packageMode`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            data = (captureID, tryFetch(packet,'Priority', ''), tryFetch(packet,'Version', ''), tryFetch(packet,'Maintainer', ''), tryFetch(packet,'SHA1', ''), tryFetch(packet,'Description', ''), tryFetch(packet,'Installed-Size', -1), tryFetch(packet,'parsedFrom', ''), tryFetch(packet,'Description-md5', ''), tryFetch(packet,'Package', ''), tryFetch(packet,'Architecture', ''), tryFetch(packet,'Bugs', ''), tryFetch(packet,'Origin', ''), tryFetch(packet,'MD5sum', ''), tryFetch(packet,'Depends', ''), tryFetch(packet, 'Recommends', ''), tryFetch(packet, 'Suggests', ''), tryFetch(packet,'Homepage', ''), tryFetch(packet,'Size',-1), tryFetch(packet,'Source', ''), tryFetch(packet,'SHA256', ''), tryFetch(packet,'Section', ''), tryFetch(packet,'Supported', ''), tryFetch(packet,'Filename', ''), tryFetch(packet,'packageMode', ''))
+            sql = "INSERT INTO `ubuntu_packets` (`capture_id`,`Priority`,`Version`,`Maintainer`,`SHA1`,`Description`,`Installed-Size`,`parsedFrom`,`Description-md5`,`Package`,`Architecture`,`Bugs`,`Origin`,`MD5sum`,`Depends`,`Recommends`, `Suggests`,`Homepage`,`Size`,`Source`,`SHA256`,`Section`,`Supported`,`Filename`,`packageMode`, `in`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            data = (captureID, tryFetch(packet,'Priority', ''), tryFetch(packet,'Version', ''), tryFetch(packet,'Maintainer', ''), tryFetch(packet,'SHA1', ''), tryFetch(packet,'Description', ''), tryFetch(packet,'Installed-Size', -1), tryFetch(packet,'parsedFrom', ''), tryFetch(packet,'Description-md5', ''), tryFetch(packet,'Package', ''), tryFetch(packet,'Architecture', ''), tryFetch(packet,'Bugs', ''), tryFetch(packet,'Origin', ''), tryFetch(packet,'MD5sum', ''), tryFetch(packet,'Depends', ''), tryFetch(packet, 'Recommends', ''), tryFetch(packet, 'Suggests', ''), tryFetch(packet,'Homepage', ''), tryFetch(packet,'Size',-1), tryFetch(packet,'Source', ''), tryFetch(packet,'SHA256', ''), tryFetch(packet,'Section', ''), tryFetch(packet,'Supported', ''), tryFetch(packet,'Filename', ''), tryFetch(packet,'packageMode', ''), default)
             cursor.execute(sql, data)
         connection.commit();
 

@@ -19,14 +19,22 @@ if [ "$#" -eq "1" ]; then
   #sudo docker exec -it $DOCKER_CONTAINER_ID sh -c "'echo  $EXTEND'  > /etc/apt/sources.list"
 fi
 
+# Get the list default packages
+sudo docker exec fingerpatch sh -c "apt list --installed >> default_packages.txt"
+
 # compile available packets and fetch
 sudo docker exec -it $DOCKER_CONTAINER_ID sh -c "apt-get update; apt-get install -y zip; cd /var/lib/apt/lists/; for d in *.gz; do gunzip \$d; done; rm -f *.gz; zip data.zip *; ls"
 rm -f data.zip
+
+# exporting from docker to the host machine
+sudo docker cp $DOCKER_CONTAINER_ID:/default_packages.txt .
 sudo docker cp $DOCKER_CONTAINER_ID:/var/lib/apt/lists/data.zip .
 
 # unzip and clean
 OUTPUT=$(mktemp -d apt_XXXX )
 mv data.zip $OUTPUT
+mv default_packages.txt $OUTPUT
+
 cd $OUTPUT
 unzip data.zip
 rm -rf data.zip
