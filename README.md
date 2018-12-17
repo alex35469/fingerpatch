@@ -1,6 +1,16 @@
 # FingerPatch
 
-This repository is part of my semester project "traffic-analysis on Software Updates". It is the continuation of the initial FingerPatch made by Ludovic Barman.
+This repository is part of my semester project "traffic-analysis on Software Updates". It is the continuation of the initial FingerPatch made by Ludovic Barman. The
+
+## Requirements
+
+Here are the following requirements in order to use fingerpatch:
+
+System requirements : `Linux` (For IPTables and NfQueue)
+database : `MySQL` db running on your System
+Python library : `pandas`, `pymysql`, `netfilterqueue`, `threading`, `scapy`, `dask`. (All downloadable with pip. Along with other default python packages.)
+
+
 
 ## Capture
 
