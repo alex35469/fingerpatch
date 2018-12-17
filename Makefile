@@ -48,10 +48,10 @@ deterministic-capture:
 
 	(cd ./capture; sh ./automate-capture.sh package.txt)
 
-.PHONY: match-capture-usingOldCaptures
-match-capture-usingOldCaptures:
+.PHONY: stateful-matching
+stateful-matching:
 	(cd ./attack; python3 ./matching.py	useOldCapture)
 
-.PHONY: match-capture
-match-capture:
+.PHONY: stateless-matching
+stateless-matching:
 	(cd ./attack; python3 ./matching.py)

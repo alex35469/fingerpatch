@@ -20,10 +20,14 @@ if [ "$#" -eq "1" ]; then
 fi
 
 # Get the list default packages
-sudo docker exec fingerpatch sh -c "apt list --installed >> default_packages.txt"
+sudo docker exec fingerpatch sh -c "apt list --installed > default_packages.txt"
 
 # compile available packets and fetch
-sudo docker exec -it $DOCKER_CONTAINER_ID sh -c "apt-get update; apt-get install -y zip; cd /var/lib/apt/lists/; for d in *.gz; do gunzip \$d; done; rm -f *.gz; zip data.zip *; ls"
+sudo docker exec -it $DOCKER_CONTAINER_ID sh -c "apt-get update; apt-get install --no-install-recommends -y zip; cd /var/lib/apt/lists/; for d in *.gz; do gunzip \$d; done; rm -f *.gz; zip data.zip *; ls"
+
+# removing ziè
+sudo docker exec -it $DOCKER_CONTAINER_ID sh -c "apt-get remove -y zip; apt-get clean"
+
 rm -f data.zip
 
 # exporting from docker to the host machine

@@ -14,7 +14,7 @@ EXTRA_SIZE_AVERAGE = 283   # Made from stats about captured packets
 EXTRA_SIZE_VARIATION = 5
 TOP_K_CONSIDERATION = 15
 M = "Recommends"
-useOldCapture = True      # By default the matching is done without taking into account old captures
+useOldCapture = False      # By default the matching is done without taking into account old captures
 update_gt = False
 
 if len(sys.argv) == 2 :
@@ -36,7 +36,13 @@ def remove_dependencies_in_dest(sources, dest, df, m):
     for source in sources:
         tmp = df.loc[source][m+"_Childrens"]
         #print(frozenset(tmp))
-        s.add(frozenset(tmp))
+        s = s.union(tmp)
+
+    if dest == 5529:
+        print( len(s))
+        print(len(df.loc[dest][m+"_Childrens"]))
+
+
 
     return df.loc[dest][m+"_Childrens"].intersection(s)
 
@@ -63,6 +69,10 @@ def matchHTTP(x, df):
 
     return match
 
+def distance_from_expected_average_size_with_state_summing(x, size_to_match):
+
+    return abs(size_to_match - x["State_Summing"] - (EXTRA_SIZE_AVERAGE * len(x["State_Childrens"])))
+
 # When matching with Size
 def distance_from_expected_average_size_with_summing(x, size_to_match, m):
     return abs(size_to_match - x[m+"_Summing"] - (EXTRA_SIZE_AVERAGE * x[m +"_Elements_involved"]))
@@ -76,33 +86,72 @@ def distance_from_expected_average_size(x, alreadyCaptured, size_to_match, gt, m
     """
 
 
-    dependencesToNotTakeIntoAccount = remove_dependencies_in_dest(alreadyCaptured, x.name, gt, m )
+    dependencesToNotTakeIntoAccount = remove_dependencies_in_dest(alreadyCaptured, x.name, gt)
     #print(dependencesToTakeIntoAccount)
     toSubstract = 0
     for d in dependencesToNotTakeIntoAccount:
         toSubstract += gt.loc[d]["Size"]
-    return abs(size_to_match - (x[m+"_Summing"] - toSubstract) - (EXTRA_SIZE_AVERAGE * (len(x[m+"_Childrens"]) - len(dependencesToNotTakeIntoAccount))))
+
+    if x.name == 5529:
+        print("#Offset : ", len(x[M+"_Childrens"]) - len(dependencesToNotTakeIntoAccount))
+        print(abs(size_to_match - (x[M+"_Summing"] - toSubstract) - (EXTRA_SIZE_AVERAGE * (len(x[M+"_Childrens"]) - len(dependencesToNotTakeIntoAccount)))))
+
+    return abs(size_to_match - (x[M+"_Summing"] - toSubstract) - (EXTRA_SIZE_AVERAGE * (len(x[M+"_Childrens"]) - len(dependencesToNotTakeIntoAccount))))
+
+def distance_from_expected_average_size_after_reducing_children(x, size_to_match, gt):
+    summing = 0
+
+    # Summing all packages the victim has to download according to the current state,
+    for c in x[M+"_Childrens"]:
+        summing += gt.loc[c]["Size"]
+
+    return abs(size_to_match - summing - (EXTRA_SIZE_AVERAGE * len(x[M+"_Childrens"])))
+
+def state_summing(x, gt):
+    summing = 0
+    # Summing all packages the victim has to download according to the current state,
+    for c in x[M+"_Childrens"]:
+        summing += gt.loc[c]["Size"]
+
+    return summing
+
+
+def reduce_childrens(x, downloaded):
+    s = x["State_Childrens"]
+    for d in downloaded.copy():
+        if d in  s:
+            s.remove(d)
+    return s
 
 
 
 ###################### INIT ######################
 
+print("Loading attack_table")
+attack_table = load_fingerpatch("ubuntu_captures")
+
+attack_table = attack_table[attack_table["Processed"] == 0] # Only look at newly captured packages
+
+if len(attack_table) == 0:
+    print("Nothing to match")
+    sys.exit(0)
 
 
 print("Loading gt")
 gt = load_fingerpatch("ubuntu_cleaned_packets", parse_children="Recommends")
 
 # Partion the package in two groups: im_ => the packages that have been alreadySeen
+downloaded = gt[gt["in"] == 1]
 
-in_ = gt[gt["in"] == 1]
-print(in_)
-#gt = gt[gt["in"] != 1]
+gt["State_Childrens"] = gt[M + "_Childrens"]
+gt["State_Summing"] = gt[M + "_Summing"]
+if useOldCapture:
+    print("Reduce childrens and compute state_summing")
+    gt["State_Childrens"] = gt.progress_apply(lambda x: reduce_childrens(x, downloaded.index.tolist()), axis = 1)
+    gt = gt[gt["in"] == 0]
+    gt["State_Summing"] = gt.progress_apply(lambda x: state_summing(x, gt), axis = 1)
 
 
-print("Loading attack_table")
-attack_table = load_fingerpatch("ubuntu_captures")
-
-attack_table = attack_table[attack_table["Processed"] == 0] # Only look at newly captured packages
 
 ####################### MAIN ######################
 
@@ -118,13 +167,44 @@ for capture_id, row in attack_table.iterrows():
         print("Captured tempered, skipping")
         continue
 
+    print("--Matching capture id = ", capture_id, "--")
 
+    # Use a temporary gt because we want to be flexible and switch the state of the victim across captures
+    tmp_gt = gt
     captured_size = sum(row['Payload_received'])
+    already_captured = row["already_captured"]
+
+    # updating state
+    if len(already_captured) != 0:
+        already_captured = eval(already_captured)
+
+        # The childrens are also captured
+        already_captured = list(tmp_gt.loc[already_captured]["State_Childrens"])
+        print("Adapte to new state already captured: ", already_captured )
+        tmp_gt["State_Childrens"] = tmp_gt.progress_apply(lambda x: reduce_childrens(x, already_captured), axis = 1)
+
+        print("Dropping ", already_captured)
+        tmp_gt = tmp_gt.drop(already_captured)
+        tmp_gt["State_Summing"] = tmp_gt.progress_apply(lambda x: state_summing(x, tmp_gt), axis = 1)
+
+
+
+
+
+
+    tmp_gt["dist_from_expected_size"] = tmp_gt.progress_apply(lambda x: distance_from_expected_average_size_with_state_summing(x, captured_size ), axis = 1)
+
+    """
     if useOldCapture :
-        gt["dist_from_expected_size"] = gt.progress_apply(lambda x: distance_from_expected_average_size(x, in_.index.tolist(), captured_size, gt, M ), axis = 1)
+
+        gt["dist_from_expected_size"] = gt.progress_apply(lambda x: distance_from_expected_average_size_after_reducing_children(x, captured_size, gt), axis = 1)
+
+        #gt["dist_from_expected_size"] = gt.progress_apply(lambda x: distance_from_expected_average_size(x, in_.index.tolist(), captured_size, gt, M ), axis = 1)
     else :
-        gt["dist_from_expected_size"] = gt.progress_apply(lambda x: distance_from_expected_average_size_with_summing(x, captured_size, M ), axis = 1)
-    result = gt.sort_values(by="dist_from_expected_size").head(TOP_K_CONSIDERATION)
+        gt["dist_from_expected_size"] = gt.progress_apply(lambda x: distance_from_expected_average_size_with_summing(x, captured_size ), axis = 1)
+
+    """
+    result = tmp_gt.sort_values(by="dist_from_expected_size").head(TOP_K_CONSIDERATION)
 
     http_succeed = False
     size_succeed = False
@@ -133,7 +213,7 @@ for capture_id, row in attack_table.iterrows():
     size_found = []
 
 
-    print("--Matching capture id = ", capture_id, "--")
+
     for r in row["HTTP_Match"]:
         if r == row["truth_id"]:
             print("  HTTP | Matched found #### CAPTURE INITIAL:  gt id = {}".format( r ))

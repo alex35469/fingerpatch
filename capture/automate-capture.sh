@@ -29,7 +29,7 @@ if "$2" ==  true ; then
   SPACKAGE="$(echo $SOURCE | cut -d',' -f2)"
   SVERSION="$(echo $SOURCE | cut -d',' -f3)"
 
-  echo "Downloading the source kernel:"
+  echo "Downloading the source packages:"
   echo "  id = $SID, Package = $SPACKAGE , Version = $SVERSION "
 
   sudo docker exec $DOCKER_CONTAINER_ID sh -c "apt-get clean && apt-get install -d -y $SPACKAGE=$SVERSION"
