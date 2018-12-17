@@ -1,6 +1,6 @@
 # FingerPatch
 
-This repository is part of my semester project "traffic-analysis on Software Updates". It is the continuation of the initial FingerPatch made by Ludovic Barman. The goal of this project is to guess which package a victim is downloading. To have a quick overview of this project, please access the slides available here
+This repository is part of my semester project "traffic-analysis on Software Updates". It is the continuation of the initial FingerPatch made by Ludovic Barman. The goal of this project is to guess which package a victim is downloading. To have a quick overview of this project, please access the slides available [here](https://docs.google.com/presentation/d/1oDi0Ds2l3TXghT6AvLKKgyhFA--uFD9d9vGC6eFooss/edit#slide=id.p)
 
 ## Requirements
 
@@ -98,7 +98,7 @@ Where `truth_id` : Id of the associated package to download
 
 ### Attack
 
-The analysis of the ground_truth, the captures happens in the attack folder as well as trying to match the capture to the ground_truth. 
+The analysis of the ground_truth, the captures happens in the attack folder as well as trying to match the capture to the ground_truth.
 
 The attack folder can be divided into 3 parts: __Cleaning__, __Mining__ and __Matching__
 
