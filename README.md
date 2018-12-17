@@ -6,7 +6,7 @@ This repository is part of my semester project "traffic-analysis on Software Upd
 
 Here are the following requirements in order to use fingerpatch:
 
-- System requirements : `Linux` (for IPTables and NfQueue), enough memory and CPU to process data quickly.
+- System requirements : `Linux` (for IPTables and NfQueue), internet access, enough memory and CPU to process data quickly.
 - database : `MySQL` db running on your System
 - Python library : `pandas`, `pymysql`, `netfilterqueue`, `scapy`, `dask`. (All downloadable with pip.)
 - Docker (to emulate the victim. the attacker is the host)
@@ -33,13 +33,13 @@ In the following, we show you the basic command to make a capture and guessing t
 
       2. `make random-capture NB_DEPENDS=X RANDOM=Y`. Make Y random capture with packages only having NB_DEPENDS dependences. If no specify, RANDOM = 3 and NB_DEPENDS is taken randomly
 
-      3. `make state-capture`. Download all the packages specfiy in xxx while making .
+      3. `make state-capture`. Download package x and then download and capture a package y. This is to emulate a victim how is doing a kernel update from x to y.
 
   8. final step. 2 mode of matching:
 
-      1. `make stateless-matching`: Guessing which capture correspond to which package using using HTTP request matching and Size matching. Output directly the result in stdout and record it in fingerpatch's database.
+      1. `make stateless-matching`: Guessing which capture corresponds to which package using HTTP request matching and Size matching. Output directly the result in stdout and record it in fingerpatch's database.
 
-      2. `make stateful-matching`:  Same as above except that we consider that some packages are already installed (this include also the default packages include in almost every machine. i.e. libc6)
+      2. `make stateful-matching`:  Same as above except that we consider that some packages are already installed (this include also the default packages in almost every machine. i.e. libc6)
 
 
 
@@ -57,12 +57,27 @@ In this section, we give a complete explanation about the various directory and 
 
 ### Crawl
 
-More exhaustive approach, extract the `/etc/apt/source.list` to get the ground truth about available packages at what date. Fills in a database, allows to do basic queries.
+The very first step that the attacker has to make is getting the database where he will be able to match captured package to  
+
+on Ubuntu, (Linux dist.) the metadata of the apt packages are available in `/var/lib/apt/lists/`. To get this directory up-to-date, the attacker can run `apt-get update` before crawling it. This will fetch the latest packages' metadata by contacting the appropiate servers in `ect/apt/source.list`.
+
+However, there are some packages' metadata not available by default. The attacker can add them by running `add-apt-repositories <repo-name>`. This is by exemple the case for the kernel packages which is not available by default. An attacker can still include them for crawling by running the above command with `ppa:teejee2008/ppa` as the repo name
+
+After having crawled the metadata, the attacker is supposed to have in his database the whole crawled packages with full features as well as the a unique identifier `capture_id` which will be used to match a capture to a unique package. (in our case `ground_truth`)
+
+contains :
+
+TODO
 
 
 ### Capture
 
 Meant to interact with a Docker container, set up packet capture, pupeteer the container into fetching updates, record everything.
+
+TODO  : Finish description
+
+
+contains the following files:
 
 - `network.sh` to setup the IPTables
 - `run.sh` for examples of how to manually command the docker image to update/do things
@@ -83,8 +98,30 @@ Where `truth_id` : Id of the associated package to download
 
 ### Attack
 
-Once the capture has been done and the ground truth has been established (in Crawl), the analysis of the two happens in the attack folder. Where the attacker succeed if he can with high probabilities match a captured package to a crawled package.
+The analysis of the ground_truth, the captures happens in the attack folder as well as trying to match the capture to the ground_truth. 
 
+The attack folder can be divided into 3 parts: __Cleaning__, __Mining__ and __Matching__
+
+
+
+
+
+
+
+
+
+#### Cleaning
+In the previous step, the attacker ends up with a raw database of the crawled Packages metadata. Many attributes of package's metadata are useless for the attacker. And might want to get rid of them. (i.e. the attacker may not want to keep the `Maintainer` field).
+
+While doing a capture, the attacker will mostly only be interessted about the package's name and version the victim is updating. It make sense to drop every package's metadata that have the same size, name version and maybe architecture. This opperation will reduce his database and thus the time it will take to do a mapping  
+
+#### Mining
+
+After cleaning, the attacker still have some task to do before recording the Captures. Indeed,
+
+#### Matching
+
+Where the attacker succeed if he can with high probabilities match a captured package to a crawled package.
 
 
 ## Issues
