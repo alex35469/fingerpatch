@@ -229,18 +229,20 @@ for capture_id, row in attack_table.iterrows():
         print("HTTP | No matched found : capture id = {} ->  ??? ".format(capture_id))
 
     print()
+    ranking=-1
     for i, (id , r) in enumerate(result.iterrows()):
 
         if id == row["truth_id"]:
             print("  SIZE | Matched found : in gt id = {} at position {} ".format( id, i))
             size_succeed = True
+            ranking=i
             break
 
     if not size_succeed :
         print("  SIZE | No matched found : capture id = {} ->  ??? ".format(capture_id))
 
     # Commiting to the db
-    sql = "UPDATE `ubuntu_captures` SET `Processed` = '1', `http_succeed` = '"+str(int(http_succeed))+"', `size_succeed` = '"+str(int(size_succeed))+"', `http_found` = '"+str(row["HTTP_Match"])+"', `size_found` = '"+str(result["dist_from_expected_size"].tolist())+"' WHERE `ubuntu_captures`.`capture_id` = %s;"
+    sql = "UPDATE `ubuntu_captures` SET `Processed` = '1', `http_succeed` = '"+str(int(http_succeed))+"', `size_succeed` = '"+str(int(size_succeed))+"', `http_found` = '"+str(row["HTTP_Match"])+"', `size_found` = '"+str(result["dist_from_expected_size"].tolist())+"' , `size_ranking` = '"+str(ranking)+"' WHERE `ubuntu_captures`.`capture_id` = %s;"
 
     print("\n"+sql+"\n")
 

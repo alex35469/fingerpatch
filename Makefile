@@ -34,7 +34,7 @@ docker-debug:
 .PHONY: random-capture
 random-capture:
 	$(info Make sure you called 'make docker-setup' beforehand)
-	(cd ./capture; python3 ./pickSome.py $(RANDOM) $(NB_DEPENDS); sh ./automate-capture.sh package.txt)
+	(cd ./capture; sudo python3 ./pickSome.py $(RANDOM) $(NB_DEPENDS); sh ./automate-capture.sh random_package.txt)
 
 .PHONY: kernel-update-capture
 kernel-capture:
@@ -44,9 +44,9 @@ kernel-capture:
 .PHONY: deterministic-capture
 deterministic-capture:
 	$(info Make sure you called 'make docker-setup' beforehand)
-	$(info Make sure you filled package.txt with the packages you want to simulate the capture with the appropriate syntax)
+	$(info Make sure you filled deterministic_package.txt with the packages you want to simulate the capture with the appropriate syntax)
 
-	(cd ./capture; sh ./automate-capture.sh package.txt)
+	(cd ./capture; sh ./automate-capture.sh deterministic_package.txt)
 
 .PHONY: stateful-matching
 stateful-matching:

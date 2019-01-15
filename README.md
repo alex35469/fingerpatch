@@ -78,7 +78,7 @@ Capture, on the network, the packet trace that corresponds to a package installa
 
 
 
-The HTTP GET field is trivial to capture. But an attacker has to be careful when down- loading the TCP/TLS payload for an attack relying on the size of the packet traces. Indeed, an attacker can see duplicate packets that he has to drop. One other thing that the attacker has to take care of is that by taking the whole HTTP payload, the attacker includes the HTTP response header which is not part of the size of a package (in our experiment, this header size is around 280±7). This is an important fact, since the captured packet trace will be a bit bigger than the actual package size. Also, we note that the uncertainty will grow as the number of dependencies that need to be installed grows. Since each package dependencies will need HTTP response header and therefore HTTP header will come along. Of course, the attacker has to make sure to only count the downstream payload in the size of the capture packet trace.
+The HTTP GET field is trivial to capture. But an attacker has to be careful when down- loading the TCP/TLS payload for an attack relying on the size of the packet traces. Indeed, an attacker can see duplicate packets that he has to drop. One other thing that the attacker has to take care of is that by taking the whole HTTP payload, the attacker includes the HTTP response header which is not part of the size of a package (in our experiment, this header size is around 280±7 Please also consider TLS header if the experiment is run on top of HTTPS). This is an important fact, since the captured packet trace will be a bit bigger than the actual package size. Also, we note that the uncertainty will grow as the number of dependencies that need to be installed grows. Since each package dependencies will need HTTP response header and therefore HTTP header will come along. Of course, the attacker has to make sure to only count the downstream payload in the size of the capture packet trace.
 
 
 contains the following files:
@@ -142,6 +142,9 @@ contains:
 Useful functions used in different part of the project.
 
 
+## Graphs
+All the graphs shown in the report and presentations and more.
+
 
 ## Docs
 
@@ -150,3 +153,13 @@ contains
 - Project report
 
 - Slides Presentations
+
+## Reproducibility
+
+Data used to draw the graph on practical results.
+
+
+
+## Issues
+
+Automate capture does not handle broken dependencies and network problems if it occurs. So it might be stuck in a state where the user has to manually kill the process such that the automate capture can continue it's task.

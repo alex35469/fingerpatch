@@ -1,8 +1,8 @@
  #!/bin/sh
 
 # Supposing we are downloading at 100KB/s
-DOWNLOAD_RATE=100000
-SAFETY_MARGIN=6
+DOWNLOAD_RATE=200000
+SAFETY_MARGIN=8
 
 LOGDIR="logs"
 NAME="all_captures"

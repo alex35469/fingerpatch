@@ -18,8 +18,7 @@ if len(sys.argv) == 3:
     DEP_NUM = int(sys.argv[2])
 
 
-
-
+print("Preparing {} packages to download, with NB_DEPENDS = {}\n in random_package.txt".format(nb_capt, DEP_NUM))
 
 
 gt = load_fingerpatch("ubuntu_cleaned_packets")
@@ -31,7 +30,7 @@ if DEP_NUM >= 0:
     print("Picking {} from {} elements".format(nb_capt, len(to_capture)))
     to_capture = to_capture[["Package", "Version", "Recommends_Summing"]].sample(nb_capt)
 
-elif DEP_NUM < 0:
+else :
     print("Picking {} from {} elements".format(nb_capt, len(gt)))
     to_capture = gt[["Package", "Version", "Recommends_Summing"]].sample(nb_capt)
 
@@ -40,4 +39,4 @@ elif DEP_NUM < 0:
 print("Ready to capture \n", to_capture)
 
 # We only extract the useful columns
-to_capture.to_csv("package.txt", header =False)
+to_capture.to_csv("random_package.txt", header =False)
