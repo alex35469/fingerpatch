@@ -162,4 +162,4 @@ Data used to draw the graph on practical results.
 
 ## Issues
 
-Automate capture does not handle broken dependencies and network problems if it occurs. So it might be stuck in a state where the user has to manually kill the process such that the automate capture can continue it's task.
+Automate capture does not handle broken dependencies and network problems if it occurs. So it might be stuck in a state where the user has to manually kill the process such that the automate capture can continue its task.

@@ -8,7 +8,7 @@ from fputils import load_fingerpatch
 
 DEP_NUM = -1
 if len(sys.argv) != 2 and len(sys.argv) != 3:
-    print("please provide the number of capture you want and/or the mode (N for no Dep Y for Dep) to do\naborting")
+    print("please provide the number of capture you want do and number of dependencies per packages")
     sys.exit(1)
 
 
