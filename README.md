@@ -66,19 +66,24 @@ However, there are some packages' metadata not available by default. The attacke
 After having crawled the metadata, the attacker is supposed to have in his database the whole crawled packages with full features as well as the a unique identifier `capture_id` which will be used to match a capture to a unique package. (in our case `ground_truth`)
 
 contains :
+- `extract-ubuntu.sh` : Extract in the docker the packages' meta data.
+- `ubuntu-parse-package.py` : Extract in a readable form the data contained in the file that has been extracted
+- `ubuntu-to-mysql.py`
 
-TODO
 
 
 ### Capture
 
-Meant to interact with a Docker container, set up packet capture, pupeteer the container into fetching updates, record everything.
+Capture, on the network, the packet trace that corresponds to a package installation.
 
-TODO  : Finish description
+
+
+The HTTP GET field is trivial to capture. But an attacker has to be careful when down- loading the TCP/TLS payload for an attack relying on the size of the packet traces. Indeed, an attacker can see duplicate packets that he has to drop. One other thing that the attacker has to take care of is that by taking the whole HTTP payload, the attacker includes the HTTP response header which is not part of the size of a package (in our experiment, this header size is around 280±7). This is an important fact, since the captured packet trace will be a bit bigger than the actual package size. Also, we note that the uncertainty will grow as the number of dependencies that need to be installed grows. Since each package dependencies will need HTTP response header and therefore HTTP header will come along. Of course, the attacker has to make sure to only count the downstream payload in the size of the capture packet trace.
 
 
 contains the following files:
 
+- - `clean_and_restart.sh` Setup Docker image (Trusty. other Linux images can also be tested here.)
 - `network.sh` to setup the IPTables
 - `run.sh` for examples of how to manually command the docker image to update/do things
 - `capture.py [TIMEOUT] [TRUTH_ID](opt.)` captures packets on NFQUEUE 0 for TIMEOUT duration / until Ctrl-C. Requires `sudo` it fills in the DB fingerpatch with the corresponding ID of the ground_truth once a TIMEOUT or Ctrl-C occurs.
@@ -90,7 +95,7 @@ Where `truth_id` : Id of the associated package to download
 
 `83973,x11proto-dmx-dev,1:2.3.1-2,5848` would be a correct entry.
 
- (TOFIX: Timeout doesn't really timeout need to manually kill the capture with `sudo kill PID`)
+
 
 
 
@@ -107,26 +112,26 @@ The attack folder can be divided into 3 parts: __Cleaning__, __Mining__ and __Ma
 
 
 
-
-
-
 #### Cleaning
 In the previous step, the attacker ends up with a raw database of the crawled Packages metadata. Many attributes of package's metadata are useless for the attacker. And might want to get rid of them. (i.e. the attacker may not want to keep the `Maintainer` field).
 
-While doing a capture, the attacker will mostly only be interessted about the package's name and version the victim is updating. It make sense to drop every package's metadata that have the same size, name version and maybe architecture. This opperation will reduce his database and thus the time it will take to do a mapping  
+While doing a capture, the attacker will mostly only be interessted about the package's name and version the victim is updating. It make sense to drop every package's metadata that have the same size, name version and maybe architecture. This operation will reduce his database and thus the time it will take to do a mapping  
 
-#### Mining
+#### Resolving dependences
 
-After cleaning, the attacker still have some task to do before recording the Captures. Indeed,
+Go through all the dependencies in each packages to recursively find the whole tree of dependencies. (Not the first-level dependencies).
 
 #### Matching
 
-Where the attacker succeed if he can with high probabilities match a captured package to a crawled package.
+Where the attacker succeed if he can with high probabilities match a captured packet trace to a crawled package.
 
 
-## Issues
 
 
 ## Docs
 
-Administrative documents, project report etc.
+contains
+
+- Project report
+
+- Slides Presentations
